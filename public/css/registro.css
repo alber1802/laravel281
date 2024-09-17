@@ -1,0 +1,129 @@
+/* Centramos el contenedor en la pantalla */
+body{
+    background-color: #000;
+}
+
+.contenedor-0 {
+    display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .contenedor-1 {
+    background-color: #000; /* Fondo negro */
+    height: 200px;
+    width: 100%; /* Ajusta la altura de la franja */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .division_2 {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #4c51bf, #6b46c1);
+    
+  }
+  .contenedor-3 {
+    background-color: #000; /* Fondo negro */
+    height: 100px; /* Ajusta la altura de la franja inferior */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+  }
+  
+    /* Cuadro que contiene el formulario */
+.registro {
+      
+      background: linear-gradient(to right, #4c51bf, #6b46c1); /* Fondo degradado */
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      border-radius: 2.5rem; /* Bordes redondeados */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      width: 100%;
+      max-width: 450px; /* Máximo ancho del cuadro */
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      text-align: center;
+ }
+    
+    /* Ajustes de los inputs */
+    .input {
+      width: 100%;
+      height: 2.5rem;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border: none;
+      background-color: #00000093;
+      color: #fff;
+      font-size: 1rem;
+    }
+    
+    .input::placeholder {
+      color: #8a8a8a;
+    }
+    
+    .input:focus {
+      outline: none;
+      border-color: #fff;
+      box-shadow: 0 0 0 0.2rem rgba(76, 81, 191, 0.7);
+    }
+    
+    /* Ajuste del botón */
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #0d4e63;
+      color: white;
+      border-radius: 0.25rem;
+      font-weight: bold;
+      text-align: center;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius:20px ;
+    }
+    
+    .btn:hover {
+      background-color: #0c3e50;
+    }
+    
+    .text-muted-foreground {
+      color: #ccc;
+    }
+    
+    .text-white {
+      color: white;
+    }
+    
+    a.underline {
+      text-decoration: underline;
+      color: #fff;
+    }
+    
+    a:hover {
+      color: #ccc;
+    }
+    
+  /*------------------------------------ logo ---------------------*/
+  .logo {
+    width: 150px;           /* Ajusta el tamaño del logo */
+    height: auto;           /* Mantiene la proporción del logo */
+    margin: 10px;           /* Espaciado alrededor del logo */
+    display: block;         /* Hace que la imagen se comporte como un bloque */
+    background-image: './resources/imagen/logo.png';
+  }
+  .navbar-brand{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  

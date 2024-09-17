@@ -20,8 +20,8 @@
             <div class="contenedor-0">
             <div class="contenedor-1">
                 <!-- Aquí puedes poner el logo o cualquier imagen -->
-                <a class="navbar-brand" href="#">
-                    <img src="#" class="logo" alt="Logo" />
+                <a class="navbar-brand" href="{{route('iniciarSesion')}}">
+                    <img src="{{ asset('imagen/logo.png') }}" class="logo" alt="Logo" />
                 </a>
             </div>
 
@@ -66,7 +66,7 @@
                                     />
                                 </div>
                                 
-                                <a href="#" class="register-link">¿Olvidaste tu Contraseña?</a>
+                                <a href="{{ route('Recuperar') }}" class="register-link">¿Olvidaste tu Contraseña?</a>
                                 
                                 <!-- Botón de iniciar sesión -->
                                 <button type="submit" class="btn w-full">
@@ -81,7 +81,7 @@
                                 <!-- Enlace para registrarse -->
                                 <div class="text-center text-muted-foreground mt-4">
                                     <p>¿Aún no tienes cuenta? 
-                                        <a href="#" class="register-link">Registrarse</a>
+                                        <a href="{{route('register')}}" class="register-link">Registrarse</a>
                                     </p>
                                 </div>
                             </div>

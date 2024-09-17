@@ -1,7 +1,7 @@
 /* Centramos el contenedor en la pantalla */
 body{
-    background-color: #080707;
-  }
+  background-color: #080707;
+}
   a.navbar-brand {
     display: flex;
     align-items: center;
