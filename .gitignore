@@ -46,3 +46,7 @@ Thumbs.db
 *.log
 *.pid
 *.seed
+
+.vscode*
+.Ld9VirtualBox*
+.VirtualBox/*
