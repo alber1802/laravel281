@@ -35,7 +35,13 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-white" for="last-name">
-                                    Apellido(s)
+                                    Apellido Paterno
+                                </label>
+                                <input id="last-name" name="last_name" placeholder="Pérez" required class="input" />
+                            </div>
+                            <div class="space1-y-2">
+                                <label class="text-sm font-medium text-white" for="last-name">
+                                    Apellido Materno
                                 </label>
                                 <input id="last-name" name="last_name" placeholder="Pérez" required class="input" />
                             </div>

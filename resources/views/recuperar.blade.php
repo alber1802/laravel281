@@ -1,7 +1,7 @@
 <link href="{{ asset('css/recuperar.css') }}" rel="stylesheet" />
 <div class="container">
     <header>
-        <h2>MiEmpresa</h2>
+        <h2>E-commerce</h2>
     </header>
     <nav>
         <a href="#">Inicio</a>
