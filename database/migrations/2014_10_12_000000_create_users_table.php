@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('id_usuario'); // Definir 'id_usuario' como clave primaria
-            $table->string('nombre', 100);
+            $table->string('nombre', 100);//
             $table->string('paterno', 100);
             $table->string('materno', 100);
             $table->string('telefono', 20);
             $table->string('direccion', 255);
             $table->char('sexo', 1);
             $table->date('fecha_nacimiento');
+            //
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

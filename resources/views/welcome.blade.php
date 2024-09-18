@@ -29,7 +29,7 @@
                             <p class="text-muted-foreground">Accede con tu cuenta</p>
                         </div>
 
-                        <form name="login" method="POST" action="#">
+                        <form name="iniciar" method="POST" action="{{route('iniciar')}}">
                             @csrf
                             <div class="space-y-4">
                                 <!-- Campo de correo electrónico -->
@@ -70,9 +70,7 @@
                                 </button>
 
                                 <!-- Botón para iniciar sesión con Google -->
-                                <button type="button" class="btn w-full bg-red-500 text-white mt-2">
-                                    Iniciar sesión con Google
-                                </button>
+                                
                                 
                                 <!-- Enlace para registrarse -->
                                 <div class="text-center text-muted-foreground mt-4">

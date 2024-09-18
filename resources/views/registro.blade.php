@@ -15,41 +15,53 @@
                     <h1 class="text-3xl font-bold">Registro</h1>
                     <p class="text-muted-foreground">Ingresa tus datos para crear una cuenta</p>
                 </div>
-                <form name="registro" action="{{ route('register') }}" method="POST" onsubmit="return validateForm()">
+                <form name="registro" action="{{ route('validar-registro') }}" method="POST" >
                     @csrf
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-white" for="username">
+                                <label class="text-sm font-medium text-white" for="nombre">
                                     Nombre de usuario
                                 </label>
-                                <input id="username" name="username" placeholder="JuanPerez" required class="input" />
+                                <input id="nombre" name="nombre" placeholder="JuanPerez" required class="input" />
                             </div>
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-white" for="first-name">
+                                <label class="text-sm font-medium text-white" for="name">
                                     Nombre(s)
                                 </label>
-                                <input id="first-name" name="first_name" placeholder="Juan" required class="input" />
+                                <input id="name" name="name" placeholder="Juan" required class="input" />
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-white" for="last-name">
+                                <label class="text-sm font-medium text-white" for="paterno">
                                     Apellido Paterno
                                 </label>
-                                <input id="last-name" name="last_name" placeholder="Pérez" required class="input" />
-                            </div>
-                            <div class="space1-y-2">
-                                <label class="text-sm font-medium text-white" for="last-name">
-                                    Apellido Materno
-                                </label>
-                                <input id="last-name" name="last_name" placeholder="Pérez" required class="input" />
+                                <input id="paterno" name="paterno" placeholder="Pérez" required class="input" />
                             </div>
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-white" for="phone">
+                                <label class="text-sm font-medium text-white" for="materno">
+                                    Apellido Materno
+                                </label>
+                                <input id="materno" name="materno" placeholder="Quispe" required class="input" />
+                            </div>
+                            <div class="space1-y-2">
+                                <label class="text-sm font-medium text-white" for="sexo">
+                                    Sexo
+                                </label>
+                                <input id="sexo" name="sexo" placeholder="solo una letra : M / F" required class="input" />
+                            </div>
+                            <div class="space1-y-2">
+                                <label class="text-sm font-medium text-white" for="fecha_nacimiento">
+                                   Fecha de Nacimiento 
+                                </label>
+                                <input id="fecha_nacimiento" name="fecha_nacimiento" placeholder="DD/MM/YYYY" required class="input" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-white" for="telefono">
                                     Número de celular
                                 </label>
-                                <input id="phone" name="phone" type="tel" placeholder="+52 123 456 7890" required class="input" />
+                                <input id="telefono" name="telefono" type="tel" placeholder="+591 69958756 " required class="input" />
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -59,10 +71,10 @@
                             <input id="email" name="email" type="email" placeholder="juan.perez@example.com" required class="input" />
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-white" for="city">
+                            <label class="text-sm font-medium text-white" for="direccion">
                                 Ciudad/Comunidad
                             </label>
-                            <input id="city" name="city" placeholder="Ciudad de México" required class="input" />
+                            <input id="direccion" name="direccion" placeholder="Achocalla/san bernaldo" required class="input" />
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">

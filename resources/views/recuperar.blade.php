@@ -22,12 +22,12 @@
         <form class="verification-form" action="#" method="POST">
             @csrf
             <div class="code-input">
-                <input type="text" name="code[]" maxlength="1" required />
-                <input type="text" name="code[]" maxlength="1" required />
-                <input type="text" name="code[]" maxlength="1" required />
-                <input type="text" name="code[]" maxlength="1" required />
-                <input type="text" name="code[]" maxlength="1" required />
-                <input type="text" name="code[]" maxlength="1" required />
+                <input type="text" name="code[1]" maxlength="1" required />
+                <input type="text" name="code[2]" maxlength="1" required />
+                <input type="text" name="code[3]" maxlength="1" required />
+                <input type="text" name="code[4]" maxlength="1" required />
+                <input type="text" name="code[5]" maxlength="1" required />
+                <input type="text" name="code[6]" maxlength="1" required />
             </div>
             <button type="submit">Verificar</button>
         </form>

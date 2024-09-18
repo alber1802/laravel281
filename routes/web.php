@@ -19,9 +19,13 @@ use App\Http\Controllers\LoginController;
 Route::view('/register', "registro")->name('register');
 Route::view('/iniciarSesion', "welcome")->name('iniciarSesion');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
+Route::view('/privada', "private")->name('privada');
 
 // para las funciones
+//para el registro 
 Route::post('/validar-registro', [LoginController::class,'register'])->name('validar-registro');
+//para el login
+Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
 
 //par que la paginas se puedan recargar
 
