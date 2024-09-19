@@ -52,7 +52,7 @@ class LoginController extends Controller
  
     } else {
        
-        return redirect('welcome');
+        return redirect('login');
         
     }
 

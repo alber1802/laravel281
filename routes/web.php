@@ -17,7 +17,7 @@ use App\Http\Controllers\LoginController;
 //para cmabiar de pagina 
 Route::view('/Home', "welcome")->name('Home');
 Route::view('/register', "registro")->name('register');
-Route::view('/iniciarSesion', "login")->name('iniciarSesion');
+Route::view('/iniciarSesion', "login")->name('login');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
 Route::view('/privada', "private")->name('privada');
 

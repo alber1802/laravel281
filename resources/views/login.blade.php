@@ -16,7 +16,7 @@
             <div class="contenedor-0">
             <div class="contenedor-1">
                 <!-- Aquí puedes poner el logo o cualquier imagen -->
-                <a class="navbar-brand" href="{{route('iniciarSesion')}}">
+                <a class="navbar-brand" href="{{route('login')}}">
                     <img src="{{ asset('imagen/logo.png') }}" class="logo" alt="Logo" />
                 </a>
             </div>

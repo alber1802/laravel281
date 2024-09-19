@@ -3,7 +3,7 @@
 <div class="contenedor-0">
     <div class="contenerdor-1">
         <!-- Aquí puedes poner el logo o cualquier imagen -->
-        <a class="navbar-brand" href="{{route('iniciarSesion')}}">
+        <a class="navbar-brand" href="{{route('login')}}">
             <img src="{{ asset('imagen/logo.png') }}" class="logo" alt="Logo" />
         </a>
     </div>
@@ -89,7 +89,7 @@
                             Registrarse
                         </button>
                         <div class="mt-4 text-center text-muted-foreground">
-                            <p>¿Ya tienes cuenta? <a href="{{route('iniciarSesion')}}" class="register-link">Inicia sesión</a></p>
+                            <p>¿Ya tienes cuenta? <a href="{{route('login')}}" class="register-link">Inicia sesión</a></p>
                         </div>
                     </div>
                 </form>
