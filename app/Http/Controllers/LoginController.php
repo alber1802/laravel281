@@ -48,30 +48,17 @@ class LoginController extends Controller
         //session()->flash('success', 'Inicio de sesión exitoso. ¡Bienvenido !');
         $request->session()->regenerate();
 
-        return redirect()->intended('private');
+        return redirect(route('privada'));
  
     } else {
        
-        return redirect('login');
+        return redirect(route('login'));
         
     }
 
     }
 
-    public function verifyCode(Request $request)
-    {
-    // Concatenar el código introducido por el usuario
-    $inputCode = implode('', $request->input('code'));
-
-    // Aquí deberías verificar si el código es correcto (por ejemplo, comparándolo con el almacenado en la base de datos o sesión)
-    if ($inputCode == session('verification_code')) {
-        // El código es correcto
-        return redirect()->route('home')->with('success', 'Correo verificado correctamente.');
-    } else {
-        // El código es incorrecto
-        return back()->with('error', 'El código de verificación es incorrecto.');
-    }
-    }
+    
 
 
 }

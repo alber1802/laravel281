@@ -81,7 +81,8 @@
                                 <label class="text-sm font-medium text-white" for="password">
                                     Contraseña
                                 </label>
-                                <input id="password" name="password" type="password" required class="input" />
+                                <input id="password" name="password" type="password" required class="input" onkeyup="validatePassword()" />
+                                <small id="passwordHelp" class="text-white"></small>
                             </div>
                         
                         </div>
@@ -100,4 +101,5 @@
     <div class="contenedor-3">
         <p>LLÁMANOS +591 78654321 | MI CUENTA | DÓNDE ESTAMOS | CONTÁCTANOS</p>
     </div>
+    <script src="{{asset('js/Validaciones/VerificacionPassword.js')}}" ></script>
 </div>

@@ -19,6 +19,8 @@ Route::view('/Home', "welcome")->name('Home');
 Route::view('/register', "registro")->name('register');
 Route::view('/iniciarSesion', "login")->name('login');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
+//prueba
+
 Route::view('/privada', "private")->name('privada');
 
 // para las funciones

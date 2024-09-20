@@ -16,7 +16,7 @@
             <div class="contenedor-0">
             <div class="contenedor-1">
                 <!-- Aquí puedes poner el logo o cualquier imagen -->
-                <a class="navbar-brand" href="{{route('login')}}">
+                <a class="navbar-brand" href="{{route('Home')}}">
                     <img src="{{ asset('imagen/logo.png') }}" class="logo" alt="Logo" />
                 </a>
             </div>
@@ -37,13 +37,8 @@
                                     <label class="text-sm font-medium text-white" for="email">
                                         Correo electrónico
                                     </label>
-                                    <input 
-                                        id="email" 
-                                        type="email" 
-                                        name="email" 
-                                        placeholder="correo@ejemplo.com" 
-                                        required 
-                                        class="input"
+                                    <input id="email" type="email" name="email"
+                                      placeholder="correo@ejemplo.com" required class="input"
                                     />
                                 </div>
                                 
@@ -52,13 +47,8 @@
                                     <label class="text-sm font-medium text-white" for="password">
                                         Contraseña
                                     </label>
-                                    <input 
-                                        id="password" 
-                                        type="password" 
-                                        name="password" 
-                                        placeholder="********" 
-                                        required 
-                                        class="input" 
+                                    <input  id="password" type="password" name="password" 
+                                     placeholder="********" required class="input" 
                                     />
                                 </div>
                                 
