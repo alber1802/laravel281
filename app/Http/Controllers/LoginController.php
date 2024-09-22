@@ -32,7 +32,12 @@ class LoginController extends Controller
         $user ->save();
 
         Auth::login($user);
-        return redirect(route('privada'));
+        
+        $userId = Auth::user()->id_usuario; // Asumiendo que tu campo es 'id_usuario'
+
+        // Redirigir a una ruta y pasar el ID del usuario
+        return redirect()->route('PerfilUsuario', ['id' => $userId]);
+        
 
     }
    public function login(Request $request)
@@ -53,8 +58,13 @@ class LoginController extends Controller
         //session()->flash('success', 'Inicio de sesión exitoso. ¡Bienvenido !');
         $request->session()->regenerate();
 
-        return redirect(route('privada'));
- 
+    
+        // Obtener el ID del usuario autenticado
+        $userId = Auth::user()->id_usuario; // Asumiendo que tu campo es 'id_usuario'
+
+        // Redirigir a una ruta y pasar el ID del usuario
+        return redirect()->route('PerfilUsuario', ['id' => $userId]);
+        
     } else {
        
         return redirect(route('login'));

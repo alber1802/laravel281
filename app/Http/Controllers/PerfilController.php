@@ -9,12 +9,10 @@ use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    public function mostrarPerfil()
+    public function mostrarPerfil($id)
     {
         // Obtiene solo los datos del usuario autenticado
-        $usuario = User::all(); // Esto obtiene el usuario autenticado
-
-        // Pasamos el usuario a la vista 'perfil'
-        return view('Perfil.PerfilUsuario', ['usuario' => $usuario]);
+        $usuario = User::findOrFail($id); // Obtiene un único usuario
+        return view('Perfil.PerfilUsuario', compact('usuario'));
     }
 }

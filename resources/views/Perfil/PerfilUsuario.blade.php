@@ -25,28 +25,30 @@
 
         <!-- Contenido principal -->
         <div class="content">
-            
             <div class="profile-header">
-                <img src="{{ asset('img.png') }}" alt="Foto de Perfil">
+                <img src="{{asset('imagen/Perfil/img.png')}}" alt="Foto de Perfil">
                 <div>
-                    <h3>{{ $usuario->nombre }}</h3>
-                    <p>{{ $usuario->seguidores }} Seguidores · {{ $usuario->siguiendo }} Siguiendo</p>
+                    <h3>{{ $usuario->nombre}}</h3>
+                    <p>564 Siguiendo · 1524 Seguidores</p>
+                    <!-- Datos personales del artesano -->
                     <div class="personal-info">
                         <h4>Datos del Artesano</h4>
                         <div class="personal-info-content">
-                            <p><strong>Nombre:</strong> {{ $usuario->nombre }}</p>
-                            <p><strong>Edad:</strong> {{ $usuario->edad }}</p>
-                            <p><strong>Nivel Académico:</strong> {{ $usuario->nivel_academico }}</p>
+                            <p><strong>{{ $usuario->name}}:</strong> -----</p>
+                            <p><strong>{{ $usuario->fecha_nacimiento}}</strong> -----</p>
+                            <p><strong>{{ $usuario->email}}</strong> -----</p>
+                            <!-- Botón Ver Más -->
+                            <div class="ver-mas" onkeyup="Button()">
+                                <a href="#" id="ver-mas-btn">Ver más</a>
+                            </div>
+                            <!-- Información expandible -->
                             <div class="extra-info" id="extra-info" style="display: none;">
-                                <p><strong>Género:</strong> {{ $usuario->genero }}</p>
-                                <p><strong>Ubicación:</strong> {{ $usuario->ubicacion }}</p>
+                                <p><strong>{{ $usuario->sexo}}</strong> ------</p>
+                                <p><strong>{{ $usuario->direccion}}</strong> -----</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-          
-
             </div>
 
             <!-- Sección de Tweets o publicaciones -->
@@ -62,9 +64,9 @@
                 <h4>Nombre de Usuario</h4>
                 <div class="carousel">
                     <div class="carousel-images">
-                        <img src="imagen/Perfil/producto artesanal 1.jpg" alt="Producto 1">
-                        <img src="imagen/Perfil/producto artesanal 2.jpg" alt="Producto 2">
-                        <img src="imagen/Perfil/producto artesanal 3.jpg" alt="Producto 3">
+                        <img src="{{asset('imagen/Perfil/productoArtesanal1.jpg')}}" alt="Producto 1">
+                        <img src="{{asset('imagen/Perfil/productoArtesanal2.jpg')}}" alt="Producto 2">
+                        <img src="{{asset('imagen/Perfil/productoArtesanal3.jpg')}}" alt="Producto 3">
                     </div>
                     <button class="prev">&#10094;</button>
                     <button class="next">&#10095;</button>
@@ -92,19 +94,19 @@
             <h2>A quién seguir</h2>
             <div class="who-to-follow">
                 <div class="follow-item">
-                    <img src="imagen/Perfil/facebook.png" alt="Facebook">
+                    <img src="{{asset('imagen/Perfil/facebook.png')}}" alt="Facebook">
                     <span>@facebook</span>
                 </div>
                 <div class="follow-item">
-                    <img src="imagen/Perfil/tik-tok.png" alt="TikTok">
+                    <img src="{{asset('imagen/Perfil/tik-tok.png')}}" alt="TikTok">
                     <span>@tik-tok</span>
                 </div>
                 <div class="follow-item">
-                    <img src="imagen/Perfil/whatsapp.png" alt="WhatsApp">
+                    <img src="{{asset('imagen/Perfil/whatsapp.png')}}" alt="WhatsApp">
                     <span>@whatsapp</span>
                 </div>
                 <div class="follow-item">
-                    <img src="imagen/Perfil/instagram.png" alt="Instagram">
+                    <img src="{{asset('imagen/Perfil/instagram.png')}}" alt="Instagram">
                     <span>@instagram</span>
                 </div>
                 <div class="show-more">

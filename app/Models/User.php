@@ -44,7 +44,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    protected $primaryKey = 'id_usuario';
+    
     public function repartidos()
     {
         return $this->hasMany(Repartido::class); // Relaciona el 'user_id' con el modelo 'User'

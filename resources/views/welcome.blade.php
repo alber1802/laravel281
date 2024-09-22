@@ -50,7 +50,7 @@
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
+                            <li><a href="{{route('perfil')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
                             <li><a href="#"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
                             <li><a href="#"><i class="fas fa-headset"></i> CONTACTANOS</a></li>
                         </ul>
@@ -90,10 +90,10 @@
                             <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">PRODUCTOS</a>
                             <ul class="dropdown-menu">
 								<li><a href="shop.html">Tienda de la Barra Lateral</a></li>
-								<li><a href="shop-detail.html">Detalles de la Tienda</a></li>
-                                <li><a href="cart.html">Cart</a></li>
+								<li><a href="{{route('shop-detail')}}">Detalles de la Tienda</a></li>
+                                <li><a href="{{route('ListaProductos')}}">Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="my-account.html">MY CUENTA</a></li>
+                                <li><a href="">MY CUENTA</a></li>//my-account.html
                                 <li><a href="wishlist.html">Wishlist</a></li>
                             </ul>
                         </li>
@@ -107,13 +107,7 @@
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
-                        <li class="side-menu">
-							<a href="#">
-								<i class="fa fa-shopping-bag"></i>
-								<span class="badge">3</span>
-								<p>MY CARRITO</p>
-							</a>
-						</li>
+                        
                     </ul>
                 </div>
                 <!-- End Atribute Navigation -->
