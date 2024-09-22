@@ -37,6 +37,11 @@ class LoginController extends Controller
     }
    public function login(Request $request)
     {
+        // Validar los campos de entrada
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
     $credentials = [
         "email"  =>  $request->email,
         "password" => $request->password,

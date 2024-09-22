@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PerfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::view('/perfil', "Perfil.PerfilUsuario")->name('perfil');
 Route::post('/validar-registro', [LoginController::class,'register'])->name('validar-registro');
 //para el login
 Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
+//Para perfil 
+Route::get('/PerfilUsuario', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
 
 //par que la paginas se puedan recargar
 

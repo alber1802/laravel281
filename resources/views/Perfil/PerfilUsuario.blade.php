@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño de Perfil Social</title>
+    <title>Perfil Usuario</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/PerfilUsuario.css')}}">
 </head>
 
@@ -25,30 +25,28 @@
 
         <!-- Contenido principal -->
         <div class="content">
+            
             <div class="profile-header">
-                <img src="imagen/Perfil/img.png" alt="Foto de Perfil">
+                <img src="{{ asset('img.png') }}" alt="Foto de Perfil">
                 <div>
-                    <h3>Nombre de Usuario</h3>
-                    <p>564 Siguiendo · 1524 Seguidores</p>
-                    <!-- Datos personales del artesano -->
+                    <h3>{{ $usuario->nombre }}</h3>
+                    <p>{{ $usuario->seguidores }} Seguidores · {{ $usuario->siguiendo }} Siguiendo</p>
                     <div class="personal-info">
                         <h4>Datos del Artesano</h4>
                         <div class="personal-info-content">
-                            <p><strong>Nombre:</strong> -----</p>
-                            <p><strong>Edad:</strong> -----</p>
-                            <p><strong>Nivel Académico:</strong> -----</p>
-                            <!-- Botón Ver Más -->
-                            <div class="ver-mas" onkeyup="Button()">
-                                <a href="#" id="ver-mas-btn">Ver más</a>
-                            </div>
-                            <!-- Información expandible -->
+                            <p><strong>Nombre:</strong> {{ $usuario->nombre }}</p>
+                            <p><strong>Edad:</strong> {{ $usuario->edad }}</p>
+                            <p><strong>Nivel Académico:</strong> {{ $usuario->nivel_academico }}</p>
                             <div class="extra-info" id="extra-info" style="display: none;">
-                                <p><strong>Género:</strong> ------</p>
-                                <p><strong>Ubicación:</strong> -----</p>
+                                <p><strong>Género:</strong> {{ $usuario->genero }}</p>
+                                <p><strong>Ubicación:</strong> {{ $usuario->ubicacion }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+          
+
             </div>
 
             <!-- Sección de Tweets o publicaciones -->
