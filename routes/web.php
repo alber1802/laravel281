@@ -19,9 +19,14 @@ Route::view('/Home', "welcome")->name('Home');
 Route::view('/register', "registro")->name('register');
 Route::view('/iniciarSesion', "login")->name('login');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
+//para lista de producto 
+Route::view('/ListaProductos',"PaginasHome.ListaCarrito")->name('ListaProductos');
 //prueba
 
-Route::view('/privada', "private")->name('privada');
+
+
+Route::view('/privada', "private")->middleware('auth')->name('privada');
+Route::view('/perfil', "Perfil.PerfilUsuario")->name('perfil');
 
 // para las funciones
 //para el registro 

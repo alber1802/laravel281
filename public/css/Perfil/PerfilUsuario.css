@@ -1,0 +1,266 @@
+/* Reiniciar márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #E6ECF0;
+    color: #14171A;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-image: linear-gradient(135deg, #017598, #1ED7CD);
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px;
+}
+
+.sidebar,
+.trending {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    position: sticky;
+    top: 20px;
+    height: 100%;
+}
+
+.sidebar {
+    width: 20%;
+    margin-right: 2%;
+    background-color: #017598;
+    color: #ffffff;
+}
+
+.content {
+    width: 50%;
+    padding: 20px;
+    margin-right: 2%;
+    background-color: #087EA2;
+    color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trending {
+    width: 25%;
+    background-color: #18C4BB;
+    color: #ffffff;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-header img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    border: 3px solid #05A7BE;
+}
+
+.profile-header h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.profile-header p {
+    margin: 0;
+}
+
+/* Estilos para los datos personales */
+.personal-info {
+    margin-top: 20px;
+}
+
+.personal-info h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.personal-info-content {
+    background-color: #ffffff;
+    color: #14171A;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.personal-info p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.extra-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #14171A;
+}
+
+/* Botón "Ver más" */
+.ver-mas a {
+    color: #087EA2;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.nav-links a {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.nav-links a:hover {
+    background-color: #05A7BE;
+}
+
+.tweet-box {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    color: #14171A;
+}
+
+.tweet-box h4 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #14171A;
+}
+
+.tweet-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.tweet-box button {
+    padding: 10px 25px;
+    background-color: #087EA2;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tweet-box button:hover {
+    background-color: #05A7BE;
+}
+
+.tweet-box img {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.trending h2,
+.who-to-follow h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.trend-item,
+.follow-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trend-item span,
+.follow-item span {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.follow-item {
+    display: flex;
+    align-items: center;
+}
+
+.follow-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.show-more {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.show-more a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.carousel button {
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.carousel .prev {
+    left: 10px;
+}
+
+.carousel .next {
+    right: 10px;
+}
