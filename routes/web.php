@@ -22,10 +22,19 @@ Route::view('/iniciarSesion', "login")->name('login');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
 //para lista de producto 
 Route::view('/ListaProductos',"PaginasHome.ListaCarrito")->name('ListaProductos');
+<<<<<<< HEAD
+// para shop(Comercio )
+Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
+//para shop-detail
+Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
+//prueba
+
+=======
 //prueba
 
 
 
+>>>>>>> 3fe0412c25c68b7a495a0d75a6240f1c1cf05b7f
 Route::view('/privada', "private")->middleware('auth')->name('privada');
 Route::view('/perfil', "Perfil.PerfilUsuario")->name('perfil');
 
