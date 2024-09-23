@@ -14,9 +14,9 @@
         <div class="sidebar">
             <h2 style="text-align: center;">Social</h2>
             <nav class="nav-links">
-                <a href="#">Inicio</a>
-                <a href="#">Perfil</a>
-                <a href="#">Explorar</a>
+                <a href="{{route('Home')}}">Inicio</a>
+                <a href="#">Convertirse En Artesano </a>
+                <a href="#">Convertirse En Delivery</a>
                 <a href="#">Notificaciones</a>
                 <a href="#">Mensajes</a>
                 <a href="#">Enlaces</a>
@@ -28,23 +28,23 @@
             <div class="profile-header">
                 <img src="{{asset('imagen/Perfil/img.png')}}" alt="Foto de Perfil">
                 <div>
-                    <h3>{{ $usuario->nombre}}</h3>
+                    <h3>Nombre Alias : {{ $usuario->nombre}}</h3>
                     <p>564 Siguiendo · 1524 Seguidores</p>
                     <!-- Datos personales del artesano -->
                     <div class="personal-info">
                         <h4>Datos del Artesano</h4>
                         <div class="personal-info-content">
-                            <p><strong>{{ $usuario->name}}:</strong> -----</p>
-                            <p><strong>{{ $usuario->fecha_nacimiento}}</strong> -----</p>
-                            <p><strong>{{ $usuario->email}}</strong> -----</p>
+                            <p><strong>Nombre de Usuario : </strong>{{ $usuario->name}}</p>
+                            <p><strong>Fecha de Nacimiento : </strong> {{ $usuario->fecha_nacimiento}}</p>
+                            <p><strong>Correo Electronico :  </strong> {{ $usuario->email}}</p>
                             <!-- Botón Ver Más -->
                             <div class="ver-mas" onkeyup="Button()">
                                 <a href="#" id="ver-mas-btn">Ver más</a>
                             </div>
                             <!-- Información expandible -->
                             <div class="extra-info" id="extra-info" style="display: none;">
-                                <p><strong>{{ $usuario->sexo}}</strong> ------</p>
-                                <p><strong>{{ $usuario->direccion}}</strong> -----</p>
+                                <p><strong>Genero M(masculino)/F(femenino) : </strong>{{ $usuario->sexo}}</p>
+                                <p><strong>Direccion : </strong> {{ $usuario->direccion}}</p>
                             </div>
                         </div>
                     </div>
@@ -53,10 +53,42 @@
 
             <!-- Sección de Tweets o publicaciones -->
             <div class="tweet-box">
-                <h4>¿Qué está pasando?</h4>
-                <p>"Descubre la magia de lo hecho a mano: cada pieza cuenta una historia única, creada con pasión y
-                    dedicación. Lleva a casa más que un producto, ¡lleva arte y tradición!"</p>
-                <button>Editar Perfil</button>
+                <h4>¿Quieres Editar tu Perfil?</h4>
+                    <div id="edit-profile-form" style="display: none;">
+                        <form id="profile-form" action="{{ route('ActualizarPerfil') }}" method="POST" enctype="multipart/form-data">
+                          @csrf   
+                            <label for="nombre">Nombre Alias:</label>
+                            <input type="text" id="nombre" name="nombre" value="">
+                        
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="name" name="name" value="">
+
+                            <label for="paterno">Paterno:</label>
+                            <input type="text" id="paterno" name="paterno" value="">
+
+                            <label for="materno">Materno:</label>
+                            <input type="text" id="materno" name="materno" value="">
+
+                            <label for="telefono">Número de Celular:</label>
+                            <input type="text" id="telefono" name="telefono" value="">
+
+                            <label for="direccion">Ciudad o Comunidad:</label>
+                            <input type="text" id="direccion" name="direccion" value="">
+
+                            <label for="password">Contraseña(opcional) :</label>
+                            <input type="password" id="password" name="password">
+
+                            <label for="email">Correo Electronico:</label>
+                            <input type="text" id="email" name="email" value="">
+
+                            <label for="profile-photo">Foto de Perfil(opcinal):</label>
+                            <input type="file" id="profile-photo" name="profile-photo">
+
+                            <button type="submit">Guardar Cambios</button>
+                            <button type="button" id="cancel-btn">Cancelar</button>
+                        </form>
+                    </div>
+                <button class="booton-A5"  id="edit-profile-btn">Editar Perfil</button>
             </div>
 
             <!-- Carrusel de productos -->
@@ -118,6 +150,18 @@
 
     <!-- Script para expandir la información -->
     <script >
+
+         // Muestra el formulario cuando se presiona "Editar Perfil"
+         document.getElementById('edit-profile-btn').addEventListener('click', function () {
+            document.getElementById('edit-profile-form').style.display = 'block';
+            document.getElementById('edit-profile-btn').style.display = 'none';
+        });
+
+        // Oculta el formulario cuando se presiona "Cancelar"
+        document.getElementById('cancel-btn').addEventListener('click', function () {
+            document.getElementById('edit-profile-form').style.display = 'none';
+            document.getElementById('edit-profile-btn').style.display = 'block';
+        });
         // Carrusel
         document.addEventListener('DOMContentLoaded', function () {
             const prevButton = document.querySelector('.carousel .prev');

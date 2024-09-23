@@ -264,3 +264,72 @@ body {
 .carousel .next {
     right: 10px;
 }
+/*para el formulario escondido */
+#edit-profile-form {
+    background-color: #4040453d;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#edit-profile-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#edit-profile-form label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#edit-profile-form input[type="text"],
+#edit-profile-form input[type="password"],
+#edit-profile-form input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#edit-profile-form button {
+    padding: 10px;
+    font-size: 16px;
+    color: rgb(5, 5, 5);
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#edit-profile-form button:hover {
+    background-color: #0056b3;
+}
+
+#edit-profile-form button[type="submit"] {
+    background-color: #28a745;
+}
+
+#edit-profile-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+#edit-profile-form button[type="button"] {
+    background-color: #dc3545;
+}
+
+#edit-profile-form button[type="button"]:hover {
+    background-color: #c82333;
+}
+
+#profile-form input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

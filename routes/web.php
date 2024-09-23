@@ -37,6 +37,7 @@ Route::view('/privada', "private")->middleware('auth')->name('privada');
 Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
 
 
+
 // ****************************************************para las funciones***************************************
 //para el registro 
 Route::post('/validar-registro', [LoginController::class,'register'])->name('validar-registro');
@@ -45,6 +46,10 @@ Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
 //Para perfil con in udi enviado
 
 Route::get('/PerfilUsuario/{id}', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
+Route::post('/ActualizarPerfil', [PerfilController::class,'Actualizar'])->name('ActualizarPerfil');
+
+
+
 
 //par que la paginas se puedan recargar
 
