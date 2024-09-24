@@ -45,7 +45,7 @@ Route::post('/validar-registro', [LoginController::class,'register'])->name('val
 Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
 //Para perfil con in udi enviado
 
-Route::get('/PerfilUsuario/{id}', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
+Route::get('/PerfilUsuario', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
 Route::post('/ActualizarPerfil', [PerfilController::class,'Actualizar'])->name('ActualizarPerfil');
 
 
