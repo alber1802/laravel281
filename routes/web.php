@@ -31,7 +31,8 @@ Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 //
 //***********************pagias que solo el usuario autentificado puede accedere ***************************
 //
-
+//irazema
+Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
 
 Route::view('/privada', "private")->middleware('auth')->name('privada');
 Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
