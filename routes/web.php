@@ -27,7 +27,13 @@ Route::view('/ListaProductos',"PaginasHome.ListaCarrito")->name('ListaProductos'
 Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
-//---
+
+//--------vizualizar la lista de productos, agregar nuevo y detalles
+Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
+Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
+Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');
+//-------------------------------------------------------------------------------
+
 //
 //***********************pagias que solo el usuario autentificado puede accedere ***************************
 //
