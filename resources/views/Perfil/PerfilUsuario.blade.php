@@ -35,7 +35,7 @@
                         <h4>Datos del Artesano</h4>
                         <div class="personal-info-content">
                             <p><strong>Nombre de Usuario : </strong>{{ $usuario->name}}</p>
-                            <p><strong>Fecha de Nacimiento : </strong> {{ $usuario->fecha_nacimiento}}</p>
+                            <p><strong>Comunidad: </strong> {{ $usuario->direccion}}</p>
                             <p><strong>Correo Electronico :  </strong> {{ $usuario->email}}</p>
                             <!-- Botón Ver Más -->
                             <div class="ver-mas" onkeyup="Button()">
@@ -44,7 +44,8 @@
                             <!-- Información expandible -->
                             <div class="extra-info" id="extra-info" style="display: none;">
                                 <p><strong>Genero M(masculino)/F(femenino) : </strong>{{ $usuario->sexo}}</p>
-                                <p><strong>Direccion : </strong> {{ $usuario->direccion}}</p>
+                                <p><strong>Fecha de Nacimiento : </strong> {{ $usuario->fecha_nacimiento}}</p>
+                            
                             </div>
                         </div>
                     </div>

@@ -255,7 +255,7 @@
 /*----*/
 
 .bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text{
-	font-size: 13px;
+	font-size: 16px;
 }
 
 
@@ -395,7 +395,7 @@
      background-color: #222;
 }
  nav.navbar.navbar-inverse li.dropdown ul.dropdown-menu > li > a{
-     color: #999;
+     color: #3b1a70;
 }
  nav.navbar.navbar-inverse ul.nav .dropdown-menu h1, nav.navbar.navbar-inverse ul.nav .dropdown-menu h2, nav.navbar.navbar-inverse ul.nav .dropdown-menu h3, nav.navbar.navbar-inverse ul.nav .dropdown-menu h4, nav.navbar.navbar-inverse ul.nav .dropdown-menu h5, nav.navbar.navbar-inverse ul.nav .dropdown-menu h6{
      color: #fff;
@@ -480,11 +480,11 @@
          border-right: solid 1px #303030 !important;
     }
      nav.navbar.navbar-inverse li.dropdown ul.dropdown-menu > li > a{
-         border-bottom: solid 1px #303030;
+         border-bottom: solid 1px #cdc9c9;
     }
      nav.navbar.navbar-inverse ul.dropdown-menu.megamenu-content .col-menu{
-         border-left: solid 1px #303030;
-         border-right: solid 1px #303030;
+         border-left: solid 1px #cdc9c9;
+         border-right: solid 1px #cdc9c9;
     }
      nav.navbar.navbar-inverse.navbar-transparent.dark{
          background-color: rgba(0,0,0,0.3);
@@ -511,7 +511,7 @@
     }
      nav.navbar.navbar-inverse ul.nav li.dropdown ul.dropdown-menu > li > a{
          color: #999;
-         border-bottom: solid 1px #303030;
+         border-bottom: solid 1px #312c2c;
     }
      nav.navbar.navbar-inverse .dropdown .megamenu-content .col-menu .title{
          border-bottom: solid 1px #303030;
@@ -1917,7 +1917,7 @@
      padding: 4px 12px;
 }
  .product-item-filter li .nav-link.active {
-     background: #b0b435;
+     background: #1c7aa5;
      border: none;
      color: #ffffff;
 }

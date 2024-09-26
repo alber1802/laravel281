@@ -45,17 +45,19 @@
                                 </label>
                                 <input id="materno" name="materno" placeholder="Quispe" required class="input" />
                             </div>
-                            <div class="space1-y-2">
-                                <label class="text-sm font-medium text-white" for="sexo">
-                                    Sexo
-                                </label>
-                                <input id="sexo" name="sexo" placeholder="solo una letra : M / F" required class="input" />
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-white" for="sexo">Sexo</label>
+                                <select id="sexo" name="sexo" required class="input">
+                                    <option value="">Selecciona</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
                             </div>
                             <div class="space1-y-2">
                                 <label class="text-sm font-medium text-white" for="fecha_nacimiento">
-                                   Fecha de Nacimiento 
+                                    Fecha de Nacimiento 
                                 </label>
-                                <input id="fecha_nacimiento" name="fecha_nacimiento" placeholder="DD/MM/YYYY" required class="input" />
+                                <input id="fecha_nacimiento" name="fecha_nacimiento" type="date" required class="input" />
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-white" for="telefono">
@@ -71,10 +73,17 @@
                             <input id="email" name="email" type="email" placeholder="juan.perez@example.com" required class="input" />
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-white" for="direccion">
-                                Ciudad/Comunidad
-                            </label>
-                            <input id="direccion" name="direccion" placeholder="Achocalla/san bernaldo" required class="input" />
+                            <label class="text-sm font-medium text-white" for="direccion">Ciudad/Comunidad</label>
+                            <select id="direccion" name="direccion" required class="input">
+                                <option value="">Selecciona una comunidad</option>
+                                <option value="Achocalla">Achocalla</option>
+                                <option value="Mecapaca">Mecapaca</option>
+                                <option value="Sorata">Sorata</option>
+                                <option value="Tiquipaya">Tiquipaya</option>
+                                <option value="Coroico">Coroico</option>
+                                <option value="San Bernaldo">San Bernaldo</option>
+                                <!-- Añade más opciones de comunidad aquí -->
+                            </select>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">

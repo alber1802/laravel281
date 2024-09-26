@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\VerificacionMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 
 class LoginController extends Controller
@@ -33,37 +36,35 @@ class LoginController extends Controller
 
         Auth::login($user);
         
-        $userId = Auth::user()->id_usuario; // Asumiendo que tu campo es 'id_usuario'
+        $this->verificarToken();
 
-        // Redirigir a una ruta y pasar el ID del usuario
-        return redirect()->route('PerfilUsuario', ['id' => $userId]);
+        
+        return redirect()->route('Verificacion');
         
 
     }
    public function login(Request $request)
     {
-        // Validar los campos de entrada
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-    $credentials = [
-        "email"  =>  $request->email,
-        "password" => $request->password,
-    ];
-    $remember =($request -> has('remember')? true : false );
+        // Validar los campos de entrad
+            $credentials = [
+                "email"  =>  $request->email,
+                "password" => $request->password,
+            ];
+
+         $remember =($request -> has('remember')? true : false );
 
     if (Auth::attempt($credentials, $remember)) {
         // Si es exitoso, guardar un mensaje en la sesión
         //session()->flash('success', 'Inicio de sesión exitoso. ¡Bienvenido !');
         $request->session()->regenerate();
 
-    
         // Obtener el ID del usuario autenticado
-        $userId = Auth::user()->id_usuario; // Asumiendo que tu campo es 'id_usuario'
+        $user = Auth::user(); 
 
-        // Redirigir a una ruta y pasar el ID del usuario
-        return redirect()->route('PerfilUsuario', ['id' => $userId]);
+        $this->verificarToken();
+
+        return redirect()->route('Verificacion');
+        
         
     } else {
        
@@ -72,6 +73,51 @@ class LoginController extends Controller
     }
 
     }
+    //*********************** */
+    public function verificarToken()
+    {
+        $user = Auth::user(); // Obtener el usuario autenticado
+
+        // Generar un código aleatorio de 6 dígitos numéricos
+        $codigo = rand(100000, 999999);
+
+        // Guardar el código y la hora de expiración (10 minutos a partir de ahora)
+        $user->verification_token = $codigo;
+        $user->verification_token_expires_at = Carbon::now()->addMinutes(10);
+        $user->save();
+
+        // Enviar el código por correo
+        Mail::raw("Tu código de verificación es: {$codigo}", function ($message) use ($user) {
+            $message->to($user->email)
+                    ->subject('Código de Verificación');
+        });
+
+        // Opcional: puedes redirigir a la vista donde el usuario ingresa el código
+    }
+
+    //------------------------------
+    public function confirmarCodigo(Request $request)
+    {
+        $user = Auth::user(); // Obtener el usuario autenticado
+
+        // Verificar que el token proporcionado coincida con el almacenado y no haya expirado
+        // && $user->verification_token_expires_at > Carbon::now()
+        if ($user->verification_token === $request->codigo) {
+            // Código correcto y no expirado
+            // Aquí puedes marcar el email como verificado u otra acción
+            $user->email_verified_at = Carbon::now();
+            $user->verification_token = null; // Opcional: limpiar el token
+            $user->verification_token_expires_at = null;
+            $user->save();
+
+            return redirect(route('PerfilUsuario'));
+        }
+
+        // Si el código es incorrecto o ha expirado
+        return back()->withErrors(['codigo' => 'Código incorrecto o expirado.']);
+    }
+
+
 
     
 

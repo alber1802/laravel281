@@ -50,7 +50,7 @@
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="{{route('perfil')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
+                            <li><a href="{{route('PerfilUsuario')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
                             <li><a href="#"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
                             <li><a href="#"><i class="fas fa-headset"></i> CONTACTANOS</a></li>
                         </ul>
@@ -84,21 +84,20 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">HOME</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">SOBRE NOSOTROSs</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">SOBRE NOSOTROSs</a></li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">PRODUCTOS</a>
+                            <a href="{{route('lisProductos')}}" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">PRODUCTOS</a> 
                             <ul class="dropdown-menu">
-								<li><a href="shop.html">Tienda de la Barra Lateral</a></li>
-								<li><a href="{{route('shop-detail')}}">Detalles de la Tienda</a></li>
-                                <li><a href="{{route('ListaProductos')}}">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="">MY CUENTA</a></li>//my-account.html
-                                <li><a href="wishlist.html">Wishlist</a></li>
+								<li><a href="{{route('comercio')}}">Comercio Lista </a></li>
+								<li><a href="{{route('shop-detail')}}">Detalles de la Productos</a></li>
+                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>
+                                <li><a href="{{route('MetodoPagado')}}">Metodo de Pago</a></li>              
+                                <li><a href="#">Wishlist</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

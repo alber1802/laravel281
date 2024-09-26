@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificacionMail;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +35,15 @@ Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
 Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');
+
+Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
+
+
+
 //-------------------------------------------------------------------------------
+//verificacion de token 
+Route::post('/verificar-token', [LoginController::class, 'confirmarCodigo'])->name('verificar.token');
+
 
 //
 //***********************pagias que solo el usuario autentificado puede accedere ***************************
@@ -40,8 +51,9 @@ Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleP
 //irazema
 Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
 
-Route::view('/privada', "private")->middleware('auth')->name('privada');
-Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
+
+
+//Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
 
 
 
@@ -53,7 +65,7 @@ Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
 //Para perfil con in udi enviado
 
 Route::get('/PerfilUsuario', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
-Route::post('/ActualizarPerfil', [PerfilController::class,'Actualizar'])->name('ActualizarPerfil');
+Route::post('/ActualizarPerfil', [PerfilController::class,'Actualizar'])->middleware('auth')->name('ActualizarPerfil');
 
 
 
