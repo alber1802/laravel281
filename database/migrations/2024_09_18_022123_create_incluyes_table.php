@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('incluyes', function (Blueprint $table) {
             $table->unsignedBigInteger('id_carrito');
             $table->unsignedBigInteger('id_producto');
+            $table->timestamps();
             $table->foreign('id_carrito')->references('id_carrito')->on('carritos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_producto')->references('id_producto')->on('productos')->onUpdate('cascade')->onDelete('cascade');
         });

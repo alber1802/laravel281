@@ -31,3 +31,15 @@ function validatePassword() {
         passwordHelp.style.color = "red";
     }
 }
+function ConfirmPassword() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('Repertirpassword').value;
+    const message = document.getElementById('passwordMessage');
+
+    if (password !== confirmPassword) {
+        message.style.display = 'block'; // Mostrar mensaje si las contraseñas no coinciden
+    } else {
+        message.style.display = 'none'; // Ocultar mensaje si las contraseñas coinciden
+    }
+}
+

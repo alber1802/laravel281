@@ -4,47 +4,144 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Artesano;
+use App\Models\Repartido;
+use App\Models\Cliente;
+use App\Models\Vehiculo;
+use App\Models\Comunidad;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class LoginController extends Controller
 {
-    public function register(Request $request)  {
-
+    public function registerCliente(Request $request){
         $user = new User();
-
         $user->name = $request->name;
-        $user->nombre = $request->nombre; //nombre de usuario alias---
+        $user->nombre = $request->nombre; // nombre de usuario alias
         $user->paterno = $request->paterno;
         $user->materno = $request->materno;
-        
         $user->email = $request->email;
-        $user->password =  Hash::make($request->password);
-        
-      
+        $user->password = Hash::make($request->password);
         $user->telefono = $request->telefono;
         $user->direccion = $request->direccion;
         $user->sexo = $request->sexo;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
 
-        $user ->save();
+        // Guardar imagen de perfil
+        if ($request->hasFile('file')) {
+            $imagenes = $request->file('file')->store('public/imagenesPerfil');
+            $url = Storage::url($imagenes);
+            $user->url = $url;
+        }
+        $user->save();
+
+        // Guardar datos específicos de Cliente
+        $cliente = new Cliente();
+        $cliente->id_cliente = $user->id_usuario;
+        $cliente->preferencia= $request->preferencia;// Relación con User
+        $cliente->save();
 
         Auth::login($user);
-        
         $this->verificarToken();
 
-        
         return redirect()->route('Verificacion');
-        
+  }
 
+    public function registerArtesano(Request $request){
+        $user = new User();
+        $user->name = $request->name;
+        $user->nombre = $request->nombre; // nombre de usuario alias
+        $user->paterno = $request->paterno;
+        $user->materno = $request->materno;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->telefono = $request->telefono;
+        $user->direccion = $request->direccion;
+        $user->sexo = $request->sexo;
+        $user->fecha_nacimiento = $request->fecha_nacimiento;
+
+        // Guardar imagen de perfil
+        if ($request->hasFile('file')) {
+            $imagenes = $request->file('file')->store('public/imagenesPerfil');
+            $url = Storage::url($imagenes);
+            $user->url = $url;
+        }
+        $user->save();
+        //--------------------
+        $comunidad=new Comunidad();
+        $comunidad->nombreCo=$request->nombreCo;
+        $comunidad->ciudad=$request->ciudad;
+        $comunidad->ubicacionC=$request->nombreCo.' '.$request->ciudad;
+        $comunidad->save();
+
+    
+        // Guardar datos específicos de Artesano
+        $artesano = new Artesano();
+        $artesano->id_artesano = $user->id_usuario; // Relación con User
+        $artesano->id_comunidad = $comunidad->id_comunidad ;
+        $artesano->especialidadA = $request->especialidadA;
+        $artesano->descripcionA = $request->descripcionA;
+        // Verifica si la calificación está presente, si no, asigna un valor predeterminado
+        $artesano->calificacionA = $request->calificacionA ?? 0; // Si no hay calificación, asigna 0
+        $artesano->save();
+
+        Auth::login($user);
+        $this->verificarToken();
+
+        return redirect()->route('Verificacion');
     }
-   public function login(Request $request)
-    {
+
+    public function registerRepartidor(Request $request){
+        $user = new User();
+        $user->name = $request->name;
+        $user->nombre = $request->nombre; // nombre de usuario alias
+        $user->paterno = $request->paterno;
+        $user->materno = $request->materno;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->telefono = $request->telefono;
+        $user->direccion = $request->direccion;
+        $user->sexo = $request->sexo;
+        $user->fecha_nacimiento = $request->fecha_nacimiento;
+
+        // Guardar imagen de perfil
+        if ($request->hasFile('file')) {
+            $imagenes = $request->file('file')->store('public/imagenesPerfil');
+            $url = Storage::url($imagenes);
+            $user->url = $url;
+        }
+        $user->save();
+        //--------------------
+        $vehiculo =new Vehiculo();
+
+        $vehiculo->modeloV=$request->modeloV;
+        $vehiculo->placaV=$request->placaV;
+        $vehiculo->colorV=$request->colorV;
+        $vehiculo->tipoV=$request->tipoV;
+        $vehiculo->save();
+
+        // Guardar datos específicos de Repartidor
+        $repartidor = new Repartido();
+        $repartidor->id_repartidor = $user->id_usuario; // Relación con User
+        $repartidor->id_vehiculo = $vehiculo->id_vehiculo;
+        $repartidor->disponibilidadR = $request->disponibilidadR ?? 1; // Si no se envía, se asigna "Tiempo completo"
+        $repartidor->calificacionR = $request->calificacionR ?? 6; // Asignar calificación por defecto si no se proporciona
+        $repartidor->save();
+
+        Auth::login($user);
+        $this->verificarToken();
+
+        return redirect()->route('Verificacion');
+    }
+
+    public function login(Request $request){
         // Validar los campos de entrad
             $credentials = [
                 "email"  =>  $request->email,
@@ -53,29 +150,43 @@ class LoginController extends Controller
 
          $remember =($request -> has('remember')? true : false );
 
-    if (Auth::attempt($credentials, $remember)) {
-        // Si es exitoso, guardar un mensaje en la sesión
-        //session()->flash('success', 'Inicio de sesión exitoso. ¡Bienvenido !');
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials, $remember)) {
 
-        // Obtener el ID del usuario autenticado
-        $user = Auth::user(); 
+            $request->session()->regenerate();
 
-        $this->verificarToken();
-
-        return redirect()->route('Verificacion');
+            // Obtener el ID del usuario autenticado
+            $user = Auth::user(); 
+            // Identificar si es cliente, artesano o repartidor
         
-        
-    } else {
-       
-        return redirect(route('login'));
-        
-    }
+            /* if (Cliente::where('id_cliente', $user->id_usuario)->exists()) {
 
+                $this->verificarToken();
+                 return redirect()->route('Verificacion');
+
+            } elseif (Artesano::where('id_artesano', $user->id_usuario)->exists()) {
+                $this->verificarToken();
+
+                return redirect()->route('Verificacion');
+
+            } elseif (Repartido::where('id_repartidor', $user->id_usuario)->exists()) {
+
+                $this->verificarToken();
+
+                 return redirect()->route('Verificacion');
+            }*/
+
+
+            $this->verificarToken();
+
+             return redirect()->route('Verificacion');
+        }else {
+        
+            return redirect(route('login'));
+            
+        }
     }
     //*********************** */
-    public function verificarToken()
-    {
+    public function verificarToken(){
         $user = Auth::user(); // Obtener el usuario autenticado
 
         // Generar un código aleatorio de 6 dígitos numéricos
@@ -96,8 +207,7 @@ class LoginController extends Controller
     }
 
     //------------------------------
-    public function confirmarCodigo(Request $request)
-    {
+    public function confirmarCodigo(Request $request){
         $user = Auth::user(); // Obtener el usuario autenticado
 
         // Verificar que el token proporcionado coincida con el almacenado y no haya expirado
@@ -116,6 +226,7 @@ class LoginController extends Controller
         // Si el código es incorrecto o ha expirado
         return back()->withErrors(['codigo' => 'Código incorrecto o expirado.']);
     }
+    
 
 
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('placaV', 20);
             $table->string('colorV', 50);
             $table->string('tipoV', 50);
+            $table->timestamps();
         });
     }
 

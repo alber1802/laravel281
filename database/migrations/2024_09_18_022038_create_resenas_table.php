@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('calificacionR');
             $table->date('fecha_resena');
             $table->unsignedBigInteger('id_cliente');
+            $table->timestamps();
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
         });
     }

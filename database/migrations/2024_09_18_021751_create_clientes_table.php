@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_cliente');  // Declarar 'id_cliente' como columna
             $table->primary('id_cliente');             // Usar 'id_cliente' como clave primaria
             $table->text('preferencia');
+            $table->timestamps();
 
             // Agregar clave foránea después de definir las columnas
             $table->foreign('id_cliente')->references('id_usuario')->on('users')->onUpdate('cascade')->onDelete('cascade');

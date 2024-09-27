@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('fecha_expiracion');
             $table->integer('cvv');
             $table->string('tipo', 50);
+            $table->timestamps();
         });
     }
 

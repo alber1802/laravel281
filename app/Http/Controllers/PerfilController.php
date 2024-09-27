@@ -29,8 +29,9 @@ class PerfilController extends Controller
             'direccion' => 'required|string|max:255',
             'password' => 'nullable|string|min:8', // La contraseña es opcional
             'email'   => 'required|string|max:255',
+            'file' =>  'nullable|image|max:2048',
         ]);
-    
+
         // Obtener el usuario autenticado
         $usuario = Auth::user();
     
@@ -44,10 +45,17 @@ class PerfilController extends Controller
         $usuario->email = $request->input('email');
     
         // Si el usuario ingresó una nueva contraseña, actualiza la contraseña
-        if ($request->filled('password')) {
-            $usuario->password = bcrypt($request->input('password'));
+        if ($request->hasFile('file')) {
+            // Almacenar la imagen en la carpeta 'public/imagenesPerfil'
+            $imagenes = $request->file('file')->store('public/imagenesPerfil');
+            
+            // Obtener la URL pública de la imagen almacenada
+            $url = Storage::url($imagenes);
+            
+            // Asignar la URL al campo 'url' del usuario
+            $usuario->url = $url;
         }
-    
+        
         // Guardar los cambios
         $usuario->save();
     

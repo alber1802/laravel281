@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('numero_cuenta', 20);
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_repartidor');
+            $table->timestamps();
             $table->foreign('id_carrito')->references('id_carrito')->on('carritos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('numero_cuenta')->references('numero_cuenta')->on('tarjetas')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');

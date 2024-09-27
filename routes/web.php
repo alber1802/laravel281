@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
@@ -20,8 +21,12 @@ use Illuminate\Support\Str;
 
 //para cmabiar de pagina 
 Route::view('/Home', "welcome")->name('Home');
-Route::view('/register', "registro")->name('register');
-Route::view('/iniciarSesion', "login")->name('login');
+//
+Route::view('/registerCliente', "LoginRegistro.Cliente")->name('registerCliente');
+Route::view('/registerArtesano', "LoginRegistro.ArtesanoRegistro")->name('registerArtesano');
+Route::view('/registerRepardidor', "LoginRegistro.Repartidor")->name('registerRepardidor');
+///
+Route::view('/iniciarSesion', "LoginRegistro.login")->name('login');
 Route::view('/Recuperar', "recuperar")->name('Recuperar');
 //para lista de producto 
 Route::view('/ListaProductos',"PaginasHome.ListaCarrito")->name('ListaProductos');
@@ -38,7 +43,12 @@ Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleP
 
 Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
 
+Route::view('/VerImagen','PruebaGmail')->name('VerImagen');
 
+
+Route::view('/RegistroArtesano','LoginRegistro.ArtesanoRegistro')->name('RegistroArtesano');
+Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
+//Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
 
 //-------------------------------------------------------------------------------
 //verificacion de token 
@@ -49,25 +59,22 @@ Route::post('/verificar-token', [LoginController::class, 'confirmarCodigo'])->na
 //***********************pagias que solo el usuario autentificado puede accedere ***************************
 //
 //irazema
-Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
-
-
-
-//Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
-
 
 
 // ****************************************************para las funciones***************************************
 //para el registro 
-Route::post('/validar-registro', [LoginController::class,'register'])->name('validar-registro');
+Route::post('/validar-registro', [LoginController::class,'registerCliente'])->name('validar-registro');
+Route::post('/validar-registroA', [LoginController::class,'registerArtesano'])->name('validar-registroA');
+Route::post('/validar-registroR', [LoginController::class,'registerRepartidor'])->name('validar-registroR');
 //para el login
 Route::post('/iniciar', [LoginController::class,'login'])->name('iniciar');
 //Para perfil con in udi enviado
 
 Route::get('/PerfilUsuario', [PerfilController::class, 'mostrarPerfil'])->middleware('auth')->name('PerfilUsuario');
 Route::post('/ActualizarPerfil', [PerfilController::class,'Actualizar'])->middleware('auth')->name('ActualizarPerfil');
+//para imagenesç
 
-
+Route::post('/createfile', [FileController::class,'store'])->name('createfile');
 
 
 //par que la paginas se puedan recargar

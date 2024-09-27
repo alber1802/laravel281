@@ -9,6 +9,7 @@ class Vehiculo extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'id_vehiculo';
 
     public function repartidos()
     {

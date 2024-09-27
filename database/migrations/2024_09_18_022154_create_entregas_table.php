@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tipo_entrega', 50);
             $table->unsignedBigInteger('id_pedido');
             $table->unsignedBigInteger('id_repartidor');
+            $table->timestamps();
             $table->foreign('id_pedido')->references('id_pedido')->on('pedidos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidos')->onUpdate('cascade')->onDelete('cascade');
         });

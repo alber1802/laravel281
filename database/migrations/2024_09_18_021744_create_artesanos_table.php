@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('especialidadA', 255);
             $table->text('descripcionA');
             $table->integer('calificacionA');
+            $table->timestamps();
             
             // Agregar claves foráneas después de definir las columnas
             $table->foreign('id_comunidad')->references('id_comunidad')->on('comunidads')->onUpdate('cascade')->onDelete('cascade');

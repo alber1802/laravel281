@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_producto');
             $table->date('fechaP');
             $table->boolean('estadoP');
+            $table->timestamps();
             $table->foreign('id_artesano')->references('id_artesano')->on('artesanos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_producto')->references('id_producto')->on('productos')->onUpdate('cascade')->onDelete('cascade');
         });

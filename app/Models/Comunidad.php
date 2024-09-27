@@ -9,6 +9,7 @@ class Comunidad extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'id_comunidad';
 
     // Relación: una comunidad tiene muchos artesanos
     public function artesanos()

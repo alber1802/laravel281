@@ -26,7 +26,7 @@
         <!-- Contenido principal -->
         <div class="content">
             <div class="profile-header">
-                <img src="{{asset('imagen/Perfil/img.png')}}" alt="Foto de Perfil">
+                <img src="{{$usuario->url}}" alt="Foto de Perfil">
                 <div>
                     <h3>Nombre Alias : {{ $usuario->nombre}}</h3>
                     <p>564 Siguiendo · 1524 Seguidores</p>
@@ -83,8 +83,10 @@
                             <input type="text" id="email" name="email" value="">
 
                             <label for="profile-photo">Foto de Perfil(opcinal):</label>
-                            <input type="file" id="profile-photo" name="profile-photo">
-
+                            <input type="file" id="file" name="file" accept="image/*">
+                            @error('file')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                             <button type="submit">Guardar Cambios</button>
                             <button type="button" id="cancel-btn">Cancelar</button>
                         </form>

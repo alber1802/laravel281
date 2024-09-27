@@ -15,7 +15,7 @@
                     <h1 class="text-3xl font-bold">Registro</h1>
                     <p class="text-muted-foreground">Ingresa tus datos para crear una cuenta</p>
                 </div>
-                <form name="registro" action="{{ route('validar-registro') }}" method="POST" >
+                <form name="registro" action="{{ route('validar-registro') }}" method="POST"  enctype="multipart/form-data" >
                     @csrf
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
@@ -93,7 +93,12 @@
                                 <input id="password" name="password" type="password" required class="input" onkeyup="validatePassword()" />
                                 <small id="passwordHelp" class="text-white"></small>
                             </div>
-                        
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-white" for="file"> Foto de Perfil(Obligatorio) </label>
+                                <input  type="file" id="file" name="file" accept="image/*" class="input">
+                            </div>
                         </div>
                         <button type="submit" class="btn">
                             Registrarse

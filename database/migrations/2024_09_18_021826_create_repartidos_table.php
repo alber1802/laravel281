@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('calificacionR');
             $table->unsignedBigInteger('id_vehiculo');
             $table->foreign('id_vehiculo')->references('id_vehiculo')->on('vehiculos');
+            $table->timestamps();
             
             // Agregar claves foráneas después de definir las columnas
             $table->foreign('id_repartidor')->references('id_usuario')->on('users')->onUpdate('cascade')->onDelete('cascade');
