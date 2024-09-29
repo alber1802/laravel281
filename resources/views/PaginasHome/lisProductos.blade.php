@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,6 +20,12 @@
 
         <link rel="stylesheet" href="{{ asset('css/productos/css/font-awesome.min.css') }}" type="text/css">
 
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
 
     <body>
@@ -31,7 +35,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="">COMMCRAFT</a>
+            <a class="navbar-brand" href="index.html">COMMCRAFT</a>
         </div>
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -74,19 +78,19 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href=""><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
+                        <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <!-- /.navbar-top-links -->
+
     </nav>
 
  <aside class="sidebar navbar-default" role="navigation">
-<div class="user-panel">
-<div class="pull-left image">
-    <img src="imagen/img-2.jpg" class="img-circle img-normal" alt="User Image" width="200" height="200" />
-</div>
+ <div class="user-panel">
+<!--<div class="pull-left image">
+    <img src="imagen/user-removebg-preview.png" class="img-circle img-normal" alt="User Image" width="200" height="200" />
+</div>-->
 </div>
 
 <div class="sidebar-nav navbar-collapse">
@@ -110,10 +114,10 @@
         <a href="#"><i class="glyphicon glyphicon-shopping-cart"></i><strong> PRODUCTOS</strong><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level">
             <li>
-                <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> ADICIONAR PRODUCTOS</a>
+                <a href="{{ route('agregarProductos') }}"><i class="glyphicon glyphicon-chevron-right"></i> ADICIONAR PRODUCTOS</a>
             </li>
             <li>
-                <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> LISTA PRODUCTOS</a>
+                <a href="{{ route('lisProductos') }}"><i class="glyphicon glyphicon-chevron-right"></i> LISTA PRODUCTOS</a>
             </li>
             <li>
                 <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> DETALLES PRODUCTOS</a>
@@ -211,217 +215,71 @@
                 <strong>LISTA DE PRODUCTOS</strong>
             </div>
             <div class="panel-body">
-<div class="table-responsive">
-<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <div class="table-responsive">
+<table class="table table-striped table-bordered table-hover" id="dataTables-example" id="listaProductos" name="listaProd">
 <thead>
     <tr>
-        <th class="text-center">Código</th>
+       
         <th class="text-center">Nombre</th>
         <th class="text-center">Descripción</th>
         <th class="text-center">Precio</th>
         <th class="text-center">Stock</th>
         <th class="text-center">Producto</th>
-        <th class="text-center">Detalle</th>
+        <th class="text-center">Categoria</th>
+        <th class="text-center">Detalles</th>
     </tr>
 </thead>
 <tbody>
+@if(!empty($datos) && count($datos) > 0)
+    @foreach($datos as $item)
+        <tr>
+          
+            <td class="text-center">{{ $item->nombreP }}</td>
+            <td class="text-center">{{ $item->descripcionP }}</td>
+            <td class="text-center">{{ $item->precioP }} Bs</td>
+            <td class="text-center">{{ $item->stock }}</td>
+            <td class="text-center">
+            <img src="{{ url($item->imgP) }}" style="max-width: 100px; max-height: 100px;">
+
+            </td>
+          
+            <td class="text-center">
+    {{ $item->categoria ? $item->categoria->nombreCa : 'Sin categoría' }} 
+</td>
+
+            <th class="text-center">
+            <a href="{{route('productos.editar', $item->id_producto) }}" class="btn btn-success"><i class='fa fa-edit'></i> Editar</a>
+            <a class='btn btn-danger' data-toggle='modal' data-target='#mimodalejemplo2'>
+                                                              <i class='fa fa-trash-o'></i> Eliminar 
+                                                            </a>
+                                                       <div class='modal fade' id='mimodalejemplo2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
+                                                       <div class='modal-dialog' role='document'>
+                                                       <div class='modal-content'>
+                                                       <div class='modal-body'>
+                                                       <h5>Esta seguro de eliminar el registro?<br>{{ $item->nombreP }}</h5>
+                                                       </div>
+                                                       <div class='modal-footer'>
+                                                       <center>
+                                                       <a href="" class="btn btn-success"><span class='glyphicon glyphicon-ok'> eliminar</a></center>
+                                                       </div>
+                                                       </div>
+                                                       </div>
+                                                       </div>
+
+
+            <a href="#" class="btn btn-primary">Detalles</a>
+            </th>
+        </tr>
+    @endforeach
+@else
     <tr>
-        <td class="text-center">001</td>
-        <td class="text-center">Collar de Plata</td>
-        <td class="text-center">Collar hecho a mano con diseño tradicional de plata.</td>
-        <td class="text-center">50.00</td>
-        <td class="text-center">15</td>
-        <td class="text-center">
-            <img src="imagen/favicon.ico" alt="Collar de Plata" style="width: 100px; height: 100px">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
+        <td colspan="5" class="text-center">No hay productos disponibles</td>
     </tr>
-    <tr>
-        <td class="text-center">002</td>
-        <td class="text-center">Bolso de Cuero</td>
-        <td class="text-center">Bolso artesanal de cuero, ideal para uso diario.</td>
-        <td class="text-center">120.00</td>
-        <td class="text-center">8</td>
-        <td class="text-center">
-            <img src="imagen/p1.webp" alt="Bolso de Cuero" style="width: 100px; height: 100px">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">003</td>
-        <td class="text-center">Taza de Cerámica</td>
-        <td class="text-center">Taza pintada a mano con motivos indígenas.</td>
-        <td class="text-center">25.00</td>
-        <td class="text-center">30</td>
-        <td class="text-center">
-            <img src="imagen/p3.webp" alt="Taza de Cerámica" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">004</td>
-        <td class="text-center">Alfombra de Lana</td>
-        <td class="text-center">Alfombra tejida a mano con diseños geométricos andinos.</td>
-        <td class="text-center">200.00</td>
-        <td class="text-center">5</td>
-        <td class="text-center">
-            <img src="imagen/p2.jpg" alt="Alfombra de Lana" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">005</td>
-        <td class="text-center">Bufanda de Alpaca</td>
-        <td class="text-center">Bufanda hecha de lana de alpaca, suave y abrigadora.</td>
-        <td class="text-center">60.00</td>
-        <td class="text-center">20</td>
-        <td class="text-center">
-            <img src="imagen/p4.webp" alt="Bufanda de Alpaca" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">006</td>
-        <td class="text-center">Jarrón de Cerámica</td>
-        <td class="text-center">Jarrón decorativo hecho a mano.</td>
-        <td class="text-center">45.00</td>
-        <td class="text-center">10</td>
-        <td class="text-center">
-            <img src="imagen/p6.webp" alt="Jarrón de Cerámica" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">007</td>
-        <td class="text-center">Sombrero de Paja</td>
-        <td class="text-center">Sombrero hecho a mano, ideal para el verano.</td>
-        <td class="text-center">25.00</td>
-        <td class="text-center">25</td>
-        <td class="text-center">
-            <img src="imagen/p6.webp" alt="Sombrero de Paja" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">008</td>
-        <td class="text-center">Aretes de Plata</td>
-        <td class="text-center">Aretes hechos a mano con diseño único.</td>
-        <td class="text-center">12.00</td>
-        <td class="text-center">12</td>
-        <td class="text-center">
-            <img src="imagen/p7.webp" alt="Aretes de Plata" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">009</td>
-        <td class="text-center">Cuaderno de Piel</td>
-        <td class="text-center">Cuaderno encuadernado en piel, ideal para notas.</td>
-        <td class="text-center">18.00</td>
-        <td class="text-center">18</td>
-        <td class="text-center">
-            <img src="imagen/p8.webp" alt="Cuaderno de Piel" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">010</td>
-        <td class="text-center">Set de Tazas</td>
-        <td class="text-center">Set de tazas de cerámica pintadas a mano.</td>
-        <td class="text-center">22.00</td>
-        <td class="text-center">22</td>
-        <td class="text-center">
-            <img src="imagen/p5.webp" alt="Set de Tazas" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">011</td>
-        <td class="text-center">Botella de Vidrio</td>
-        <td class="text-center">Botella decorativa hecha a mano.</td>
-        <td class="text-center">15.00</td>
-        <td class="text-center">15</td>
-        <td class="text-center">
-            <img src="imagen/p9.webp" alt="Botella de Vidrio" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">012</td>
-        <td class="text-center">Pañuelo de Seda</td>
-        <td class="text-center">Pañuelo artesanal de seda, ideal para regalo.</td>
-        <td class="text-center">30.00</td>
-        <td class="text-center">30</td>
-        <td class="text-center">
-            <img src="imagen/p11.webp" alt="Pañuelo de Seda" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">013</td>
-        <td class="text-center">Candelabro de Madera</td>
-        <td class="text-center">Candelabro hecho a mano con madera reciclada.</td>
-        <td class="text-center">35.00</td>
-        <td class="text-center">5</td>
-        <td class="text-center">
-            <img src="imagen/p3.webp" alt="Candelabro de Madera" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">014</td>
-        <td class="text-center">Portavelas de Cerámica</td>
-        <td class="text-center">Portavelas decorativos de cerámica.</td>
-        <td class="text-center">20.00</td>
-        <td class="text-center">15</td>
-        <td class="text-center">
-            <img src="imagen/p4.webp" alt="Portavelas de Cerámica" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-center">015</td>
-        <td class="text-center">Cesta de Mimbre</td>
-        <td class="text-center">Cesta hecha a mano de mimbre, ideal para decoraciones.</td>
-        <td class="text-center">45.00</td>
-        <td class="text-center">10</td>
-        <td class="text-center">
-            <img src="imagen/p7.webp" alt="Cesta de Mimbre" style="width: 100px; height: auto;">
-        </td>
-        <td class="text-center">
-            <button class="btn btn-info">Ver Detalle</button>
-        </td>
-    </tr>
+@endif
+
 </tbody>
 </table>
+
 </div>
 
 <!-- /.table-responsive -->
@@ -445,6 +303,7 @@
     <!-- /#page-wrapper -->
 
 </div>
+
         <!-- jQuery -->
         <script src="{{asset('js/productos/js/jquery.min.js') }}"></script>
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
@@ -36,13 +37,29 @@ Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
-//--------vizualizar la lista de productos, agregar nuevo y detalles
+
+
+//--------------vizualizar la lista de productos, agregar nuevo y detalles
 Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
 Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
+Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name('validar-registroP');
+Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
+Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
+Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHome.lisProductos');
+Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
+//Route::get('/productos{id}', [TuControlador::class, 'eliminar'])->name('eliminarProducto');
+
+
+//--------------------------------------------------------------------------------
+
+
+
+
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');
 
-Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
 
+Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
 Route::view('/VerImagen','PruebaGmail')->name('VerImagen');
 
 
@@ -58,7 +75,7 @@ Route::post('/verificar-token', [LoginController::class, 'confirmarCodigo'])->na
 //
 //***********************pagias que solo el usuario autentificado puede accedere ***************************
 //
-//irazema
+//
 
 
 // ****************************************************para las funciones***************************************
