@@ -20,12 +20,16 @@ return new class extends Migration
             $table->integer('stock');
             $table->string('colorP', 50);
             $table->string('tipoP', 50);
+            $table->string('imgP')->nullable(); // Nueva columna para la imagen
             $table->unsignedBigInteger('id_categoria');
             $table->timestamps();
             $table->foreign('id_categoria')->references('id_categoria')->on('categorias')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
+
+
+    
     /**
      * Reverse the migrations.
      */

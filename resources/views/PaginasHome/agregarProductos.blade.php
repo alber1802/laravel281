@@ -94,7 +94,7 @@
     <aside class="sidebar navbar-default" role="navigation">
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="imagen/img-3.jpg" class="img-circle img-normal" alt="User Image" width="200" height="200" />
+            <img src="imagen/user-removebg-preview.png" class="img-circle img-normal" alt="User Image" width="200" height="200" />
         </div>
     </div>
 
@@ -118,12 +118,12 @@
             <li>
                 <a href="#"><i class="glyphicon glyphicon-shopping-cart"></i><strong> PRODUCTOS</strong><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li>
-                        <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> ADICIONAR PRODUCTOS</a>
-                    </li>
-                    <li>
-                        <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> LISTA PRODUCTOS</a>
-                    </li>
+                <li>
+                <a href="{{ route('agregarProductos') }}"><i class="glyphicon glyphicon-chevron-right"></i> ADICIONAR PRODUCTOS</a>
+            </li>
+            <li>
+                <a href="{{ route('lisProductos') }}"><i class="glyphicon glyphicon-chevron-right"></i> LISTA PRODUCTOS</a>
+            </li>
                     <li>
                         <a href="panels-wells.html"><i class="glyphicon glyphicon-chevron-right"></i> DETALLES PRODUCTOS</a>
                     </li>
@@ -203,7 +203,8 @@
            <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+       
+            <div class="col-lg-8">
                 <!-- Título con icono de producto -->
                 <h1 class="page-header">
                   <span class=" glyphicon glyphicon-shopping-cart"></span>  <i class="fas fa-box"></i> PRODUCTO
@@ -213,7 +214,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-8">
+        <div class="col-lg-8">
                 <!-- Panel con estilo elegante -->
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -222,52 +223,56 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label for="codigo">Código</label>
-                                        <input type="text" class="form-control" id="codigo" placeholder="Ingrese el código del producto">
-                                    </div>
+                            
+                            <form name="registro" action="{{ route('validar-registroP') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                                  
+                                    
                                     <div class="form-group">
                                         <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del producto">
+                                        <input type="text" class="form-control" id="nombreP" name="nombreP" placeholder="Ingrese el nombre del producto">
+
                                     </div>
                                     <div class="form-group">
                                         <label for="descripcion">Descripción del Producto</label>
-                                        <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción del producto"></textarea>
+                                        <textarea class="form-control" id="descripcionP" name="descripcionP" rows="3" placeholder="Ingrese la descripción del producto"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="material">Material</label>
-                                        <input type="text" class="form-control" id="material" placeholder="Ingrese el material del producto">
+                                        <input type="text" class="form-control" id="materialP" name="materialP" placeholder="Ingrese el material del producto">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="precio">Precio</label>
-                                        <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del producto">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="stock">Stock</label>
-                                        <input type="number" class="form-control" id="stock" placeholder="Ingrese la cantidad de stock disponible">
-                                    </div>
+                                    <div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="precio">Precio</label>
+        <input type="number" class="form-control" id="precioP" name="precioP" placeholder="Ingrese el precio del producto">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="stock">Stock</label>
+        <input type="number" class="form-control" id="stock" name="stock" placeholder="Ingrese la cantidad de stock disponible">
+    </div>
+</div>
+
                                     <div class="form-group">
                                         <label for="color">Color</label>
-                                        <input type="text" class="form-control" id="color" placeholder="Ingrese el color del producto">
+                                        <input type="text" class="form-control" id="colorP" name="colorP" placeholder="Ingrese el color del producto">
                                     </div>
                                     <div class="form-group">
                                         <label for="tipo">Tipo</label>
-                                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese el tipo de producto">
+                                        <input type="text" class="form-control" id="tipoP" name="tipoP" placeholder="Ingrese el tipo de producto">
                                     </div>
                                     <div class="form-group">
                                         <label for="categoria">Categoría</label>
-                                        <select class="form-control" id="categoria">
-                                            <option value="">Seleccione una categoría</option>
-                                            <option value="ropa">Ropa</option>
-                                            <option value="accesorios">Accesorios</option>
-                                            <option value="decoracion">Decoración</option>
-                                            <option value="juguetes">Juguetes</option>
+                                        <select class="form-control" id="id_categoria" name="id_categoria">
+                                            <option id="1" name="1" value="1">Seleccione una categoría</option>
+                                            <option id="2" name="2" value="2">Ropa</option>
+                                            <option id="3" name="3" value="3">Accesorios</option>
+                                            <option id="4" name="4" value="4">Decoración</option>
+                                            <option id="5" name="5" value="5">Juguetes</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="imagen">Imagen del producto</label>
-                                        <input type="file" class="form-control-file" id="imagen">
+                                        <input type='file' id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
                                     </div>
 
                                     <!-- Botones con estilos -->
@@ -284,6 +289,50 @@
                         </div>
                         <!-- /.row (nested) -->
                     </div>
+                    
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-4">
+                <!-- Panel con estilo elegante -->
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <strong>ADICIONAR UNA NUEVA CATEGORIA</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                            
+                            <form name="registro" action="{{ route('validar-registroP') }}" method="POST" >
+                            @csrf
+                                  
+                                    
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre categoria</label>
+                                        <input type="text" class="form-control" id="nombreP" name="nombreP" placeholder="Ingrese el nombre de la categoria">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción de la categoria</label>
+                                        <textarea class="form-control" id="descripcionP" name="descripcionP" rows="3" placeholder="Ingrese la descripción de la categoria"></textarea>
+                                    </div>
+
+                                    <!-- Botones con estilos -->
+                                    <button type="submit" class="btn btn-primary">
+                                           <span class="glyphicon 
+                                            glyphicon-floppy-open"></span> Adicionar
+                                    </button>
+                                   <button type="reset" class="btn btn-danger">
+    <span class="glyphicon glyphicon-floppy-remove"></span> Cancelar
+</button>
+                                </form>
+                            </div>
+                            <!-- /.col-lg-12 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
