@@ -40,14 +40,20 @@ Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
 Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');
+Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
+Route::view('/Galeria', "PaginasHome.Galeria")->name('Galeria');
+Route::view('/nosotros', "PaginasHome.Nosotros")->name('nosotros');
+
+
 
 Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
+
 
 Route::view('/VerImagen','PruebaGmail')->name('VerImagen');
 
 
 Route::view('/RegistroArtesano','LoginRegistro.ArtesanoRegistro')->name('RegistroArtesano');
-Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
+
 //Route::view('/perfil', "Perfil.PerfilUsuario")->middleware('auth')->name('perfil');
 
 //-------------------------------------------------------------------------------
