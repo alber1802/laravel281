@@ -9,6 +9,7 @@ class Artesano extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'id_artesano';
 
     public function user()
     {
@@ -18,7 +19,7 @@ class Artesano extends Model
     // Relación: un artesano pertenece a una comunidad
     public function comunidad() 
     {
-        return $this->belongsTo(Comunidad::class); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+        return $this->belongsTo(Comunidad::class, 'id_comunidad');// Relaciona el 'comunidad_id' con el modelo 'Comunidad'
     }
 
     public function publicas() 

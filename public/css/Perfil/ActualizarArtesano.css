@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 20;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    background: url('./imagen/patron-de-copos-de-nieve_3840x2400_xtrafondos.com.jpg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    display: flex;
+    background-color: rgba(61, 60, 60, 0.696);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 1000px;
+}
+.form-section {
+    flex: 2;
+    padding: 40px;
+}
+.contact-section {
+    flex: 1;
+    background-color: #4285f4;
+    color: white;
+    padding: 40px;
+}
+h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea {
+    height: 100px;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-row .form-group {
+    flex: 1;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+button {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-cancel {
+    background-color: #ff6f61;
+}
+button:hover {
+    opacity: 0.9;
+}
+.contact-info {
+    margin-bottom: 20px;
+}
+.contact-info p {
+    margin: 5px 0;
+}
+.get-directions {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.file-upload {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    text-align: center;
+    border-radius: 4px;
+}

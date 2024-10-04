@@ -1,210 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Usuario</title>
+    <title>Perfil de Cliente</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/PerfilUsuario.css')}}">
 </head>
-
 <body>
     <div class="container">
-        <!-- Barra lateral -->
-        <div class="sidebar">
-            <h2 style="text-align: center;">Social</h2>
-            <nav class="nav-links">
-                <a href="{{route('Home')}}">Inicio</a>
-                <a href="#">Convertirse En Artesano </a>
-                <a href="#">Convertirse En Delivery</a>
-                <a href="#">Notificaciones</a>
-                <a href="#">Mensajes</a>
-                <a href="#">Enlaces</a>
-            </nav>
-        </div>
-
-        <!-- Contenido principal -->
-        <div class="content">
-            <div class="profile-header">
-                <img src="{{$usuario->url}}" alt="Foto de Perfil">
-                <div>
-                    <h3>Nombre Alias : {{ $usuario->nombre}}</h3>
-                    <p>564 Siguiendo · 1524 Seguidores</p>
-                    <!-- Datos personales del artesano -->
-                    <div class="personal-info">
-                        <h4>Datos del Artesano</h4>
-                        <div class="personal-info-content">
-                            <p><strong>Nombre de Usuario : </strong>{{ $usuario->name}}</p>
-                            <p><strong>Comunidad: </strong> {{ $usuario->direccion}}</p>
-                            <p><strong>Correo Electronico :  </strong> {{ $usuario->email}}</p>
-                            <!-- Botón Ver Más -->
-                            <div class="ver-mas" onkeyup="Button()">
-                                <a href="#" id="ver-mas-btn">Ver más</a>
-                            </div>
-                            <!-- Información expandible -->
-                            <div class="extra-info" id="extra-info" style="display: none;">
-                                <p><strong>Genero M(masculino)/F(femenino) : </strong>{{ $usuario->sexo}}</p>
-                                <p><strong>Fecha de Nacimiento : </strong> {{ $usuario->fecha_nacimiento}}</p>
-                            
-                            </div>
-                        </div>
-                    </div>
+        <!-- Sección izquierda -->
+        <div class="left-section wider">
+            <div class="header">
+                <!-- Mostrar imagen de perfil -->
+                <div class="profile-pic">
+                    <img src="{{$usuario->url}}" alt="Foto de perfil" class="profile-img">
                 </div>
-            </div>
+                <h1>¡{{ $usuario->nombre}}!</h1>
+                <p class="buyer-persona">Usuario</p>
+                <!-- Información básica -->
+                <div class="about">
+                    <h3>INFORMACIÓN PERSONAL</h3>
+                    <p><strong>Nombre:</strong>{{$usuario->name}} {{$usuario->paterno}} {{$usuario->materno}}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> {{$usuario->fecha_nacimiento}}</p>
+                    <p><strong>Correo Electrónico:</strong> {{$usuario->email}}</p>
+                    <p><strong>Teléfono:</strong> {{$usuario->telefono}}</p>
+                    <p><strong>Dirección:</strong> {{$usuario->direccion}}</p>
+                    <p><strong>Sexo:</strong> @if($usuario->sexo == 'M')
+                                                    Masculino 
+                                                @else 
+                                                    Femenino 
+                                                @endif</p>
+                </div>
 
-            <!-- Sección de Tweets o publicaciones -->
-            <div class="tweet-box">
-                <h4>¿Quieres Editar tu Perfil?</h4>
-                    <div id="edit-profile-form" style="display: none;">
-                        <form id="profile-form" action="{{ route('ActualizarPerfil') }}" method="POST" enctype="multipart/form-data">
-                          @csrf   
-                            <label for="nombre">Nombre Alias:</label>
-                            <input type="text" id="nombre" name="nombre" value="">
-                        
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="name" name="name" value="">
-
-                            <label for="paterno">Paterno:</label>
-                            <input type="text" id="paterno" name="paterno" value="">
-
-                            <label for="materno">Materno:</label>
-                            <input type="text" id="materno" name="materno" value="">
-
-                            <label for="telefono">Número de Celular:</label>
-                            <input type="text" id="telefono" name="telefono" value="">
-
-                            <label for="direccion">Ciudad o Comunidad:</label>
-                            <input type="text" id="direccion" name="direccion" value="">
-
-                            <label for="password">Contraseña(opcional) :</label>
-                            <input type="password" id="password" name="password">
-
-                            <label for="email">Correo Electronico:</label>
-                            <input type="text" id="email" name="email" value="">
-
-                            <label for="profile-photo">Foto de Perfil(opcinal):</label>
-                            <input type="file" id="file" name="file" accept="image/*">
-                            @error('file')
-                                <small class="text-danger">{{$message}}</small>
-                            @enderror
-                            <button type="submit">Guardar Cambios</button>
-                            <button type="button" id="cancel-btn">Cancelar</button>
-                        </form>
-                    </div>
-                <button class="booton-A5"  id="edit-profile-btn">Editar Perfil</button>
-            </div>
-
-            <!-- Carrusel de productos -->
-            <div class="tweet-box">
-                <h4>Nombre de Usuario</h4>
-                <div class="carousel">
-                    <div class="carousel-images">
-                        <img src="{{asset('imagen/Perfil/productoArtesanal1.jpg')}}" alt="Producto 1">
-                        <img src="{{asset('imagen/Perfil/productoArtesanal2.jpg')}}" alt="Producto 2">
-                        <img src="{{asset('imagen/Perfil/productoArtesanal3.jpg')}}" alt="Producto 3">
-                    </div>
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
+                <!-- Redes sociales con círculos -->
+                <div class="social-icons">
+                    <div class="circle"><img src="imagen/Perfil/facebook.png" alt="Facebook"></div>
+                    <div class="circle"><img src="imagen/Perfil/instagram.png" alt="Instagram"></div>
+                    <div class="circle"><img src="imagen/Perfil/tik-tok.png" alt="TikTok"></div>
+                    <div class="circle"><img src="imagen/Perfil/whatsapp.png" alt="WhatsApp"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Barra de Tendencias y Seguimiento -->
-        <div class="trending">
-            <h2>Tendencias para ti</h2>
-            <div class="trends">
-                <div class="trend-item">
-                    <span>#AlgunaTendencia</span>
+        <!-- Sección derecha -->
+        <div class="right-section">
+            <!-- Barra de navegación horizontal -->
+            <div class="horizontal-nav">
+                <div class="nav-item" >Inicio</div>
+                <div class="nav-item"><a href="{{route('ActualizarPerfil')}}" >Editar Perfil</a></div>
+                <div class="nav-item">Ver Productos</div>
+                <div class="nav-item">Notificaciones</div>
+                <div class="nav-item">Mensajes</div>
+                <div class="nav-item"><a href="{{route('Cerrar-Session')}}" >Cerrar Seccion</a></div>
+            </div>
+
+            <!-- Apartados de información -->
+            <div class="info-section">
+                <!-- Últimos pedidos -->
+                <div class="last-orders">
+                    <h3>Últimos Pedidos</h3>
+                    <p><strong>Número de pedidos:</strong> 5</p>
+                    <p><strong>Estado del último pedido:</strong> Completado</p>
+                    <p><strong>Total pagado:</strong> $250.00</p>
+                    <p><strong>Fecha del pedido:</strong> 15/09/2024</p>
+                    <p><strong>Repartidor:</strong> Juanito</p>
                 </div>
-                <div class="trend-item">
-                    <span>#OtraTendencia</span>
-                </div>
-                <div class="trend-item">
-                    <span>#NuevaTendencia</span>
-                </div>
-                <div class="show-more">
-                    <a href="#">Mostrar más</a>
+
+                <!-- Preferencias del Cliente -->
+                <div class="preferences-info">
+                    <h3>Preferencias de Cliente</h3>
+                    <p><strong>Productos Favoritos:</strong> {{$perfil->preferencia}}</p>
+                    <p><strong>Método de Pago Favorito:</strong> Tarjeta de Crédito, Efectivo</p>
+                    <p><strong>Opciones de Notificación:</strong> E-mail, SMS</p>
+                    
                 </div>
             </div>
-            <h2>A quién seguir</h2>
-            <div class="who-to-follow">
-                <div class="follow-item">
-                    <img src="{{asset('imagen/Perfil/facebook.png')}}" alt="Facebook">
-                    <span>@facebook</span>
-                </div>
-                <div class="follow-item">
-                    <img src="{{asset('imagen/Perfil/tik-tok.png')}}" alt="TikTok">
-                    <span>@tik-tok</span>
-                </div>
-                <div class="follow-item">
-                    <img src="{{asset('imagen/Perfil/whatsapp.png')}}" alt="WhatsApp">
-                    <span>@whatsapp</span>
-                </div>
-                <div class="follow-item">
-                    <img src="{{asset('imagen/Perfil/instagram.png')}}" alt="Instagram">
-                    <span>@instagram</span>
-                </div>
-                <div class="show-more">
-                    <a href="#">Mostrar más</a>
-                </div>
+          
+            <div class="thend-item">
+                <p><span>Tendencia1</span></p>
+                <p><span>Tendencia2</span></p>
+                <p><span>Tendencia3</span></p>
             </div>
+
+            <!-- Tendencias para ti -->
+            
         </div>
     </div>
 
-    <!-- Script para expandir la información -->
-    <script >
-
-         // Muestra el formulario cuando se presiona "Editar Perfil"
-         document.getElementById('edit-profile-btn').addEventListener('click', function () {
-            document.getElementById('edit-profile-form').style.display = 'block';
-            document.getElementById('edit-profile-btn').style.display = 'none';
-        });
-
-        // Oculta el formulario cuando se presiona "Cancelar"
-        document.getElementById('cancel-btn').addEventListener('click', function () {
-            document.getElementById('edit-profile-form').style.display = 'none';
-            document.getElementById('edit-profile-btn').style.display = 'block';
-        });
-        // Carrusel
-        document.addEventListener('DOMContentLoaded', function () {
-            const prevButton = document.querySelector('.carousel .prev');
-            const nextButton = document.querySelector('.carousel .next');
-            const carouselImages = document.querySelector('.carousel-images');
-            const images = carouselImages.querySelectorAll('img');
-            let index = 0;
-
-            function updateCarousel() {
-                const offset = -index * 100;
-                carouselImages.style.transform = `translateX(${offset}%)`;
-            }
-
-            prevButton.addEventListener('click', function () {
-                index = (index > 0) ? index - 1 : images.length - 1;
-                updateCarousel();
-            });
-
-            nextButton.addEventListener('click', function () {
-                index = (index < images.length - 1) ? index + 1 : 0;
-                updateCarousel();
-            });
-
-            updateCarousel(); // Inicializa el carrusel en la primera imagen
-        });
-        document.getElementById('ver-mas-btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            const extraInfo = document.getElementById('extra-info');
-            if (extraInfo.style.display === 'none') {
-                extraInfo.style.display = 'block';
-                this.textContent = 'Ver menos';
+    <script>
+        function toggleExtraInfo() {
+            var extraInfo = document.getElementById("extra-info");
+            var btn = document.querySelector(".show-more-btn");
+            if (extraInfo.classList.contains("hidden")) {
+                extraInfo.classList.remove("hidden");
+                btn.innerHTML = "Ver Menos";
             } else {
-                extraInfo.style.display = 'none';
-                this.textContent = 'Ver más';
+                extraInfo.classList.add("hidden");
+                btn.innerHTML = "Ver Más";
             }
-        });
-
+        }
     </script>
-    
-    
 </body>
-
 </html>

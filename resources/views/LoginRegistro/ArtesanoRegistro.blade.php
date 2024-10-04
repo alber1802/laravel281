@@ -41,7 +41,7 @@
                         <input id="fecha_nacimiento" name="fecha_nacimiento" type="date" required class="input" />
                 </div>
                 <div class="form-row">
-                     <select id="nombreCo" name="nombreCo"" required class="input" require>
+                     <select id="nombreCo" name="nombreCo" required class="input" require>
                                 <option value="" disabled selected>Selecciona Tu comunidad</option>
                                 <option value="Achocalla">Achocalla</option>
                                 <option value="Mecapaca">Mecapaca</option>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -10,12 +11,15 @@ use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
     public function eliminar($id)
-{
-    $producto = Product::findOrFail($id);
-    $producto->delete();
+    {
+        $producto = Producto::find($id);
+        if ($producto) {
+            $producto->delete();
+            return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto eliminado correctamente.');
+        }
 
-    return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto actualizado exitosamente');
-}
+        return redirect()->route('PaginasHome.lisProductos')->with('error', 'Producto no encontrado.');
+    }
     public function update(Request $request, $id)
     {
         //dd('Método liddhhhhdstaP fue llamado'); 
@@ -35,12 +39,12 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->nombreP = $request->nombreP;
         $producto->descripcionP = $request->descripcionP;
-    $producto->materialP = $request->materialP;
-    $producto->precioP = $request->precioP;
-    $producto->stock = $request->stock;
-    $producto->colorP = $request->colorP;
-    $producto->tipoP = $request->tipoP;
-    $producto->id_categoria = $request->id_categoria;
+        $producto->materialP = $request->materialP;
+        $producto->precioP = $request->precioP;
+        $producto->stock = $request->stock;
+        $producto->colorP = $request->colorP;
+        $producto->tipoP = $request->tipoP;
+        $producto->id_categoria = $request->id_categoria;
 
   
     if ($request->hasFile('imgP')) {
@@ -96,6 +100,14 @@ class ProductoController extends Controller
         return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto creado con éxito.');
 
     } 
+    public function registerC(Request $request){
+        $categoria = new Categoria();
+
+        $categoria ->nombreCa= $request->nombreCa;
+        $categoria ->descripcionCa= $request->descripcionCa;
+        $categoria ->save();
+        return redirect()->route('agregarProductos');
+    }
 }
 
 

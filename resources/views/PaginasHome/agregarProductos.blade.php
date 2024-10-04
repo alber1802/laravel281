@@ -94,7 +94,7 @@
     <aside class="sidebar navbar-default" role="navigation">
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="imagen/user-removebg-preview.png" class="img-circle img-normal" alt="User Image" width="200" height="200" />
+            <img src="#" class="img-circle img-normal" alt="User Image" width="200" height="200" />
         </div>
     </div>
 
@@ -131,7 +131,7 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href="forms.html"><i class="fa fa-users fa-fw"></i> <strong>ARTESANOS</strong></a>
+                <a href="#"><i class="fa fa-users fa-fw"></i> <strong>ARTESANOS</strong></a>
             </li>
             <li>
                 <a href="#"><i class="glyphicon glyphicon-user"></i> <strong> CLIENTES</strong><span class="fa arrow"></span></a>
@@ -262,8 +262,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="categoria">Categoría</label>
-                                        <select class="form-control" id="id_categoria" name="id_categoria">
-                                            <option id="1" name="1" value="1">Seleccione una categoría</option>
+                                        <select class="form-control" id="id_categoria" name="id_categoria" require>
+                                            <option disabled selected value="#">Seleccione una categoría</option>
                                             <option id="2" name="2" value="2">Ropa</option>
                                             <option id="3" name="3" value="3">Accesorios</option>
                                             <option id="4" name="4" value="4">Decoración</option>
@@ -304,18 +304,16 @@
                         <div class="row">
                             <div class="col-lg-12">
                             
-                            <form name="registro" action="{{ route('validar-registroP') }}" method="POST" >
-                            @csrf
-                                  
-                                    
+                            <form name="registro" action="{{ route('validar-registroCategoria') }}" method="POST" >
+                             @csrf    
                                     <div class="form-group">
                                         <label for="nombre">Nombre categoria</label>
-                                        <input type="text" class="form-control" id="nombreP" name="nombreP" placeholder="Ingrese el nombre de la categoria">
+                                        <input type="text" class="form-control" id="nombreCa" name="nombreCa" placeholder="Ingrese el nombre de la categoria">
 
                                     </div>
                                     <div class="form-group">
                                         <label for="descripcion">Descripción de la categoria</label>
-                                        <textarea class="form-control" id="descripcionP" name="descripcionP" rows="3" placeholder="Ingrese la descripción de la categoria"></textarea>
+                                        <textarea class="form-control" id="descripcionCa" name="descripcionCa" rows="3" placeholder="Ingrese la descripción de la categoria"></textarea>
                                     </div>
 
                                     <!-- Botones con estilos -->
@@ -324,8 +322,8 @@
                                             glyphicon-floppy-open"></span> Adicionar
                                     </button>
                                    <button type="reset" class="btn btn-danger">
-    <span class="glyphicon glyphicon-floppy-remove"></span> Cancelar
-</button>
+                                        <span class="glyphicon glyphicon-floppy-remove"></span> Cancelar
+                                    </button>
                                 </form>
                             </div>
                             <!-- /.col-lg-12 (nested) -->

@@ -248,23 +248,28 @@
 </td>
 
             <th class="text-center">
-            <a href="{{route('productos.editar', $item->id_producto) }}" class="btn btn-success"><i class='fa fa-edit'></i> Editar</a>
-            <a class='btn btn-danger' data-toggle='modal' data-target='#mimodalejemplo2'>
-                                                              <i class='fa fa-trash-o'></i> Eliminar 
-                                                            </a>
-                                                       <div class='modal fade' id='mimodalejemplo2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
-                                                       <div class='modal-dialog' role='document'>
-                                                       <div class='modal-content'>
-                                                       <div class='modal-body'>
-                                                       <h5>Esta seguro de eliminar el registro?<br>{{ $item->nombreP }}</h5>
-                                                       </div>
-                                                       <div class='modal-footer'>
-                                                       <center>
-                                                       <a href="" class="btn btn-success"><span class='glyphicon glyphicon-ok'> eliminar</a></center>
-                                                       </div>
-                                                       </div>
-                                                       </div>
-                                                       </div>
+<a href="{{route('productos.editar', $item->id_producto)}}" class="btn btn-success"><i class='fa fa-edit'></i> Editar</a>
+    <a class='btn btn-danger' data-toggle='modal' data-target='#mimodalejemplo2'>
+        <i class='fa fa-trash-o'></i> Eliminar</a>
+<div class='modal fade' id='mimodalejemplo2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
+    <div class='modal-dialog' role='document'>
+         <div class='modal-content'>
+            <div class='modal-body'>
+                 <h5>Esta seguro de eliminar el registro?<br>{{$item->nombreP}}</h5>
+                </div>
+             <div class='modal-footer'>
+                 <center>   
+                 <form action="{{ route('EliminarProducto', $item->id_producto) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <a href="" class="btn btn-success"><span class='glyphicon glyphicon-ok'> eliminar</a>
+                </form>
+
+                </center>
+            </div>
+        </div>
+     </div>
+</div>
 
 
             <a href="#" class="btn btn-primary">Detalles</a>

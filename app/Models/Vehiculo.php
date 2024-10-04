@@ -13,6 +13,6 @@ class Vehiculo extends Model
 
     public function repartidos()
     {
-        return $this->hasMany(repartido::class);
+        return $this->hasMany(repartido::class,'id_repartidor');
     }
 }

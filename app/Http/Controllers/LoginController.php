@@ -156,26 +156,7 @@ class LoginController extends Controller
 
             // Obtener el ID del usuario autenticado
             $user = Auth::user(); 
-            // Identificar si es cliente, artesano o repartidor
-        
-            /* if (Cliente::where('id_cliente', $user->id_usuario)->exists()) {
-
-                $this->verificarToken();
-                 return redirect()->route('Verificacion');
-
-            } elseif (Artesano::where('id_artesano', $user->id_usuario)->exists()) {
-                $this->verificarToken();
-
-                return redirect()->route('Verificacion');
-
-            } elseif (Repartido::where('id_repartidor', $user->id_usuario)->exists()) {
-
-                $this->verificarToken();
-
-                 return redirect()->route('Verificacion');
-            }*/
-
-
+            // Identificar si es cliente, artesano o repartidor        
             $this->verificarToken();
 
              return redirect()->route('Verificacion');
@@ -184,6 +165,14 @@ class LoginController extends Controller
             return redirect(route('login'));
             
         }
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()-> invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect(route('Home'));
     }
     //*********************** */
     public function verificarToken(){

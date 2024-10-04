@@ -9,6 +9,7 @@ class Repartido extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'id_repartidor';
 
     public function user()
     {
@@ -17,7 +18,7 @@ class Repartido extends Model
     
     public function vehiculo()
     {
-        return $this->belongsTo(Vehiculo::class);
+        return $this->belongsTo(Vehiculo::class, 'id_vehiculo'); 
     }
 
     public function pedidos()
