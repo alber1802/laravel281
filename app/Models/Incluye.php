@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
+use App\Models\Carrito;  // Importamos el modelo Carrito
+use App\Models\Producto; // Importamos el modelo Producto
+
 class Incluye extends Model
 {
     use HasFactory;
-    public $incrementing = false;
-    protected $primaryKey = ['id_carrito', 'id_producto'];
-    protected $guarded = [];
+
+    protected $table = 'incluyes';
+    
+    protected $fillable = ['id_carrito', 'id_producto', 'cantidadPP',	'created_at',	'updated_at'];
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class); 
+        return $this->belongsTo(Producto::class, 'id_producto','id_producto');
     }
 
     public function carrito()
     {
-        return $this->belongsTo(Carrito::class); 
+        return $this->belongsTo(Carrito::class, 'id_carrito','id_carrito'); 
     }
 }

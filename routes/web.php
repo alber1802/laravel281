@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
+use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,6 @@ Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
 
-
 //--------------vizualizar la lista de productos, agregar nuevo y detalles
 Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
 Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
@@ -53,6 +54,11 @@ Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHo
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
 
+//-----------------------------CARRITO Y METODO EPAGO---------------------------//
+
+//listar productos en la tienda para añadirlos a carrito
+Route::get('/Lista-tienda', [CarritoController::class, 'listarProductos'])->name('carrito.tienda');
+Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto'])->name('agregar.producto');
 
 //--------------------------------------------------------------------------------
 

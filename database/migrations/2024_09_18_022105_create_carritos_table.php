@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('carritos', function (Blueprint $table) {
             $table->id('id_carrito');
-            $table->integer('cantidadP');
+            $table->unsignedBigInteger('id_cliente');
+      
+            $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     * table->integer('cantidadP');
      */
     public function down(): void
     {
