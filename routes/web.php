@@ -54,7 +54,7 @@ Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHo
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
 
-//-----------------------------CARRITO Y METODO EPAGO---------------------------//
+//-----------------------------CARRITO Y METODO EPAGO-------------------------//
 
 //listar productos en la tienda para añadirlos a carrito
 Route::get('/Lista-tienda', [CarritoController::class, 'listarProductos'])->name('carrito.tienda');

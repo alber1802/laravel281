@@ -108,6 +108,10 @@ class ProductoController extends Controller
         $categoria ->save();
         return redirect()->route('agregarProductos');
     }
+
+    
+
+
 }
 
 

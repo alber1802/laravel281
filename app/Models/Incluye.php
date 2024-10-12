@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-use App\Models\Carrito;  // Importamos el modelo Carrito
-use App\Models\Producto; // Importamos el modelo Producto
+use App\Models\Carrito;  
+use App\Models\Producto; 
 
 class Incluye extends Model
 {

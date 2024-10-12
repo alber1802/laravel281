@@ -16,7 +16,7 @@ class CarritoController extends Controller
         return view('PaginasHome.ListaDeseos', compact('productos')); 
     }
 
-    
+// 
 //crear carrito o agregar producto y actualizar cantidad
     public function agregarProducto(Request $request)
     {

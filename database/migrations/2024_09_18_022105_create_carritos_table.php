@@ -22,7 +22,7 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     * table->integer('cantidadP');
+     * 
      */
     public function down(): void
     {
