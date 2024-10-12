@@ -28,6 +28,11 @@
 <!-- jQuery Custom Content Scroller V3.1.5 -->
 <link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
+<!-- General Styles -->
+<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+
+
+
 
 </head>
 <body>
@@ -37,7 +42,7 @@
 		<section class="full-box nav-lateral">
 			<div class="full-box nav-lateral-bg show-nav-lateral"></div>
 			<div class="full-box nav-lateral-content">
-				<figure class="full-box nav-lateral-avatar">
+			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
 					<img src="imagen/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
@@ -47,6 +52,7 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
+						<!--
 						<li>
 							<a href="home.html"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Dashboard</a>
 						</li>
@@ -63,7 +69,7 @@
 									<a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Artesanos</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -83,17 +89,17 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
-                                    <a href="{{ route('lisProductos') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
+                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 								</li>
 								<li>
 									<a href="#"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Productos</a>
 								</li>
 							</ul>
 						</li>
-
+<!--
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Artesanos <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -126,7 +132,7 @@
 
 						<li>
 							<a href="company.html"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
-						</li>
+						</li>-->
 					</ul>
 				</nav>
 			</div>
@@ -148,10 +154,10 @@
 			<!-- Page header -->
 			<div class="full-box page-header">
 				<h3 class="text-left">
-					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS
+					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS DEL ARTESANO
 				</h3>
 				<p class="text-justify">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+                Lista de Productos del Artesano" es una funcionalidad que permite mostrar todos los productos que un artesano específico ha publicado en la plataforma. Esta lista es útil tanto para los consumidores que desean conocer la oferta de un artesano, como para el propio artesano para gestionar y visualizar sus productos.
 				</p>
 			</div>
 			
@@ -160,19 +166,22 @@
                         
 				<ul class="full-box list-unstyled page-nav-tabs">
 					<li>
-						<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTOS</a>
+					
+					<a href="{{ route('agregarProductos', ['id_usuario' => $artesano->user->id_usuario]) }}">
+    				<i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTO
+					</a>
+
 					</li>
 					<li>
-						<a class="active" href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
-					</li>
-					<li>
-						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PRODUCTOS</a>
+						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PRODUCTO</a>
 					</li>
 				</ul><div>
-                            <span class="roboto-medium">ARTESANO:</span> 
+                            <h4><i class="fas fa-user"></i><span class="roboto-medium">&nbsp; </span> 
                   			<form action="" style="display: inline-block !important;">
-                            	Carlos Alfaro
-                                <button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>
+							     {{ $artesano->user->nombre }} 
+								 {{ $artesano->user->paterno }}  
+								 {{ $artesano->user->materno }} </h4>
+                             
                             </form>
                         </div>	
 			</div>
@@ -181,49 +190,82 @@
 			<div class="container-fluid">
 				<div class="table-responsive">
 					<table class="table table-dark table-sm" id="dataTables-example" id="listaProductos" name="listaProd">
-						<thead>
-							<tr class="text-center roboto-medium">
-								<th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-								<th>PRECIO</th>
-								<th>STOCK</th>								
-								<th>CATEGORIA</th>
-                                <th>PRODUCTO</th>
-								<th>ACTUALIZAR</th>
-								<th>ELIMINAR</th>
-							</tr>
-						</thead>
-						<tbody>
-                        @if(!empty($datos) && count($datos) > 0)
-                        @foreach($datos as $item)
-							<tr class="text-center" >
-								<th>{{ $item->nombreP }}</th>
-								<th>{{ $item->descripcionP }}</th>
-								<th>{{ $item->precioP }} Bs</th>
-								<th>{{ $item->stock }}</th>
-                                <th>  {{ $item->categoria ? $item->categoria->nombreCa : 'Sin categoría' }} </th>
-								<th><img src="{{ url($item->imgP) }}" style="max-width: 100px; max-height: 100px;"></th>
-								<td>
-									<a href="{{route('productos.editar', $item->id_producto) }}" class="btn btn-success">
-	  									<i class="fas fa-sync-alt"></i>	
-									</a>
-								</td>
-								<td>
-									<form action="">
-										<button type="button" class="btn btn-warning">
-		  									<i class="far fa-trash-alt"></i>
-										</button>
-									</form>
-								</td>
-							</tr>
-                            @endforeach
-                            @else
-                            <tr>
-                                <td colspan="5" class="text-center">No hay productos disponibles</td>
-                            </tr>
-                            @endif
-						</tbody>
-					</table>
+    <thead>
+        <tr class="text-center roboto-medium">
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th>PRECIO</th>
+            <th>STOCK</th>
+            <th>CATEGORIA</th>
+            
+            <th>FECHA PUBLICACION</th>
+			<th>PRODUCTO</th>
+            <th>ACTUALIZAR</th>
+            <th>ELIMINAR</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(!empty($datos) && count($datos) > 0)
+            @foreach($datos as $item)
+                @foreach($item->productos as $producto) <!-- Asegúrate de acceder a productos aquí -->
+                    <tr class="text-center">
+                        <td>{{ $producto->nombreP }}</td>
+                        <td>{{ $producto->descripcionP }}</td>
+                        <td>{{ $producto->precioP }} Bs</td>
+                        <td>{{ $producto->stock }}</td>
+                        <td>{{ $producto->categoria ? $producto->categoria->nombreCa : 'Sin categoría' }}</td>
+                        <td>{{ $item->fechaP }}</td>
+                        <td><img src="{{  Storage::url($producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+						<a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}"  class="btn btn-success">
+
+                                <i class="fas fa-sync-alt"></i>
+                            </a>
+                        </td>
+                        <td>
+
+						<a data-toggle="modal" data-target="#ModalCliente{{ $producto->id_producto }}" 
+   class="btn btn-warning" 
+   title="Eliminar el producto {{ $producto->nombreP }}" 
+   data-id="{{ $producto->id_producto }}" 
+   data-nombre="{{ $producto->nombreP }}">
+    <i class="far fa-trash-alt"></i> 
+</a>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalCliente{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $producto->id_producto }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $producto->id_producto )}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group">
+                            <label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $producto->nombreP }}?</label>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="submit" class="btn btn-danger btn-sm">
+					<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                    </tr>
+                @endforeach
+            @endforeach
+        @else
+            <tr>
+                <td colspan="8" class="text-center">No hay productos disponibles</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
 				</div>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
@@ -241,6 +283,7 @@
 			</div>
 
 		</section>
+	
 	</main>
 
     <script src="{{asset('js/productosv2/js/jquery-3.4.1.min.js') }}" ></script>

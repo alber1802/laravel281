@@ -13,25 +13,46 @@ class Producto extends Model
     use HasFactory;
     protected $guarded = [];
     public $timestamps = false; 
+
     protected $table = 'productos'; 
-      // Especifica la clave primaria
+
     protected $primaryKey = 'id_producto';
 
-   
+
+
+    protected $fillable = [
+        'nombreP',
+        'descripcionP',
+        'materialP',
+        'precioP',
+        'stock',
+        'colorP',
+        'tipoP',
+        'imgP',
+        'imgP2',
+        'imgP3',
+        'descuentoP',
+        'metodoP',
+        'costoEnvio',
+        'tiempoEntrega',
+        'devolucionP',
+        'garantiaP',
+        'certificacionP',
+        'autP',
+        // Agrega otros campos según sea necesario
+    ];
 
     public function categoria()
     {
-       // return $this->belongsTo(Categoria::class); 
-     
        return $this->belongsTo(Categoria::class, 'id_categoria');
-    
-    }
-    public function publica()
-    {
-        return $this->hasMany(Publica::class); 
     }
 
+    public function publica()
+    {
+        return $this->belongsTo(Publica::class, 'id_producto', 'id_producto');
+    }
     public function obtiene()
+
     {
         return $this->hasMany(Obtiene::class); 
     }

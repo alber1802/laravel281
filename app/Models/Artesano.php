@@ -9,22 +9,34 @@ class Artesano extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
     protected $primaryKey = 'id_artesano';
+
+    public $timestamps = false; 
+    protected $table = 'artesanos'; // Asegúrate de que este sea el nombre de la tabla
+
 
     public function user()
     {
-        return $this->belongsTo(User::class); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->belongsTo(User::class, 'id_artesano'); // Relaciona el 'user_id' con el modelo 'User'
     }
 
     // Relación: un artesano pertenece a una comunidad
     public function comunidad() 
     {
         return $this->belongsTo(Comunidad::class, 'id_comunidad');// Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+
+        return $this->belongsTo(Comunidad::class, 'id_comunidad'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+
     }
 
     public function publicas() 
     {
-        return $this->hasMany(Publica::class); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+        return $this->hasMany(Publica::class,'id_artesano'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+    }
+    public function artesano()
+    {
+        return $this->hasOne(Artesano::class, 'id_artesano');
     }
 
 }

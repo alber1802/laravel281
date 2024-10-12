@@ -5,6 +5,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ArtesanoController;
+use App\Http\Controllers\PublicaController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
@@ -39,7 +42,6 @@ Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
-
 //--------------vizualizar la lista de productos, agregar nuevo y detalles
 Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
 Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
@@ -48,11 +50,48 @@ Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name
 Route::post('/validar-registroCategoria', [ProductoController::class,'registerC'])->name('validar-registroCategoria');
 
 Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
+
+
+//-----------------------------------------------------------------------------------------------
+
+//lista de artesanos
+Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
+
+//muestra la lista de prodctos del artesano x
+Route::get('/lista.ProductosArtesanos/{id}', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
+
+//muestra la lista de productos
+Route::view('/lisPublica', "PaginasHome.lisPublica")->name('lisPublica');
+
+//manda a la pagina agregar productos
+Route::get('/agregarProductos/{id_usuario}', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
+
+//agrega productos
+Route::post('/registroNuevoProducto/{id_usuario}', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
+
+//registra la categoria
+Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
+
+//ir a la pagina de modificar producto
+
 Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+
+//modificar producto del artesano
 Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
-Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHome.lisProductos');
+
+//manda los datos del aretsano para modificar
+Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
+
+//eliminar producto
+Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
+
+//muestra el idArtesano y lo manda a la pagina agregarProductos
+Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
+
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
+
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
+
 
 //-----------------------------CARRITO Y METODO EPAGO-------------------------//
 
@@ -62,6 +101,7 @@ Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto'])-
 
 //--------------------------------------------------------------------------------
 
+
 //********************************PERFILES-************************************** *//
 /*Route::view('/Perfil-Cliente', "Perfil.PerfilUsuario")->name('Perfil-Cliente');
 Route::view('/Perfil-Artesano', "Perfil.PerfilArtesano")->name('Perfil-Artesano');
@@ -70,6 +110,7 @@ Route::view('/Actualizar-PerfilC', "Perfil.ActualizarUsuario")->name('Actualizar
 Route::view('/Actualizar-PerfilA', "Perfil.ActualizarArtesano")->name('Actualizar-PerfilA');
 Route::view('/Actualizar-PerfilR', "Perfil.ActualizarRepartidor")->name('Actualizar-PerfilR');
 //********************************************************************** */
+
 
 
 

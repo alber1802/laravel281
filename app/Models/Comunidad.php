@@ -14,6 +14,6 @@ class Comunidad extends Model
     // Relación: una comunidad tiene muchos artesanos
     public function artesanos()
     {
-        return $this->hasMany(Artesano::class); // Relación con el modelo 'Artesano'
+        return $this->hasMany(Artesano::class, 'id_comunidad'); // Relación con el modelo 'Artesano'
     }
 } 

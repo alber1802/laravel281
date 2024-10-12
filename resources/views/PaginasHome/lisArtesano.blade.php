@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Lista productos</title>
+	<title>Lista artesanos</title>
 
 	
 
@@ -28,6 +28,11 @@
 <!-- jQuery Custom Content Scroller V3.1.5 -->
 <link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
+<!-- General Styles -->
+<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+
+
+
 
 </head>
 <body>
@@ -47,6 +52,7 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
+						<!--
 						<li>
 							<a href="home.html"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Dashboard</a>
 						</li>
@@ -63,7 +69,7 @@
 									<a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Artesanos</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -83,17 +89,17 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
-                                    <a href="{{ route('lisProductos') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
+                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 								</li>
 								<li>
 									<a href="#"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Productos</a>
 								</li>
 							</ul>
 						</li>
-
+<!--
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Artesanos <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -126,7 +132,7 @@
 
 						<li>
 							<a href="company.html"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
-						</li>
+						</li>-->
 					</ul>
 				</nav>
 			</div>
@@ -148,10 +154,10 @@
 			<!-- Page header -->
 			<div class="full-box page-header">
 				<h3 class="text-left">
-					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS
+					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ARTESANO
 				</h3>
 				<p class="text-justify">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+				El módulo "Lista de Artesanos" está diseñado para gestionar y visualizar información sobre artesanos que forman parte de una plataforma de e-commerce o un sistema de gestión de productos artesanales. Este módulo facilita la administración de datos relacionados con cada artesano, permitiendo a los administradores y usuarios acceder a información detallada sobre su comunidad, especialidades, descripciones de productos y calificaciones.
 				</p>
 			</div>
 			
@@ -160,66 +166,48 @@
                         
 				<ul class="full-box list-unstyled page-nav-tabs">
 					<li>
-						<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTOS</a>
+						<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO ARTESANO</a>
 					</li>
 					<li>
-						<a class="active" href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
+						<a class="active" href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ARTESANO</a>
 					</li>
 					<li>
-						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PRODUCTOS</a>
+						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR ARTESANO</a>
 					</li>
-				</ul><div>
-                            <span class="roboto-medium">ARTESANO:</span> 
-                  			<form action="" style="display: inline-block !important;">
-                            	Carlos Alfaro
-                                <button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>
-                            </form>
-                        </div>	
+				</ul>
 			</div>
 			
 			<!-- Content -->
 			<div class="container-fluid">
 				<div class="table-responsive">
-					<table class="table table-dark table-sm" id="dataTables-example" id="listaProductos" name="listaProd">
+					<table class="table table-dark table-sm" id="dataTables-example" id="listaArtesanos" name="listaArtesanos">
 						<thead>
 							<tr class="text-center roboto-medium">
 								<th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-								<th>PRECIO</th>
-								<th>STOCK</th>								
-								<th>CATEGORIA</th>
-                                <th>PRODUCTO</th>
-								<th>ACTUALIZAR</th>
-								<th>ELIMINAR</th>
+                                <th>COMUNIDAD</th>
+								<th>ESPECIALIDAD</th>							
+								<th>CALIFICACION</th>
+                                <th>DETALLES</th>
 							</tr>
 						</thead>
 						<tbody>
                         @if(!empty($datos) && count($datos) > 0)
                         @foreach($datos as $item)
 							<tr class="text-center" >
-								<th>{{ $item->nombreP }}</th>
-								<th>{{ $item->descripcionP }}</th>
-								<th>{{ $item->precioP }} Bs</th>
-								<th>{{ $item->stock }}</th>
-                                <th>  {{ $item->categoria ? $item->categoria->nombreCa : 'Sin categoría' }} </th>
-								<th><img src="{{ url($item->imgP) }}" style="max-width: 100px; max-height: 100px;"></th>
+								<th>  {{ $item->user->nombre }} {{ $item->user->paterno }} {{ $item->user->materno }} </th>
+								<th>{{ $item->comunidad->nombreCo }}</th>
+								<th>{{ $item->especialidadA }} </th>
+                                <th>{{ $item->calificacionA }} </th>
 								<td>
-									<a href="{{route('productos.editar', $item->id_producto) }}" class="btn btn-success">
-	  									<i class="fas fa-sync-alt"></i>	
+									<a href="{{route('lista.ProductosArtesanos', $item->id_artesano) }}" class="btn btn-success" title='Visualizar los productos del {{ $item->user->nombre }}'  >
+	  									<i class="fas fa-eye"></i>	
 									</a>
-								</td>
-								<td>
-									<form action="">
-										<button type="button" class="btn btn-warning">
-		  									<i class="far fa-trash-alt"></i>
-										</button>
-									</form>
 								</td>
 							</tr>
                             @endforeach
                             @else
-                            <tr>
-                                <td colspan="5" class="text-center">No hay productos disponibles</td>
+                            <tr><?php  dd('Método liddhhhhdstaP fue llamado'); ?>
+                                <td colspan="5" class="text-center">No hay artesanos disponibles</td>
                             </tr>
                             @endif
 						</tbody>
