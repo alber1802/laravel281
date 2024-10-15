@@ -18,19 +18,18 @@ return new class extends Migration
             $table->string('estadoP', 50);
             $table->decimal('descuento', 10, 2);
             $table->unsignedBigInteger('id_carrito'); 
-            $table->string('numero_cuenta', 20);
+            $table->unsignedBigInteger('id_metodoP');
             $table->unsignedBigInteger('id_cliente');
-            $table->unsignedBigInteger('id_repartidor');
             $table->timestamps();
+
             $table->foreign('id_carrito')->references('id_carrito')->on('carritos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('numero_cuenta')->references('numero_cuenta')->on('tarjetas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_metodoP')->references('id_metodoP')->on('pagos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidos')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.9
      */
     public function down(): void
     {

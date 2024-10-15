@@ -176,6 +176,12 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+
     <!-- Start Wishlist-->
 
     <div class="wishlist-box-main">
@@ -241,7 +247,7 @@
                     <!-- Mover el botón "Ir a carrito" aquí -->
                     <div class="pt-5 text-end">
                         <h6 class="mb-0">
-                            <a href=" " class="btn btn-primary">
+                            <a href="{{ route('carrito.mostrar')}}" class="btn btn-primary">
                                 Ir a carrito <i class="fas fa-long-arrow-alt-right ms-2"></i>
                             </a>
                         </h6>
