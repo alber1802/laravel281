@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Producto;
+use App\Models\Artesano;
+use App\Models\Publica;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Storage;
-
-
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -20,64 +20,106 @@ class ProductoController extends Controller
 
         return redirect()->route('PaginasHome.lisProductos')->with('error', 'Producto no encontrado.');
     }
+
+    public function eliminarProducto($id_producto)
+    {
+        $producto = Producto::findOrFail($id_producto);
+        $producto->delete();
+
+        return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto eliminado exitosamente');
+    }
+
     public function update(Request $request, $id)
     {
-        //dd('Método liddhhhhdstaP fue llamado'); 
+        //dd($request->all());
         $validatedData = $request->validate([
-           
-        'nombreP' => 'required|string|max:255',
-        'descripcionP' => 'required|string',
-        'materialP' => 'required|string|max:255',
-        'precioP' => 'required|numeric',
-        'stock' => 'required|integer',
-        'colorP' => 'required|string|max:255',
-        'tipoP' => 'required|string|max:255',
-        'id_categoria' => 'required|integer',
-        ]);
-        
+          
+                'nombreP' => 'required|string|max:255',
+                'descripcionP' => 'required|string',
+                'materialP' => 'required|string|max:255',
+                'precioP' => 'required|numeric',
+                'stock' => 'required|integer',
+                'colorP' => 'required|string|max:255',
+                'tipoP' => 'required|string|max:255',
+                'id_categoria' => 'required|integer',
+                'devolucionP' => 'nullable|string|max:255', 
+                'certificacionP' => 'nullable|string|max:255', 
+                'descuentoP' => 'nullable|numeric', 
+                'metodoP' => 'nullable|string|max:255', 
+                'costoEnvio' => 'nullable|numeric', 
+                'tiempoEntrega' => 'nullable|string|max:255',
+                'garantiaP' => 'nullable|string|max:255', 
+                'autP' => 'nullable|string|max:255', 
+                 
+            ]);
+            
  
         $producto = Producto::find($id);
-        $producto->nombreP = $request->nombreP;
+        $producto->nombreP = $request->nombreP; 
         $producto->descripcionP = $request->descripcionP;
         $producto->materialP = $request->materialP;
         $producto->precioP = $request->precioP;
         $producto->stock = $request->stock;
         $producto->colorP = $request->colorP;
         $producto->tipoP = $request->tipoP;
+
         $producto->id_categoria = $request->id_categoria;
 
-  
     if ($request->hasFile('imgP')) {
    
         $imagenes = $request->file('imgP')->store('public/imagenesProductos');
-        $imgP = Storage::url($imagenes);
-        $producto->imgP = $imgP;
+        $producto->imgP = str_replace('public/', '', $imagenes);
+        //$imgP = Storage::url($imagenes);
+        //$producto->imgP = $imgP;
     }
+    if ($request->hasFile('imgP2')) {
+   
+        $imagenes = $request->file('imgP2')->store('public/imagenesProductos');
+        $producto->imgP2 = str_replace('public/', '', $imagenes);
+    }
+    if ($request->hasFile('imgP3')) {
+   
+        $imagenes = $request->file('imgP3')->store('public/imagenesProductos');
+        $producto->imgP = str_replace('public/', '', $imagenes);
+    }
+        $producto->devolucionP = $request->devolucionP;
+        $producto->certificacionP = $request->certificacionP;
+        $producto->descuentoP = $request->descuentoP;
+        $producto->metodoP = $request->metodoP;
+        $producto->costoEnvio = $request->costoEnvio;
+        $producto->tiempoEntrega = $request->tiempoEntrega;
+        $producto->garantiaP = $request->garantiaP;
+        $producto->autP = $request->autP;
+        $producto->id_categoria = $request->id_categoria;
 
-
-    $producto->save();
-    return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto actualizado exitosamente');
+        $producto->save();
+        
+        
+        return redirect()->route('PaginasHome.lisArtesano')->with('success', 'Producto creado con éxito.');
+    
     }
 
     public function editar($id)
     {
-    
-    $producto = Producto::findOrFail($id);
-    return view('PaginasHome.editarProductos', compact('producto'));
+       
+            $producto = Producto::findOrFail($id);
+            $categorias = Categoria::all();
+            return view('PaginasHome.editarProductos', [
+                'producto' => $producto,
+                'categorias' => $categorias
+            ]); 
+               
     }
-
-
-    public function listaP()
-    {
-        $datos = Producto::with('categoria')->get();
-        return view('PaginasHome.lisProductos', ['datos' => $datos]); 
-    }
-
-    public function registerP(Request $request)
+    public function adicionar(Request $request, $id_usuario)
     {  
+
+        //dd('Método liddhhhhdstaP fue llamado'); 
         $request->validate([
             'imgP' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'imgP2' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'imgP3' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
         $producto = new Producto();
         $producto->nombreP = $request->nombreP; 
         $producto->descripcionP = $request->descripcionP;
@@ -86,19 +128,45 @@ class ProductoController extends Controller
         $producto->stock = $request->stock;
         $producto->colorP = $request->colorP;
         $producto->tipoP = $request->tipoP;
-       
+
+
     if ($request->hasFile('imgP')) {
    
         $imagenes = $request->file('imgP')->store('public/imagenesProductos');
         $imgP = Storage::url($imagenes);
         $producto->imgP = $imgP;
     }
-
+    if ($request->hasFile('imgP2')) {
+   
+        $imagenes = $request->file('imgP2')->store('public/imagenesProductos');
+        $imgP2 = Storage::url($imagenes);
+        $producto->imgP2 = $imgP2;
+    }
+    if ($request->hasFile('imgP3')) {
+   
+        $imagenes = $request->file('imgP3')->store('public/imagenesProductos');
+        $imgP3 = Storage::url($imagenes);
+        $producto->imgP3 = $imgP3;
+    }
+        $producto->devolucionP = $request->devolucionP;
+        $producto->certificacionP = $request->certificacionP;
+        $producto->descuentoP = $request->descuentoP;
+        $producto->metodoP = $request->metodoP;
+        $producto->costoEnvio = $request->costoEnvio;
+        $producto->tiempoEntrega = $request->tiempoEntrega;
+        $producto->garantiaP = $request->garantiaP;
+        $producto->autP = $request->autP;
         $producto->id_categoria = $request->id_categoria;
+    
         $producto->save();
-//dd('Método liddhhhhdstaP fue llamado'); 
-        return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto creado con éxito.');
-
+        
+        $publica = new Publica();
+        $publica->id_artesano = $id_usuario;
+        $publica->id_producto = $producto->id_producto; 
+        $publica->fechaP = now();
+        $publica->estadoP = 7;
+        $publica->save();
+        return redirect()->route('PaginasHome.lisArtesano')->with('success', 'Producto creado con éxito.');
     } 
     public function registerC(Request $request){
         $categoria = new Categoria();
@@ -110,8 +178,17 @@ class ProductoController extends Controller
     }
 
     
+    
+    public function artesano_id($id_usuario)
+    {    
+        $categorias = Categoria::all(); 
+        return view('PaginasHome.agregarProductos', [
+            'id_usuario' => $id_usuario,
+            'categorias' => $categorias 
+    ]);
+    }
 
-
+  
 }
 
 

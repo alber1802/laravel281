@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function artesanos()
     {
-        return $this->hasMany(Artesano::class); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->hasMany(Artesano::class, 'id_artesano'); // Relaciona el 'user_id' con el modelo 'User'
     }
 
     public function recibes()

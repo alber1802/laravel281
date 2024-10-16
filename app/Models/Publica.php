@@ -11,15 +11,14 @@ class Publica extends Model
     public $incrementing = false;
     protected $primaryKey = ['id_artesano', 'id_producto'];
     protected $guarded = [];
-
+    protected $table = 'publicas'; 
     public function artesano()
     {
-        return $this->belongsTo(Artesano::class); // Relación con el modelo 'Artesano'
-    }
-    
-    public function producto()
-    {
-        return $this->belongsTo(Producto::class); // Relación con el modelo 'Artesano'
+        return $this->belongsTo(Artesano::class,'id_artesano'); // Relación con el modelo 'Artesano'
     }
 
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'id_producto', 'id_producto'); // Ajusta los nombres de las claves según tu base de datos
+    }
 }
