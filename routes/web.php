@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
@@ -13,7 +13,9 @@ use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
-
+use App\Http\Controllers\TarjetaController;
+use App\Http\Controllers\QrController;
+use App\Http\Controllers\PaypalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,10 +88,22 @@ Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name(
 //-----------------------------CARRITO Y METODO EPAGO-------------------------//
 
 //listar productos en la tienda para añadirlos a carrito
+
 Route::get('/Lista-tienda', [CarritoController::class, 'listarProductos'])->name('carrito.tienda');
+Route::get('/Lcarrito', [CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
+
 Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto'])->name('agregar.producto');
 
-//--------------------------------------------------------------------------------
+Route::delete('/carrito/eliminar/{id_producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+
+Route::post('/update-quantity', [CarritoController::class, 'updateQuantity']);//
+
+Route::post('/tarjeta/agregar', [TarjetaController::class, 'agregarTarjeta'])->name('tarjeta.agregar');
+Route::post('/pedido/agregar', [PedidoController::class, 'agregarPedido'])->name('pedido.agregar');
+
+Route::post('/qr', [QrController::class, 'crearQr'])->name('crear.qr');
+
+Route::post('/agregar-paypal', [PaypalController::class, 'agregarPaypal'])->name('agregar.paypal');
 
 
 //********************************PERFILES-************************************** *//

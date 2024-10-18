@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tarjeta extends Model
+class Paypal extends Model
 {
     use HasFactory;
 
-    public $incrementing = true;
+
+    protected $table = 'paypals';
+
     protected $fillable = [
         'id_metodoP',
-        'numero_cuenta',
-        'nombre_titular',
-        'fecha_expiracion',
-        'cvv',
-        'tipo',
+        'correo',
+        'contraseña',
+        'tipo_pago',
+        'monto',
     ];
 
     public function pagos()

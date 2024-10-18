@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tarjetas', function (Blueprint $table) {
-            $table->id(); // ID único para la tarjeta
+        Schema::create('qrs', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_metodoP'); // ID único para la tarjeta
-            $table->string('numero_cuenta', 19);
-            $table->string('nombre_titular', 255);
-            $table->string('fecha_expiracion');
-            $table->string('cvv');
-            $table->string('tipo', 50);
+            $table->string('pago_codigo');
             $table->timestamps();
             
             $table->foreign('id_metodoP')->references('id_metodoP')->on('pagos')->onDelete('cascade');
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tarjetas');
+        Schema::dropIfExists('qrs');
     }
 };
