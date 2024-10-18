@@ -142,6 +142,7 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
+        //dd($request->all());
         // Validar los campos de entrad
             $credentials = [
                 "email"  =>  $request->email,

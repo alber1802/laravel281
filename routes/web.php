@@ -42,22 +42,12 @@ Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
-//--------------vizualizar la lista de productos, agregar nuevo y detalles
-Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
-Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
-
-Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name('validar-registroP');
-Route::post('/validar-registroCategoria', [ProductoController::class,'registerC'])->name('validar-registroCategoria');
-
-Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
-
-
-//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 //lista de artesanos
 Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
 
-//muestra la lista de prodctos del artesano x
+//muestra la lista de productos del artesano x
 Route::get('/lista.ProductosArtesanos/{id}', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
 
 //muestra la lista de productos
@@ -117,12 +107,10 @@ Route::view('/Actualizar-PerfilR', "Perfil.ActualizarRepartidor")->name('Actuali
 
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');
 
-Route::view('/MetodoPagado', "PaginasHome.Checkout")->name('MetodoPagado');
+Route::view('/MetodoPagado', "PaginasHome.DetalleProductos")->name('MetodoPagado');
+
 Route::view('/Galeria', "PaginasHome.Galeria")->name('Galeria');
 Route::view('/nosotros', "PaginasHome.Nosotros")->name('nosotros');
-
-
-
 Route::view('/Verificacion', "VerificacionToken")->name('Verificacion');
 Route::view('/VerImagen','PruebaGmail')->name('VerImagen');
 
@@ -170,3 +158,4 @@ Route::post('/createfile', [FileController::class,'store'])->name('createfile');
 Route::get('/', function () {
     return view('welcome');
 });
+

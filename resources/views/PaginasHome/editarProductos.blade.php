@@ -157,7 +157,7 @@
                 Bienvenido a la sección de ingreso edicion del productos, donde podrás modificar artículos a nuestro catálogo. Esta funcionalidad está diseñada para facilitar la gestión de productos, permitiendo a los usuarios ingresar información detallada sobre cada artículo, como su nombre, descripción, precio, stock disponible y categoría. 
 				</p>
 			</div>
-			
+	<!-- Content 	
 			<div class="container-fluid">
 				<ul class="full-box list-unstyled page-nav-tabs">
                    
@@ -168,10 +168,10 @@
 				</ul>
 					
 			</div>
-			
+			-->	
 		
 
-			<!-- Content -->
+			
 			<div class="container-fluid">
 				<form name="producto-modificar" class="form-neon" action="{{ route('producto-modificar', $producto->id_producto) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -217,24 +217,43 @@
 						<legend><i class="fas fa-file-image"></i> &nbsp; Imagenes del Producto</legend>
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-12 col-md-6">
+							<div class="col-12 col-md-6">
+							<div id="carousel-{{ $producto->id_producto }}" class="carousel slide" data-ride="carousel">
+                    			<div class="carousel-inner">
+                        		@if($producto->imgP)
+                        			<div class="carousel-item active">
+                            			<img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        			</div>
+                        		@endif
+                        		@if($producto->imgP2)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        		</div>
+                        		@endif
+                        		@if($producto->imgP3)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        		</div>
+                        		@endif
+                    		</div>
+                    		<a class="carousel-control-prev" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="prev">
+                        		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Previous</span>
+                    		</a>
+                    		<a class="carousel-control-next" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="next">
+                        		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Next</span>
+                    		</a>
+                		</div>
+						</div>
+								<div class="col-12 col-md-4">
 									<div class="form-group">
 										<label for="imagen">Imagen Frontal del producto <br><p>La vista frontal se proyecta hacia el plano frontal. </p></label>
-										<img src="{{ Storage::url($producto->imgP) }}" style="max-width: 100px; max-height: 100px;">
+							
                                         <input type='file' value="Storage::url($producto->imgP)" id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
 										<label for="imagen">Imagen Superior del producto<br><p> La vista superior se proyecta hacia el plano horizontal.  </p></label>
-										<img src="{{ Storage::url($producto->imgP2) }}"  style="max-width: 100px; max-height: 100px;">
                                         <input type='file' id="imgP2" name="imgP2" value="{{ Storage::url($producto->imgP2) }}"  accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
 										<label for="imagen">Imagen Lateral del producto<br><p>La vista lateral se proyecta hacia el plano de perfil. </p></label>
-										<img src="{{ Storage::url($producto->imgP3) }}" style="max-width: 100px; max-height: 100px;">
                                         <input type='file' value="{{ Storage::url($producto->imgP3) }}" id="imgP3" name="imgP3" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
 									</div>
 								</div>

@@ -26,7 +26,7 @@ class ProductoController extends Controller
         $producto = Producto::findOrFail($id_producto);
         $producto->delete();
 
-        return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto eliminado exitosamente');
+        return redirect()->route('PaginasHome.lisPublica')->with('success', 'Producto eliminado exitosamente');
     }
 
     public function update(Request $request, $id)

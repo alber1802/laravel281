@@ -44,7 +44,7 @@
 			<div class="full-box nav-lateral-content">
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="imagen/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
 						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
 					</figcaption>
@@ -207,7 +207,7 @@
     <tbody>
         @if(!empty($datos) && count($datos) > 0)
             @foreach($datos as $item)
-                @foreach($item->productos as $producto) <!-- Asegúrate de acceder a productos aquí -->
+                @foreach($item->productos as $producto) 
                     <tr class="text-center">
                         <td>{{ $producto->nombreP }}</td>
                         <td>{{ $producto->descripcionP }}</td>
@@ -215,7 +215,35 @@
                         <td>{{ $producto->stock }}</td>
                         <td>{{ $producto->categoria ? $producto->categoria->nombreCa : 'Sin categoría' }}</td>
                         <td>{{ $item->fechaP }}</td>
-                        <td><img src="{{  Storage::url($producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+						<div id="carousel-{{ $producto->id_producto }}" class="carousel slide" data-ride="carousel">
+                    			<div class="carousel-inner">
+                        		@if($producto->imgP)
+                        			<div class="carousel-item active">
+                            			<img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                        			</div>
+                        		@endif
+                        		@if($producto->imgP2)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                        		</div>
+                        		@endif
+                        		@if($producto->imgP3)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                        		</div>
+                        		@endif
+                    		</div>
+                    		<a class="carousel-control-prev" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="prev">
+                        		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Previous</span>
+                    		</a>
+                    		<a class="carousel-control-next" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="next">
+                        		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Next</span>
+                    		</a>
+                		</div>
+						</td>
                         <td>
 						<a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}"  class="btn btn-success">
 
@@ -302,5 +330,6 @@
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 
 	<script src="{{asset('js/productosv2/js/main.js')}}" ></script>
+
 </body>
 </html>
