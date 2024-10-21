@@ -9,18 +9,22 @@ class Tarjeta extends Model
 {
     use HasFactory;
 
+    protected $table = 'tarjetas';
+    protected $primaryKey = 'id_tarjeta';
     public $incrementing = true;
+
     protected $fillable = [
-        'id_metodoP',
+        'id_pago',
         'numero_cuenta',
         'nombre_titular',
         'fecha_expiracion',
         'cvv',
-        'tipo',
+        'tipo_tarjeta',
+        'monto',
     ];
 
-    public function pagos()
+    public function pago()
     {
-        return $this->hasMany(Pago::class,'id_metodoP');
+        return $this->belongsTo(Pago::class,'id_pago');
     }
 }

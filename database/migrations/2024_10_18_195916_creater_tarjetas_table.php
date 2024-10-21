@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paypals', function (Blueprint $table) {
-            $table->id('id_paypal');
-            $table->unsignedBigInteger('id_pago'); // ID único parq9
-            $table->string('correo');
-            $table->string('tipo_tarjeta'); 
+        Schema::create('tarjetas', function (Blueprint $table) {
+            $table->id('id_tarjeta');
+            $table->unsignedBigInteger('id_pago'); 
+            $table->string('numero_cuenta', 19);
+            $table->string('nombre_titular', 255);
+            $table->string('fecha_expiracion');
+            $table->string('cvv');
+            $table->string('tipo_tarjeta', 50);
             $table->decimal('monto', 10, 2);
-            $table->timestamps(); 
-
+            $table->timestamps();
+            
             $table->foreign('id_pago')->references('id_pago')->on('pagos')->onDelete('cascade');
-
-
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paypals');
+        Schema::dropIfExists('tarjetas');
     }
 };

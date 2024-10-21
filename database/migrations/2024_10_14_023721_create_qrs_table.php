@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('qrs', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_metodoP'); // ID único para la tarjeta
+            $table->id('id_qr'); // ID único para la tarjeta
+            $table->unsignedBigInteger('id_pago'); // ID único parq9
             $table->string('pago_codigo');
+            $table->decimal('monto', 10, 2);
             $table->timestamps();
             
-            $table->foreign('id_metodoP')->references('id_metodoP')->on('pagos')->onDelete('cascade');
+            $table->foreign('id_pago')->references('id_pago')->on('pagos')->onDelete('cascade');
         });
     }
 

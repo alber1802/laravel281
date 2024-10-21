@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
+<!-- Basi -->
 
 <head>
     <meta charset="utf-8">
@@ -10,15 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
+    <title>Commcraft - Catalogo</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="imagen/logo.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="imagen/logo.png">
-
+    <link rel="shortcut icon" href="{{ asset('imagen/logo.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ asset('imagen/logo.png') }}">
+     <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="{{ asset('css/pages/bootstrap.min.css') }}">
     <!-- Site CSS -->
@@ -26,9 +27,12 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('css/pages/responsive.css') }}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/pages/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages/catalogo.css') }}">
       <!-- importacion de script -->
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+     <!--para el mensaje-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
 </head>
@@ -72,7 +76,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="index.html"><img src="imagen/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="index.html"><img src="{{ asset('imagen/logo.png') }}" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -82,14 +86,9 @@
 						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="about.html">Sobre Nosotros</a></li>
 						<li class="dropdown active">
-							<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a>
+							<a href="#" class="nav-link dropdown-toggle arrow">TIENDA</a>
 							<ul class="dropdown-menu">
-								<li><a href="shop.html">Sidebar Shop</a></li>
-								<li><a href="shop-detail.html">Shop Detail</a></li>
-								<li><a href="cart.html">Cart</a></li>
-								<li><a href="checkout.html">Checkout</a></li>
-								<li><a href="my-account.html">My Account</a></li>
-								<li><a href="wishlist.html">CARRITO</a></li>
+								<li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="gallery.html">Galeria</a></li>
@@ -104,8 +103,8 @@
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                         <li class="side-menu"><a href="#">
 						<i class="fa fa-shopping-bag"></i>
-                            <span class="badge">3</span>
-							<p>My Cart</p>
+                            <span class="badge"></span>
+							<p>Mi Carrito</p>
 					</a></li>
                     </ul>
                 </div>
@@ -161,106 +160,73 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Lista De Compras</h2>
+                    <h2>CATALOGO</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">TIENDA</a></li>
-                        <li class="breadcrumb-item active">Lista De Compras</li>
+                        <li class="breadcrumb-item active">CATALOGO</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <!-- End All Title Box -->
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+
+
+<!-- Start CATALOGO-->
+<div class="py-3 py-md-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">NUESTROS PRODUCTOS</h1>
             </div>
-        @endif
-        @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
         </div>
-        @endif
-
-    <!-- Start Wishlist-->
-
-    <div class="wishlist-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre Producto</th>
-                                    <th>Precio </th>
-                                    <th>Detalles</th>
-                                    <th>Añadir</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                                    @foreach($productos as $item)
-                                    <tr>
-                                        <td class="thumbnail-img">
-                                            <a href="#">
-                                                <img class="img-fluid" src="{{ asset($item->imgP)}}" alt="" />
-                                            </a>
-                                        </td>
-                                        <td class="name-pr">
-                                            <input type="hidden" value="{{$item->id_producto}}" class="prod_id">
-                                            <a href="#">
-                                                {{$item->nombreP}}
-                                            </a>
-                                        </td>
-                                        <td class="price-pr">
-                                            <p>{{$item->precioP}} Bs.</p>
-                                        </td>
-                                        <td class="add-pr">
-                                            <button class="btn btn-primary">
-                                                <i class="fa fa-eye"></i> Ver
-                                            </button>
-                                        </td>
-                                        <td class="add-pr">
-                                            <form action="{{ route('agregar.producto')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id_producto" value="{{ $item->id_producto }}">
-                                                <button type="submit" class="btn btn-success">
-                                                    <i class="fa fa-shopping-cart"></i> Añadir
-                                                </button>
-                                            </form>
-                                        </td>
-                                        
-                                        <td class="remove-pr">
-                                            <a href="#">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                        </table>
+        <div class="row">
+            @foreach($productos as $item)
+            <div class="col-md-3 mb-4">
+                <div class="product-card">
+                    <div class="product-card-img">
+                        <label class="stock bg-success">En Stock</label>
+                        <img src="{{ asset($item->imgP) }}" alt="Laptop" class="img-fluid">
                     </div>
-                    <!-- Mover el botón "Ir a carrito" aquí -->
-                    <div class="pt-5 text-end">
-                        <h6 class="mb-0">
-                            <a href="{{ route('carrito.mostrar')}}" class="btn btn-primary">
-                                Ir a carrito <i class="fas fa-long-arrow-alt-right ms-2"></i>
+                    <div class="product-card-body">
+                        <p class="product-brand">ARTESANO</p>
+                        <h5 class="product-name">
+                            <a href="">
+                                {{$item->nombreP}}
                             </a>
-                        </h6>
+                        </h5>
+                        <div>
+                            <span class="selling-price">{{ number_format($item->precioP, 0) }} Bs.</span>
+                            <span class="original-price">{{ $item->precioP + 50 }} Bs.</span>
+                        </div>
+                        <div class="mt-2">
+                            <form action="{{ route('agregar.producto') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="id_producto" value="{{ $item->id_producto }}">
+                                <button type="submit" class="btn btn1">
+                                    <i class="fa fa-shopping-cart"></i> Añadir a carrito
+                                </button>
+                            </form>
+                            <a href="" class="btn btn1"><i class="fa fa-heart"></i></a>
+                            <a href="" class="btn btn1">Ver</a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
+
+        <div class="row">
+           <div class="col-md-12 mt-4">
+                <a href="{{route('carrito.mostrar')}}" class="btn btn-primary">Ir al Carrito</a> <!-- Botón de Ir al Carrito -->
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <!-- End Wishlist -->
-
-
-    <!-- End Wishli-->
+    <!-- End catalogo-->
 
     <!-- Start Instagram Feed  -->
     <div class="instagram-box">
@@ -460,10 +426,39 @@
     <script src="{{asset('js/pages/form-validator.min.js') }}"></script>
     <script src="{{asset('js/pages/contact-form-script.js') }}"></script>
     <script src="{{asset('js/pages/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
      <!--importe -->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <!--para el mensaje-->
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
      
+     <script>
+    $(document).ready(function() {
+        @if(session('carrito_vacio'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": "5000", // Tiempo en milisegundos
+            };
+            toastr.warning("{{ session('carrito_vacio') }}", 'Agrega productos!', { timeOut: 12000 });
+        @endif
+
+        @if(session('agregar_producto'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": "5000", // Tiempo en milisegundos
+            };
+            toastr.success("{{ session('agregar_producto') }}");
+        @endif
+    });
+    </script>
+
 </body>
 
 </html>

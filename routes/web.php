@@ -13,6 +13,7 @@ use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\TarjetaController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\PaypalController;
@@ -95,24 +96,36 @@ Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisPro
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
 
 
-//-----------------------------CARRITO Y METODO EPAGO-------------------------//
+//-----------------------------CARRITO Y METODO PAGO-------------------------//
 
-//listar productos en la tienda para añadirlos a carrito
-
-Route::get('/Lista-tienda', [CarritoController::class, 'listarProductos'])->name('carrito.tienda');
-Route::get('/Lcarrito', [CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
-
+//listar productos del catalogo
+Route::get('/catalogo',[CarritoController::class, 'Catalogo'])->name('ver.catalogo');
+//mostrar el carrito del cliente
+Route::get('/carrito',[CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
+//agregar productos al carrito desde catalogo
 Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto'])->name('agregar.producto');
-
+//eliminar el proucto del carrito
 Route::delete('/carrito/eliminar/{id_producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+//actualizar la cantidad desde carrito
+Route::post('/update-quantity', [CarritoController::class, 'updateQuantity']);
+//vista de pedido
+Route::view('/Pedido',"PaginasHome.Pedido")->name('ver.pedido'); //pagina Pedido
+//hacer el pedido desde carrito
+Route::post('/pedido', [PedidoController::class, 'crearPedido'])->name('pedido.crear');
+//ver los detalles del pedido
+Route::get('/pedido/detalles/{id_pedido}', [PedidoController::class, 'detalles'])->name('pedido.detalles');
 
-Route::post('/update-quantity', [CarritoController::class, 'updateQuantity']);//
-
+// Ruta para cancelar un pedido
+Route::delete('/pedidos/{id_pedido}/cancelar', [PedidoController::class, 'cancelar'])->name('pedido.cancelar');
+//vista de los metodos de pago
+Route::view('/Pago',"PaginasHome.MetodoPago")->name('ver.pago');
+//mostrar los metodos de pago(manda el id_pedido)
+Route::get('/pago/{id_pedido}', [PagoController::class, 'mostrarMetodos'])->name('metodo.pago');
+//pagar con tarjeta
 Route::post('/tarjeta/agregar', [TarjetaController::class, 'agregarTarjeta'])->name('tarjeta.agregar');
-Route::post('/pedido/agregar', [PedidoController::class, 'agregarPedido'])->name('pedido.agregar');
-
+//genra qr
 Route::post('/qr', [QrController::class, 'crearQr'])->name('crear.qr');
-
+//pagar con paypal
 Route::post('/agregar-paypal', [PaypalController::class, 'agregarPaypal'])->name('agregar.paypal');
 
 

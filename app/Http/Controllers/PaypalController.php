@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pago;
 use App\Models\Paypal;
-
+use App\Models\Pedido;
 
 use Illuminate\Http\Request;
 
@@ -11,30 +11,37 @@ class PaypalController extends Controller
     //
 
     public function agregarPaypal(Request $request)
-    {
-        $request->validate([
-            'correo' => 'required|email|max:255',
-            'contraseña' => 'required|string|max:255', 
-            'tipo_pago' => 'required|string|max:50',
-            'monto' => 'required|numeric',
-        ]);
+{
+    $request->validate([
+        'correo' => 'required|email',
+        'tipo_pago' => 'required|string',
+        'monto' => 'required|numeric',
+        'id_pedido' => 'required|exists:pedidos,id_pedido',
+    ]);
+
+    // Obtener el pedido
+    $pedido = Pedido::findOrFail($request->input('id_pedido'));
+
+    // Crear el registro de pago
+    $pago = Pago::create([
+        'id_cliente' => $pedido->id_cliente,
+        'id_pedido' => $pedido->id_pedido,
+        'monto' => $pedido->total_pagar,
+        'estado_pago' => 'pendiente',
+        'tipo_metodo' => 'paypal',
+    ]);
+    
+    // Guardar en la tabla de PayPa
+    Paypal::create([
+        'id_pago' => $pago->id_pago,
+        'correo' => $request->correo,
+        'tipo_tarjeta' => $request->tipo_pago,
+        'monto' => $pago->monto,
+    ]);
 
 
-        $pago = Pago::create([
-            'id_cliente' => $request->input('id_cliente'),
-            'tipo_metodo' => 'paypal',
-        ]);
-
-
-        $paypal = new Paypal();
-        $paypal->id_metodoP = $pago->id_metodoP; 
-        $paypal->correo = $request->input('correo');
-        $paypal->contraseña = bcrypt($request->input('contraseña'));
-        $paypal->tipo_pago = $request->input('tipo_pago');
-        $paypal->monto = $request->input('monto');
-        $paypal->save();
-
-        return redirect('/Lcarrito')->with('success', 'Método de pago PayPal agregado exitosamente.');
-    }
+    return redirect()->route('metodo.pago', ['id_pedido' => $pedido->id_pedido])
+                     ->with('paypal_agregado', 'Pago realizado correctamente.');
+}
 
 }

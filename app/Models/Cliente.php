@@ -13,7 +13,7 @@ class Cliente extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->belongsTo(User::class, 'id_cliente'); // Relaciona el 'user_id' con el modelo 'User'
     }
 
     public function resenas()

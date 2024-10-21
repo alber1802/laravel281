@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
+<!-- Basi -->
 
 <head>
     <meta charset="utf-8">
@@ -89,11 +89,7 @@
                         <li class="dropdown">
                             <a href="{{route('lisProductos')}}" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">PRODUCTOS</a> 
                             <ul class="dropdown-menu">
-								<li><a href="{{route('comercio')}}">Comercio Lista </a></li>
-								<li><a href="{{route('shop-detail')}}">Detalles de la Productos</a></li>
-                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>
-                                <li><a href="{{route('MetodoPagado')}}">Metodo de Pago</a></li>              
-                                <li><a href="#">Wishlist</a></li>
+                                <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="">Gallery</a></li>

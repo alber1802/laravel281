@@ -11,11 +11,11 @@ use App\Models\Cliente;
 
 class CarritoController extends Controller
 {
-    public function listarProductos(){
-        $productos = Producto::all();
-        return view('PaginasHome.ListaDeseos', compact('productos')); 
 
-    }   
+    public function Catalogo(){
+        $productos = Producto::all();
+        return view('PaginasHome.Catalogo', compact('productos')); 
+    }  
     
     
     //crear carrito o agregar producto y actualizar cantidad
@@ -48,10 +48,11 @@ class CarritoController extends Controller
     }
 
 
-    return redirect()->back()->with('success', 'Producto agregado exitosamente.');
+    return back()->with('agregar_producto', 'Producto agregado exitosamente.');
     }
 
 
+    
 
     public function mostrarCarrito()
     {
@@ -60,18 +61,19 @@ class CarritoController extends Controller
 
         $carrito = Carrito::where('id_cliente', $id_cliente)->first();
 
-         //si esta vaciio
+         //si esta vacio
+        
         if (!$carrito) {
-            redirect()->back()->with('error', 'Carrito vacio.');
+            return back()->with('carrito_vacio', 'Tu carrito está vacío.');
+
+
         }else{
 
             // Obtener los productos del carrito
             $productos = Incluye::where('id_carrito', $carrito->id_carrito)
             ->with('producto') 
             ->get();
-
-             return view('PaginasHome.ListaCarrito', ['productos' => $productos]);
-
+            return view('PaginasHome.Carrito', ['productos' => $productos]);
         }
     }
 
@@ -91,10 +93,10 @@ class CarritoController extends Controller
 
         if ($deleted) {
 
-            return redirect()->back()->with('success', 'Producto eliminado del carrito.');
+            return redirect()->back()->with('eliminado_carrito', 'Producto eliminado del carrito.');
         } else {
 
-            return redirect()->back()->with('error', 'Producto no encontrado en el carrito.');
+            return redirect()->back()->with('eliminado_error', 'Producto no encontrado en el carrito.');
        }
     }
 

@@ -10,7 +10,9 @@ class Pedido extends Model
     use HasFactory;
     
     protected $table = 'pedidos';
+    protected $primaryKey = 'id_pedido';
     public $incrementing = true;
+    protected $dates = ['fecha_pedido'];
     
     protected $fillable = [
         'total_pagar',
@@ -19,7 +21,6 @@ class Pedido extends Model
         'estadoP',
         'id_carrito',
         'id_cliente',
-        'id_metodoP',
     ];
 
     public function carrito()
@@ -27,22 +28,12 @@ class Pedido extends Model
         return $this->belongsTo(Carrito::class, 'id_carrito');
     }
 
-    public function pagos()
-    {
-        return $this->belongsTo(Pago::class, 'id_metodoP');
-    }
 
     public function cliente()
     {
         return $this->belongsTo(Cliente::class,'id_cliente');
     } 
 
-    public function repartido()
-    {
-        return $this->belongsTo(Repartido::class,'id_repartidor'); 
-    }
-
-    
     public function productos()
     {
         return $this->hasManyThrough(
@@ -53,6 +44,11 @@ class Pedido extends Model
             'id_carrito',
             'id_carrito'  
         );
+    }
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'id_pedido', 'id_pedido');
     }
     
 
