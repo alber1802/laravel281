@@ -205,65 +205,67 @@
         </tr>
     </thead>
     <tbody>
-        @if(!empty($datos) && count($datos) > 0)
+	@if(!empty($datos) && count($datos) > 0)
             @foreach($datos as $item)
-                @foreach($item->productos as $producto) <!-- Asegúrate de acceder a productos aquí -->
+                 <!-- Asegúrate de acceder a productos aquí -->
                     <tr class="text-center">
-                        <td>{{ $producto->nombreP }}</td>
-                        <td>{{ $producto->descripcionP }}</td>
-                        <td>{{ $producto->precioP }} Bs</td>
-                        <td>{{ $producto->stock }}</td>
-                        <td>{{ $producto->categoria ? $producto->categoria->nombreCa : 'Sin categoría' }}</td>
+                        <td>{{ $item->producto->nombreP }}</td>
+                        <td>{{ $item->producto->descripcionP }}</td>
+                        <td>{{ $item->producto->precioP }} Bs</td>
+                        <td>{{ $item->producto->stock }}</td>
+                        <td>{{ $item->producto->categoria ? $item->producto->categoria->nombreCa : 'Sin categoría' }}</td>
                         <td>{{ $item->fechaP }}</td>
-                        <td><img src="{{  Storage::url($producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
-                        <td>
-						<a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}"  class="btn btn-success">
+                        <td><img src="{{  asset($item->producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
+                        <!-- Storage::url($item->producto->imgP) esto va enves de asset -->
+						<td>
+						<a href="{{ route('productos.editar', $item->producto->id_producto) }}" title="Modificar el producto {{ $item->producto->nombreP }}"  class="btn btn-success">
 
                                 <i class="fas fa-sync-alt"></i>
                             </a>
                         </td>
                         <td>
 
-						<a data-toggle="modal" data-target="#ModalCliente{{ $producto->id_producto }}" 
-   class="btn btn-warning" 
-   title="Eliminar el producto {{ $producto->nombreP }}" 
-   data-id="{{ $producto->id_producto }}" 
-   data-nombre="{{ $producto->nombreP }}">
-    <i class="far fa-trash-alt"></i> 
-</a>
+						<a data-toggle="modal" data-target="#ModalCliente{{ $item->producto->id_producto }}" 
+							class="btn btn-warning" 
+							title="Eliminar el producto {{ $item->producto->nombreP }}" 
+							data-id="{{ $item->producto->id_producto }}" 
+							data-nombre="{{ $item->producto->nombreP }}">
+								<i class="far fa-trash-alt"></i> 
+						</a>
 
-<!-- Modal -->
-<div class="modal fade" id="ModalCliente{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $producto->id_producto }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $producto->id_producto )}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="form-group">
-                            <label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $producto->nombreP }}?</label>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-                <div class="modal-footer" style="justify-content: center;">
-                    <button type="submit" class="btn btn-danger btn-sm">
-					<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-                    </tr>
-                @endforeach
+						<!-- Modal -->
+						<div class="modal fade" id="ModalCliente{{ $item->producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $item->producto->id_producto }}" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $item->producto->id_producto )}}" method="POST" enctype="multipart/form-data">
+										@csrf
+										<div class="modal-body">
+											<div class="container-fluid">
+												<div class="form-group">
+													<label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $item->producto->nombreP }}?</label>
+												</div>
+											</div>
+											<br>
+										</div>
+										<div class="modal-footer" style="justify-content: center;">
+											<button type="submit" class="btn btn-danger btn-sm">
+											<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
+											</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</tr>
+                
             @endforeach
         @else
             <tr>
                 <td colspan="8" class="text-center">No hay productos disponibles</td>
             </tr>
         @endif
+
     </tbody>
 </table>
 				</div>

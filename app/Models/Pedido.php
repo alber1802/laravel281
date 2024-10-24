@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+//use App\Models\User;
 
 class Pedido extends Model
 {
@@ -20,7 +21,7 @@ class Pedido extends Model
         'fecha_pedido',
         'estadoP',
         'id_carrito',
-        'id_cliente',
+        'id_usuario',
     ];
 
     public function carrito()
@@ -50,6 +51,10 @@ class Pedido extends Model
     {
         return $this->hasMany(Pago::class, 'id_pedido', 'id_pedido');
     }
-    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
+        
 
 }

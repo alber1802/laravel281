@@ -41,6 +41,7 @@ class GaleriaController extends Controller
             ->where('id_producto', '!=', $id_producto) // Excluir el producto actual
             ->limit(8) // Mostrar solo 4 productos relacionados
             ->get();
+            
     
         // Pasar los datos a la vista
         return view('PaginasHome.shop-detail', compact('detalles', 'productosRelacionados'));

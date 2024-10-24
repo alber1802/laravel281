@@ -49,9 +49,10 @@ class LoginController extends Controller
         $cliente->save();
 
         Auth::login($user);
-        $this->verificarToken();
+         /* $this->verificarToken();
 
-        return redirect()->route('Verificacion');
+        return redirect()->route('Verificacion');*/
+        return redirect(route('PerfilUsuario'));
   }
 
     public function registerArtesano(Request $request){
@@ -93,9 +94,10 @@ class LoginController extends Controller
         $artesano->save();
 
         Auth::login($user);
-        $this->verificarToken();
+       /* $this->verificarToken();
 
-        return redirect()->route('Verificacion');
+        return redirect()->route('Verificacion');*/
+        return redirect(route('PerfilUsuario'));
     }
 
     public function registerRepartidor(Request $request){
@@ -136,9 +138,10 @@ class LoginController extends Controller
         $repartidor->save();
 
         Auth::login($user);
-        $this->verificarToken();
+       /* $this->verificarToken();
 
-        return redirect()->route('Verificacion');
+        return redirect()->route('Verificacion');*/
+        return redirect(route('PerfilUsuario'));
     }
 
     public function login(Request $request){

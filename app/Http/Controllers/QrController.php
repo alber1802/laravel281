@@ -5,6 +5,7 @@ use App\Models\Pago;
 use App\Models\Qr;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QrController extends Controller
 {
@@ -13,9 +14,9 @@ class QrController extends Controller
 
         // Obtener el pedido
         $pedido = Pedido::findOrFail($request->input('id_pedido'));
-
+        //dd($pedido->toArray());
         $pago = Pago::create([
-            'id_cliente' => $pedido->id_cliente,
+            'id_usuario' => $pedido->id_usuario,
             'id_pedido' => $pedido->id_pedido,
             'monto' => $pedido->total_pagar,
             'estado_pago' => 'cancelado', 

@@ -16,8 +16,8 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="imagen/logo.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="imagen/logo.png">
+    <link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/pages/bootstrap.min.css') }}">
@@ -51,7 +51,7 @@
                     <div class="our-link">
                         <ul>
                             <li><a href="{{route('PerfilUsuario')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
+                            <li><a href="{{route('contactanos')}}"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
                             <li><a href="{{route('nosotros')}}"><i class="fas fa-headset"></i> CONTACTANOS</a></li>
                         </ul>
                     </div>
@@ -85,19 +85,17 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">HOME</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">SOBRE NOSOTROSs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('nosotros')}}">SOBRE NOSOTROSs</a></li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">PRODUCTOS</a> 
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a> 
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
 								<li><a href="{{route('Lista-Productos-Comercio')}}">Comercio Lista </a></li>
-								<li><a href="{{route('shop-detail')}}">Detalles de la Productos</a></li>
-                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>
-                                <li><a href="{{route('MetodoPagado')}}">Metodo de Pago</a></li>              
+                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>             
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="{{route('contactanos')}}">CONTACTANOS</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

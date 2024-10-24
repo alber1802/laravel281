@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('productos', function (Blueprint $table) {
             $table->string('imgP2')->after('imgP');
-            $table->string('imgP3')->after('imgP2');
-            $table->integer('descuentoP')->after('imgP3');
+            $table->string('imgP3')->after('imgP2')->nullable();
+            $table->integer('descuentoP')->after('imgP3')->nullable();
             $table->string('metodoP', 50)->after('descuentoP');
             $table->integer('costoEnvio')->after('metodoP');
             $table->integer('tiempoEntrega')->after('costoEnvio');

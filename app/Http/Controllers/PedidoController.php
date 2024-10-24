@@ -14,7 +14,7 @@ class PedidoController extends Controller
     public function detalles($id_pedido)
     {
         // Obtener el pedido
-        $pedido = Pedido::with('cliente.user')->findOrFail($id_pedido);
+        $pedido = Pedido::with('users')->findOrFail($id_pedido);
 
         // Obtener los productos del carrito relacionado al pedido
         $productos = Incluye::where('id_carrito', $pedido->id_carrito)
@@ -26,6 +26,8 @@ class PedidoController extends Controller
 
     public function crearPedido(Request $request)
     {
+        $usuario = Auth::user();
+
         $request->validate([
             'id_carrito' => 'required|exists:carritos,id_carrito',
         ]);
@@ -63,7 +65,7 @@ class PedidoController extends Controller
         $pedido->estadoP = 'Pendiente';
         $pedido->descuento = $totalDescuento;
         $pedido->id_carrito = $carrito->id_carrito;
-        $pedido->id_cliente = $carrito->id_cliente; 
+        $pedido->id_usuario = $carrito->id_usuario; 
         $pedido->save();
         // Redirigir a la página de detalles del pedido usando el id_pedido
         return redirect()->action([PedidoController::class, 'detalles'], ['id_pedido' => $pedido->id_pedido]);
@@ -86,7 +88,7 @@ class PedidoController extends Controller
 
     public function agregarPedido(Request $request)
     {
-
+        
         $id_cliente = $request->input('id_cliente');
         $pago = Pago::where('id_cliente', $id_cliente)->latest()->first();
 

@@ -14,7 +14,7 @@ class Pago extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'id_cliente',
+        'id_usuario',
         'id_pedido',
         'monto',
         'tipo_metodo',

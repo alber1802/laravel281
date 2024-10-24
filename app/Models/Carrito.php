@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Producto; // Importamos el modelo Producto
-use App\Models\Incluye;  // Importamos el modelo Incluye si lo necesitas
+use App\Models\Incluye;
+use App\Models\User;  // Importamos el modelo Incluye si lo necesitas
 
 class Carrito extends Model
 {
@@ -15,7 +16,7 @@ class Carrito extends Model
     protected $primaryKey = 'id_carrito';
     protected $fillable = [
         'id_carrito',
-        'id_cliente',
+        'id_usuario',
         'created_at',
         'updated_at'
     ];
@@ -31,9 +32,10 @@ class Carrito extends Model
                     ->withPivot('cantidadPP', 'created_at', 'updated_at');
     }
 
-    /**public function pedido()
-        {
-            return $this->hasMany(Pedido::class, 'id_carrito');
-        }
-    */
+    public function users()
+    {
+            return $this->hasMany(User::class, 'id_usuario','id_usuario');
+    }
+    
+    
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Producto;
 use App\Models\Carrito;
 use App\Models\Incluye;
@@ -21,34 +21,36 @@ class CarritoController extends Controller
     //crear carrito o agregar producto y actualizar cantidad
     public function agregarProducto(Request $request)
     {
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-    $request->validate([
-        'id_producto' => 'required|exists:productos,id_producto',
-    ]);
-
-    //$id_cliente = session()->get('id_cliente');
-    $id_cliente= Cliente::first()->id_cliente ?? null;
-
-    // Obtener o crear el carrito para el cliente
-    $carrito = Carrito::firstOrCreate(['id_cliente' => $id_cliente]);
-
-    // Verificar si el producto ya está en el carrito del cliente
-    $incluye = Incluye::where('id_carrito', $carrito->id_carrito)
-                      ->where('id_producto', $request->id_producto)
-                      ->first();
-    if ($incluye) {
-        $incluye -> cantidadPP += 1;
-        $incluye -> save();
-    } else {
-        Incluye::create([
-            'id_carrito' => $carrito->id_carrito,
-            'id_producto' => $request->id_producto,
-            'cantidadPP' => 1,
+        $request->validate([
+            'id_producto' => 'required|exists:productos,id_producto',
         ]);
-    }
+
+        //$id_cliente = session()->get('id_cliente');
+        
+
+        // Obtener o crear el carrito para el cliente
+        $carrito = Carrito::firstOrCreate(['id_usuario' => $id_cliente]);
+
+        // Verificar si el producto ya está en el carrito del cliente
+        $incluye = Incluye::where('id_carrito', $carrito->id_carrito)
+                        ->where('id_producto', $request->id_producto)
+                        ->first();
+        if ($incluye) {
+            $incluye -> cantidadPP += 1;
+            $incluye -> save();
+        } else {
+            Incluye::create([
+                'id_carrito' => $carrito->id_carrito,
+                'id_producto' => $request->id_producto,
+                'cantidadPP' => 1,
+            ]);
+        }
 
 
-    return back()->with('agregar_producto', 'Producto agregado exitosamente.');
+     return back()->with('agregar_producto', 'Producto agregado exitosamente.');
     }
 
 
@@ -56,10 +58,10 @@ class CarritoController extends Controller
 
     public function mostrarCarrito()
     {
- 
-        $id_cliente= Cliente::first()->id_cliente ?? null;
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-        $carrito = Carrito::where('id_cliente', $id_cliente)->first();
+        $carrito = Carrito::where('id_usuario', $id_cliente)->first();
 
          //si esta vacio
         
@@ -79,9 +81,10 @@ class CarritoController extends Controller
 
     public function eliminar($id_producto)
     {
-        $id_cliente = Cliente::first()->id_cliente ?? null;
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-        $carrito = Carrito::where('id_cliente', $id_cliente)->first();
+        $carrito = Carrito::where('id_usuario', $id_cliente)->first();
 
         if (!$carrito) {
             return redirect()->back()->with('error', 'No hay carrito disponible.');

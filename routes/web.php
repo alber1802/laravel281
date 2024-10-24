@@ -34,6 +34,7 @@ use App\Http\Controllers\PaypalController;
 
 //para cmabiar de pagina 
 Route::view('/Home', "welcome")->name('Home');
+Route::view('/Contactanos', "PaginasHome.Contactanos")->name('contactanos');
 //
 Route::view('/registerCliente', "LoginRegistro.Cliente")->name('registerCliente');
 Route::view('/registerArtesano', "LoginRegistro.ArtesanoRegistro")->name('registerArtesano');
@@ -112,7 +113,7 @@ Route::get('/pedido/detalles/{id_pedido}', [PedidoController::class, 'detalles']
 // Ruta para cancelar un pedido
 Route::delete('/pedidos/{id_pedido}/cancelar', [PedidoController::class, 'cancelar'])->name('pedido.cancelar');
 //vista de los metodos de pago
-Route::view('/Pago',"PaginasHome.MetodoPago")->name('ver.pago');
+//Route::view('/Pago',"PaginasHome.MetodoPago")->name('ver.pago');
 //mostrar los metodos de pago(manda el id_pedido)
 Route::get('/pago/{id_pedido}', [PagoController::class, 'mostrarMetodos'])->name('metodo.pago');
 //pagar con tarjeta

@@ -18,13 +18,11 @@ return new class extends Migration
             $table->string('estadoP', 50);
             $table->decimal('descuento', 10, 2);
             $table->unsignedBigInteger('id_carrito'); 
-            $table->unsignedBigInteger('id_metodoP');
-            $table->unsignedBigInteger('id_cliente');
+            $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
 
             $table->foreign('id_carrito')->references('id_carrito')->on('carritos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_metodoP')->references('id_metodoP')->on('pagos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id_usuario')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
