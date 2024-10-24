@@ -10,26 +10,26 @@
         <!-- Normalize V8.0.1 -->
 	<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
 
-<!-- Bootstrap V4.3 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
+	<!-- Bootstrap V4.3 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
 
-<!-- Bootstrap Material Design V4.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
+	<!-- Bootstrap Material Design V4.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
 
-<!-- Font Awesome V5.9.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
+	<!-- Font Awesome V5.9.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
 
-<!-- Sweet Alerts V8.13.0 CSS file -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
+	<!-- Sweet Alerts V8.13.0 CSS file -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
 
-<!-- Sweet Alert V8.13.0 JS file-->
-<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
+	<!-- Sweet Alert V8.13.0 JS file-->
+	<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
 
-<!-- jQuery Custom Content Scroller V3.1.5 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
+	<!-- jQuery Custom Content Scroller V3.1.5 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
-<!-- General Styles -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+	<!-- General Styles -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
 
 
 
@@ -44,9 +44,9 @@
 			<div class="full-box nav-lateral-content">
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="imagen/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
+					<img src="{{$artesano->user->url}}" class="img-fluid" alts="Avatar">
 					<figcaption class="roboto-medium text-center">
-						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
+					{{$artesano->user->name}} <br><small class="roboto-condensed-light">Alias : {{$artesano->user->nombre}}</small>
 					</figcaption>
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
@@ -89,7 +89,7 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
                                     <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
@@ -167,7 +167,7 @@
 				<ul class="full-box list-unstyled page-nav-tabs">
 					<li>
 					
-					<a href="{{ route('agregarProductos', ['id_usuario' => $artesano->user->id_usuario]) }}">
+					<a href="{{ route('agregarProductos') }}">
     				<i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTO
 					</a>
 
@@ -178,7 +178,7 @@
 				</ul><div>
                             <h4><i class="fas fa-user"></i><span class="roboto-medium">&nbsp; </span> 
                   			<form action="" style="display: inline-block !important;">
-							     {{ $artesano->user->nombre }} 
+							     {{ $artesano->user->name }} 
 								 {{ $artesano->user->paterno }}  
 								 {{ $artesano->user->materno }} </h4>
                              

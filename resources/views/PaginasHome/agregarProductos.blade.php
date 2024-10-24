@@ -170,18 +170,18 @@
 				</ul>
 					
 			</div>
->>>>>>> Stashed changes
+
 
 			<!-- Content -->
 			<div class="container-fluid">
-				<form name="registro" class="form-neon" action="{{ route('registroNuevoProducto', ['id_usuario' => $id_usuario])}}" method="POST" enctype="multipart/form-data">
+				<form name="registro" class="form-neon" action="{{ route('registroNuevoProducto')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 					<fieldset>
 						<legend><i class="fas fa-shopping-cart"></i>
                         &nbsp; Información basica del Producto</legend>
 						<div class="container-fluid">
 							<div class="row">
-							<!--<p>El ID del usuario es: {{ $id_usuario }}</p>-->
+							
 								<div class="col-12 col-md-8">
 									<div class="form-group">
 										<label for="nombreP" class="bmd-label-floating">Nombre</label>
@@ -221,7 +221,7 @@
 								<div class="col-12 col-md-6">
 									<div class="form-group">
 										<label for="imagen">Imagen Frontal del producto <br><p>La vista frontal se proyecta hacia el plano frontal. </p></label>
->>>>>>> Stashed changes
+
                                         <input type='file' id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
 									</div>
 								</div>
@@ -469,5 +469,6 @@
 	<script src="{{asset('js/productosv2/js/main.js')}}" ></script>
 </body>
 </html>
+
 
 

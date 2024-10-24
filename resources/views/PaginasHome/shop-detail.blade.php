@@ -73,7 +73,7 @@
 
                  <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">INICIO</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">INICIO</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">NOSOTROS</a></li>
                           <li class="nav-item"><a class="nav-link" href="shop.html">PRODUCTOS</a></li>
 
@@ -129,9 +129,9 @@
                 <div class="col-xl-5 col-lg-5 col-md-6">
                     <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active"> <img class="d-block w-100" src="imagen/p1.webp" alt="First slide"> </div>
-                            <div class="carousel-item"> <img class="d-block w-100" src="imagen/big-img-02.jpg" alt="Second slide"> </div>
-                            <div class="carousel-item"> <img class="d-block w-100" src="imagen/big-img-03.jpg" alt="Third slide"> </div>
+                            <div class="carousel-item active"> <img class="d-block w-100" src="{{ $detalles->producto->imgP}}" alt="First slide"> </div>
+                            <div class="carousel-item"> <img class="d-block w-100" src="{{ $detalles->producto->imgP}}" alt="Second slide"> </div>
+                            <div class="carousel-item"> <img class="d-block w-100" src="{{ $detalles->producto->imgP}}" alt="Third slide"> </div>
                         </div>
                         <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev"> 
 						<i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -143,51 +143,45 @@
 					</a>
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-example-1" data-slide-to="0" class="active">
-                                <img class="d-block w-100 img-fluid" src="imagen/smp-img-01.jpg" alt="" />
+                                <img class="d-block w-100 img-fluid" src="{{ $detalles->producto->imgP}}" alt="" />
                             </li>
                             <li data-target="#carousel-example-1" data-slide-to="1">
-                                <img class="d-block w-100 img-fluid" src="imagen/smp-img-02.jpg" alt="" />
+                                <img class="d-block w-100 img-fluid" src="{{ $detalles->producto->imgP}}" alt="" />
                             </li>
                             <li data-target="#carousel-example-1" data-slide-to="2">
-                                <img class="d-block w-100 img-fluid" src="imagen/smp-img-03.jpg" alt="" />
+                                <img class="d-block w-100 img-fluid" src="{{ $detalles->producto->imgP}}" alt="" />
                             </li>
                         </ol>
                     </div>
                 </div>
                 <div class="col-xl-7 col-lg-7 col-md-6">
                     <div class="single-product-details">
-                        <h2>Gallina Josefina</h2>
-                        <h5> <del>$ 60.00</del> $40.79</h5>
-                        <p class="available-stock"><span> Más de 20 disponibles / <a href="#">8 sold </a></span><p>
+                        <h2>Nombre del Producto : {{ $detalles->producto->nombreP }} </h2>
+                        <h5>Precio :  <del>BOB  {{ $detalles->producto->descuentoP }}  </del>  {{ $detalles->producto->precioP }} </h5>
+                        <p class="available-stock"><span>{{ $detalles->artesano->user->name }} {{ $detalles->artesano->user->materno }} {{ $detalles->artesano->user->paterno }} : <a href=""> Nombre Artesano</a></span><p>
 						<h4>Descripcion:</h4>
-						<p> Es hora de decir basta a esas cajas de cartón para los huevos. Dentro de esta gallinita hecha de fibra de Manila (Phormium Tenax) en la desembocadura del río Imperial (Traytrayko leufu en mapudungun, “el río que corre cantando”) cabe más de una docena completa de huevos de gallinas libres, aunque también sirven para los otros, pero eso te traerá mal karma 😇. Práctica y decorativa, aunque no comas huevos se verá bien con lo que le pongas dentro! La M mide 34 cm de largo, 20 cm de alto y 25 cm de ancho. La L mide 44 cm de largo, 27 cm de alto y 32 cm de ancho.</p>
+						<p> {{ $detalles->producto->descripcionP}}</p>
 						<ul>
 							<li>
 								<div class="form-group quantity-box">
 									<label class="control-label">Cantidad</label>
-									<input class="form-control" value="0" min="0" max="20" type="number">
+									<input class="form-control" value="0" min="0" max="{{ $detalles->producto->stock }}" type="number">
 								</div>
 							</li>
 						</ul>
 
 						<div class="price-box-bar">
 							<div class="cart-and-bay-btn">
-								<a class="btn hvr-hover" data-fancybox-close="" href="#">Comprar de nuevo</a>
 								<a class="btn hvr-hover" data-fancybox-close="" href="#">Añadir al carrito</a>
 							</div>
 						</div>
 
 						<div class="add-to-btn">
 							<div class="add-comp">
-								<a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Añadir a la lista de deseos</a>
+                                 <h4>Politicas de devolucion :</h4>
+                                 <p> {{ $detalles->producto->devolucionP}}</p>
 							</div>
-							<div class="share-bar">
-								<a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-								<a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
-								<a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-								<a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
-								<a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-							</div>
+							
 						</div>
                     </div>
                 </div>
@@ -196,7 +190,7 @@
 			<div class="row my-5">
 				<div class="card card-outline-secondary my-4">
 					<div class="card-header">
-						<h2>Opiniones de los clientes</h2>
+						<h2>Dejar Comentario sobre el producto </h2>
 					</div>
 					<div class="card-body">
 						
@@ -220,150 +214,32 @@
                         <h1>¡Te podría Interesar!</h1>
                     </div>
                     <div class="featured-products-box owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
+                        @if(!empty($productosRelacionados) && count($productosRelacionados) > 0)
+                            @foreach($productosRelacionados as $producto)
+                                <div class="item">
+                                    <div class="products-single fix">
+                                        <div class="box-img-hover">
+                                            <img src="{{$producto->imgP }}" class="img-fluid" alt="Image">
+                                            <div class="mask-icon">
+                                                <ul>
+                                                    <li><a href="" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
+                                                </ul>
+                                                <a class="cart" href="#">Añadir al carrito</a>
+                                            </div>
+                                        </div>
+                                        <div class="why-text">
+                                            <h4>{{ $producto->nombreP }}</h4>
+                                            <h5> {{ $producto->precioP }}</h5>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="why-text">
-                                    <h4>Platos Albertios</h4>
-                                    <h5> $9.79</h5>
-                                </div>
+                            @endforeach
+                        @else
+                             <div class="col-12 text-center">
+                               <p>No hay productos disponibles</p>
                             </div>
-                        </div>
-                          <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p6.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Canasto papero con asas</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p4.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Cuña Piñon</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p4.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Platillo Abaco</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Platos Albertios</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Platos Albertios</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Platos Albertios</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="shop-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Añadir al carrito</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Platos Albertios</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
+                        @endif 
+                        
                     </div>
                 </div>
             </div>

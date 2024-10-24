@@ -13,8 +13,8 @@
         <!-- Barra lateral -->
         <div class="horizontal-nav">
             <div class="nav-item">Inicio</div>
-            <div class="nav-item">Editar Perfil</div>
-            <div class="nav-item">Ver Productos</div>
+            <div class="nav-item">Reseñas</div>
+            <a href="{{route('lista.ProductosArtesanos')}}" ><div class="nav-item">Ver Productos</div></a>
             <div class="nav-item">Notificaciones</div>
             <div class="nav-item"><a href="{{route('ActualizarArtesano')}}" >Editar Perfil</a></div>
             <a href="{{route('Cerrar-Session')}}" ><div class="nav-item">Cerrar Seccion</div></a>

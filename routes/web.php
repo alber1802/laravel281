@@ -5,9 +5,13 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProductoController;
+
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\ArtesanoController;
 use App\Http\Controllers\PublicaController;
+
+
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
@@ -45,32 +49,22 @@ Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
-//--------------vizualizar la lista de productos, agregar nuevo y detalles
-Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
-Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
 
-Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name('validar-registroP');
-Route::post('/validar-registroCategoria', [ProductoController::class,'registerC'])->name('validar-registroCategoria');
-
-Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
-
-
-//-----------------------------------------------------------------------------------------------
-
+//**********************************para la liosta de productos********************************************** */
 //lista de artesanos
-Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
+//Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
 
 //muestra la lista de prodctos del artesano x
-Route::get('/lista.ProductosArtesanos/{id}', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
+Route::get('/lista.ProductosArtesanos', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
 
 //muestra la lista de productos
 Route::view('/lisPublica', "PaginasHome.lisPublica")->name('lisPublica');
 
 //manda a la pagina agregar productos
-Route::get('/agregarProductos/{id_usuario}', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
+Route::get('/agregarProductos', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
 
 //agrega productos
-Route::post('/registroNuevoProducto/{id_usuario}', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
+Route::post('/registroNuevoProducto', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
 
 //registra la categoria
 Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
@@ -94,7 +88,7 @@ Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisAr
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
 
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
-
+//******************************************************************************************************* */
 
 //-----------------------------CARRITO Y METODO PAGO-------------------------//
 
@@ -140,6 +134,28 @@ Route::view('/Actualizar-PerfilR', "Perfil.ActualizarRepartidor")->name('Actuali
 
 
 
+
+//--------------vizualizar la lista de productos, agregar nuevo y detalles
+/*//Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
+//Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
+Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name('validar-registroP');
+Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
+Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
+Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHome.lisProductos');
+Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');*/
+//Route::get('/productos{id}', [TuControlador::class, 'eliminar'])->name('eliminarProducto');
+
+
+//--------------------------------------------------------------------------------
+
+//----------------------------------------------COMERCIO------------------------------------------------//
+
+Route::get('/Lista-Productos-Comercio', [GaleriaController::class, 'listaP'])->name('Lista-Productos-Comercio');
+
+Route::get('/DetalleProducto/{id}' , [GaleriaController::class, 'VerDetalle'])->name('Ver.Detalle.Producto');
+
+//-----------------------------------------------------------------------------------------------//
 
 
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');

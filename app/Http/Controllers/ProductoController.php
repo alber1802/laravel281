@@ -7,6 +7,7 @@ use App\Models\Publica;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductoController extends Controller
 {
@@ -110,8 +111,11 @@ class ProductoController extends Controller
             ]); 
                
     }
-    public function adicionar(Request $request, $id_usuario)
+    public function adicionar(Request $request)
     {  
+        $usuario = Auth::user();
+        $id_usuario=$usuario->$id_usuario;
+
 
         //dd('Método liddhhhhdstaP fue llamado'); 
         $request->validate([
@@ -179,13 +183,18 @@ class ProductoController extends Controller
 
     
     
-    public function artesano_id($id_usuario)
+    public function artesano_id()
     {    
+       // $usuario = Auth::user();
         $categorias = Categoria::all(); 
-        return view('PaginasHome.agregarProductos', [
-            'id_usuario' => $id_usuario,
-            'categorias' => $categorias 
-    ]);
+        //dd($categorias);
+        return view('PaginasHome.agregarProductos', ['categorias' => $categorias ]);
+    }
+
+    public function listaP()
+    {
+        $datos = Producto::with('categoria')->get();
+        return view('PaginasHome.lisProductos', ['datos' => $datos]); 
     }
 
   

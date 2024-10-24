@@ -32,7 +32,7 @@ class Artesano extends Model
 
     public function publicas() 
     {
-        return $this->hasMany(Publica::class,'id_artesano'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
+        return $this->hasMany(Publica::class, 'id_artesano', 'id_artesano'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
     }
     public function artesano()
     {
