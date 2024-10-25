@@ -21,6 +21,8 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\TarjetaController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\AdministradorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,12 @@ use App\Http\Controllers\PaypalController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::view('/Admin', "Admin.Administracion")->name('Administrador');
+Route::get('/Administrador', [AdministradorController::class, 'listar'])->name('Administrador.listar');
+Route::get('administracion/artesanos/{id_artesano}/edit', [AdministradorController::class, 'edit'])->name('administracion.artesanos.editartesano');
+
+
+
 
 //para cmabiar de pagina 
 Route::view('/Home', "welcome")->name('Home');

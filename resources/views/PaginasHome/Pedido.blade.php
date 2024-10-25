@@ -177,7 +177,7 @@
       <div class="col-lg-10 col-xl-8">
         <div class="card" style="border-radius: 10px;">
           <div class="card-header px-4 py-5">
-            <h1 class="text-muted mb-0">Detalles de tu pedido, <span style="color: #017598w;">{{ $pedido->users->nombre}}</span>!</h1>
+            <h1 class="text-muted mb-0">Detalles de tu pedido, <span style="color: #017598w;">{{ $pedido->user->nombre}}</span>!</h1>
           </div>
           <div class="card-body p-4">
 
