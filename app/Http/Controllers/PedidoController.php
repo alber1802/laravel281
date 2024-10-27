@@ -14,7 +14,7 @@ class PedidoController extends Controller
     public function detalles($id_pedido)
     {
         // Obtener el pedido
-        $pedido = Pedido::with('users')->findOrFail($id_pedido);
+        $pedido = Pedido::with('user')->findOrFail($id_pedido);
 
         // Obtener los productos del carrito relacionado al pedido
         $productos = Incluye::where('id_carrito', $pedido->id_carrito)

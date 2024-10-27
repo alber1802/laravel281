@@ -18,7 +18,7 @@ class Artesano extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_artesano'); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->belongsTo(User::class, 'id_artesano', 'id_usuario');
     }
 
     // Relación: un artesano pertenece a una comunidad
@@ -34,9 +34,9 @@ class Artesano extends Model
     {
         return $this->hasMany(Publica::class, 'id_artesano', 'id_artesano'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
     }
-    public function artesano()
+    /*public function artesano()
     {
         return $this->hasOne(Artesano::class, 'id_artesano');
     }
-
+*/
 }
