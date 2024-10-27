@@ -1,0 +1,11 @@
+.btn-carrito, .btn-pedido {
+    background-color: #004d65;
+    border-color: #004d65;
+    color: white;
+}
+
+.btn-carrito:hover, .btn-pedido:hover {
+border-color: #0056b3;
+background-color: #004d65;
+color: white;
+}

@@ -22,6 +22,7 @@ use App\Http\Controllers\TarjetaController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\CatalogoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name(
 //-----------------------------CARRITO Y METODO PAGO-------------------------//
 
 //listar productos del catalogo
-Route::get('/catalogo',[CarritoController::class, 'Catalogo'])->name('ver.catalogo');
+Route::get('/catalogo',[CatalogoController::class, 'Catalogo'])->name('ver.catalogo');
 //mostrar el carrito del cliente
 Route::get('/carrito',[CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
 //agregar productos al carrito desde catalogo
