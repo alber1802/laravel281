@@ -217,72 +217,81 @@ ORDER BY
     public function listarProductos(){
         $productos = Producto::all();
         return view('PaginasHome.ListaDeseos', compact('productos')); 
+    }
 
-    }   
+    public function Catalogo(){
+        $productos = Producto::all();
+        return view('PaginasHome.Catalogo', compact('productos')); 
+    }  
     
     
     //crear carrito o agregar producto y actualizar cantidad
     public function agregarProducto(Request $request)
     {
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-    $request->validate([
-        'id_producto' => 'required|exists:productos,id_producto',
-    ]);
-
-    //$id_cliente = session()->get('id_cliente');
-    $id_cliente= Cliente::first()->id_cliente ?? null;
-
-    // Obtener o crear el carrito para el cliente
-    $carrito = Carrito::firstOrCreate(['id_cliente' => $id_cliente]);
-
-    // Verificar si el producto ya está en el carrito del cliente
-    $incluye = Incluye::where('id_carrito', $carrito->id_carrito)
-                      ->where('id_producto', $request->id_producto)
-                      ->first();
-    if ($incluye) {
-        $incluye -> cantidadPP += 1;
-        $incluye -> save();
-    } else {
-        Incluye::create([
-            'id_carrito' => $carrito->id_carrito,
-            'id_producto' => $request->id_producto,
-            'cantidadPP' => 1,
+        $request->validate([
+            'id_producto' => 'required|exists:productos,id_producto',
         ]);
+
+        //$id_cliente = session()->get('id_cliente');
+        
+
+        // Obtener o crear el carrito para el cliente
+        $carrito = Carrito::firstOrCreate(['id_usuario' => $id_cliente]);
+
+        // Verificar si el producto ya está en el carrito del cliente
+        $incluye = Incluye::where('id_carrito', $carrito->id_carrito)
+                        ->where('id_producto', $request->id_producto)
+                        ->first();
+        if ($incluye) {
+            $incluye -> cantidadPP += 1;
+            $incluye -> save();
+        } else {
+            Incluye::create([
+                'id_carrito' => $carrito->id_carrito,
+                'id_producto' => $request->id_producto,
+                'cantidadPP' => 1,
+            ]);
+        }
+
+
+     return back()->with('agregar_producto', 'Producto agregado exitosamente.');
     }
 
 
-    return redirect()->back()->with('success', 'Producto agregado exitosamente.');
-    }
-
-
+    
 
     public function mostrarCarrito()
     {
- 
-        $id_cliente= Cliente::first()->id_cliente ?? null;
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-        $carrito = Carrito::where('id_cliente', $id_cliente)->first();
+        $carrito = Carrito::where('id_usuario', $id_cliente)->first();
 
-         //si esta vaciio
+         //si esta vacio
+        
         if (!$carrito) {
-            redirect()->back()->with('error', 'Carrito vacio.');
+            return back()->with('carrito_vacio', 'Tu carrito está vacío.');
+
+
         }else{
 
             // Obtener los productos del carrito
             $productos = Incluye::where('id_carrito', $carrito->id_carrito)
             ->with('producto') 
             ->get();
-
-             return view('PaginasHome.ListaCarrito', ['productos' => $productos]);
-
+            return view('PaginasHome.Carrito', ['productos' => $productos]);
         }
     }
 
     public function eliminar($id_producto)
     {
-        $id_cliente = Cliente::first()->id_cliente ?? null;
+        $usuario = Auth::user();
+        $id_cliente= $usuario->id_usuario;
 
-        $carrito = Carrito::where('id_cliente', $id_cliente)->first();
+        $carrito = Carrito::where('id_usuario', $id_cliente)->first();
 
         if (!$carrito) {
             return redirect()->back()->with('error', 'No hay carrito disponible.');
@@ -294,10 +303,10 @@ ORDER BY
 
         if ($deleted) {
 
-            return redirect()->back()->with('success', 'Producto eliminado del carrito.');
+            return redirect()->back()->with('eliminado_carrito', 'Producto eliminado del carrito.');
         } else {
 
-            return redirect()->back()->with('error', 'Producto no encontrado en el carrito.');
+            return redirect()->back()->with('eliminado_error', 'Producto no encontrado en el carrito.');
        }
     }
 

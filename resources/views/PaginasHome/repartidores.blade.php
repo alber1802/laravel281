@@ -45,6 +45,9 @@
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
 					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+
+					<img src="#" class="img-fluid" alt="Avatar">
+
 					<figcaption class="roboto-medium text-center">
 					<br>
 					<small class="roboto-condensed-light">Web Developer</small>

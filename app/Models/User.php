@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function clientes()
     {
-        return $this->hasMany(Cliente::class); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->hasMany(Cliente::class, 'id_cliente'); // Relaciona el 'user_id' con el modelo 'User'
     }
 
     public function artesanos()
@@ -73,5 +73,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function notificacions()
     {
         return $this->hasMany(Notificacion::class);
+    }
+    public function carritos()
+    {
+        return $this->hasMany(Carrito::class,'id_usuario','id_usuario');
+    }
+    public function pedidos()
+    {
+        return $this->hasMany(Pedidos::class,'id_usuario','id_usuario');
     }
 }

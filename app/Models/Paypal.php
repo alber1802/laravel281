@@ -11,17 +11,17 @@ class Paypal extends Model
 
 
     protected $table = 'paypals';
-
+    protected $primaryKey = 'id_paypal';
+    public $incrementing = true;
     protected $fillable = [
-        'id_metodoP',
+        'id_pago',
         'correo',
-        'contraseña',
-        'tipo_pago',
+        'tipo_tarjeta',
         'monto',
     ];
 
-    public function pagos()
+    public function pago()
     {
-        return $this->hasMany(Pago::class,'id_metodoP');
+        return $this->belongsTo(Pago::class,'id_pago');
     }
 }

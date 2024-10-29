@@ -107,6 +107,9 @@ class ProductoController extends Controller
     }
     public function adicionar(Request $request)
     {  
+        $usuario = Auth::user();
+        $id_usuario=$usuario->$id_usuario;
+
 
         $usuario = Auth::user();
         //dd('Método liddhhhhdstaP fue llamado'); 
@@ -175,10 +178,19 @@ class ProductoController extends Controller
     
     public function artesano_id()
     {    
+       // $usuario = Auth::user();
         $categorias = Categoria::all(); 
         return view('PaginasHome.agregarProductos', [
             'categorias' => $categorias 
     ]);
+        //dd($categorias);
+        return view('PaginasHome.agregarProductos', ['categorias' => $categorias ]);
+    }
+
+    public function listaP()
+    {
+        $datos = Producto::with('categoria')->get();
+        return view('PaginasHome.lisProductos', ['datos' => $datos]); 
     }
 
   

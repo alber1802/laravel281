@@ -143,217 +143,58 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">En venta</p>
-                                                    </div>
-                                                    <img src="imagen/img-pro-01.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
+                                        @if(!empty($datos) && count($datos) > 0)
+                                            @foreach($datos as $item)
+                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                    <div class="products-single fix">
+                                                        <div class="box-img-hover">
+                                                            <div class="type-lb">
+                                                                <p class="sale">En venta</p>
+                                                            </div>
+                                                            <img src="{{ url($item->imgP) }}" class="img-fluid" alt="{{ $item->nombreP }}" style="max-width: 100%; max-height: 250px;">
+                                                            <div class="mask-icon">
+                                                                <ul>
+                                                                    <li>
+                                                                       <a href="{{route('Ver.Detalle.Producto', ['id' => $item->id_producto])}} " data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a>
+                                                                    </li>
+                                                                    
+                                                                </ul>
+                                                                <a class="cart" href="#">Añadir al carrito</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="why-text">
+                                                            <h4>{{ $item->nombreP }}</h4>
+                                                            <h5>{{ $item->precioP }} Bs</h5>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="why-text">
-                                                    <h4>Cenicero cerámica gres grande</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="col-12 text-center">
+                                                <p>No hay productos disponibles</p>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">Nuevo</p>
-                                                    </div>
-                                                    <img src="imagen/img-pro-02.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                     <h4> Alcancias de Yeso</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">En venta</p>
-                                                    </div>
-                                                    <img src="imagen/img-pro-03.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                     <h4>Antiguo Torito de Pucara Cerámica Popular Peruana Figura Toro Ceremonial</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">Nuevo</p>
-                                                    </div>
-                                                    <img src="imagen/p1.webp" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Gallina Josefina</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">En venta</p>
-                                                    </div>
-                                                    <img src="imagen/p2.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Individual Cay</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">En venta</p>
-                                                    </div>
-                                                    <img src="imagen/p3.webp" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="ver"><i class="fas fa-eye"></i></a></li>
-                                                
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al Carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Fuente Limarí</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">En venta</p>
-                                                    </div>
-                                                    <img src="imagen/p4.webp" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Aguayo Andino</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="imagen/p5.webp" class="img-fluid" alt="Image">
-                                                   <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Cesta Chelín</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">Nuevo</p>
-                                                    </div>
-                                                    <img src="imagen/p6.webp" class="img-fluid" alt="Image">
-                                                   <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Añadir al carrito</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>Pantalla Chilco</h4>
-                                                    <h5> $9.79</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endif  
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-4">
+                                        {{ $datos->links() }}
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="list-view">
                                     <div class="list-view-box">
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                        @if(!empty($datos) && count($datos) > 0)
+                                        @foreach($datos as $item)
+                                           <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
                                                         <div class="type-lb">
                                                             <p class="new">Nuevo</p>
                                                         </div>
-                                                        <img src="imagen/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                        <img src="{{$item->imgP}}" class="img-fluid" alt="Image">
                                                        <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="comercio-detail.html" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
-                                                            
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Añadir a la lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Ver"><i class="fas fa-eye"></i></a></li>
+            
                                                         </ul>
                                                         <a class="cart" href="#">Añadir al Carrito</a>
                                                     </div>
@@ -362,80 +203,24 @@
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                                 <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
+                                                    <h4>{{ $item->nombreP }}</h4>
+                                                    <h5> <del>BOB </del> {{ $item->precioP }}</h5>
+                                                    <p>{{ $item->descripcionP }}
+                                                    </p>
                                                     <a class="btn hvr-hover" href="#">Añadir al Carrito</a>
                                                 </div>
-                                            </div>
+                                            </div>                                      
+                                             @endforeach
+                                    @else
+                                        <div class="col-12 text-center">
+                                            <p>No hay productos disponibles</p>
                                         </div>
-                                    </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="imagen/img-pro-02.jpg" class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                            </ul>
+                                    @endif
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Añadir al Carrito</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="imagen/img-pro-03.jpg" class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                            </ul>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Añadir al Carrito</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
+                                   
                                 </div>
                             </div>
                         </div>
@@ -459,11 +244,14 @@
 								</a>
                                     <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">Cesta Silvestre <small class="text-muted">(50)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Vanasto Centollero  <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Canasto Tudor <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Cojin tranca <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Fuente Limari <small class="text-muted">(20)</small></a>
+        
+                                            @ @if(!empty($datos) && count($datos) > 0)
+                                                 @foreach($datos as $item)
+                                                    <a href="#" class="list-group-item list-group-item-action active">{{$item->categoria->nombreCa}} <small class="text-muted">(50)</small></a>
+        											@endforeach
+    											@else
+                                                     <a href="#" class="list-group-item list-group-item-action active">No hay categorias disponibles <small class="text-muted">0</small></a>
+    											@endif
                                         </div>
                                     </div>
                                 </div>

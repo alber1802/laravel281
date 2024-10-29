@@ -49,9 +49,10 @@ class LoginController extends Controller
         $cliente->save();
 
         Auth::login($user);
-        $this->verificarToken();
+         /* $this->verificarToken();
 
-        return redirect()->route('Verificacion');
+        return redirect()->route('Verificacion');*/
+        return redirect(route('PerfilUsuario'));
   }
 
     public function registerArtesano(Request $request){
@@ -93,10 +94,14 @@ class LoginController extends Controller
         $artesano->save();
 
         Auth::login($user);
+
         
         //cambiadoCarmen////$this->verificarToken();
 
        //cambiadoCarmen// //return redirect()->route('Verificacion');
+       /* $this->verificarToken();
+
+        return redirect()->route('Verificacion');*/
         return redirect(route('PerfilUsuario'));
     }
 
@@ -138,9 +143,10 @@ class LoginController extends Controller
         $repartidor->save();
 
         Auth::login($user);
-        $this->verificarToken();
+       /* $this->verificarToken();
 
-        return redirect()->route('Verificacion');
+        return redirect()->route('Verificacion');*/
+        return redirect(route('PerfilUsuario'));
     }
 
     public function login(Request $request){
@@ -157,12 +163,19 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            // Obtener el ID del usuario autenticado
-            $user = Auth::user(); 
+            // Obtener el ID del usuario autenticado 
+            /* $user = Auth::user(); 
             // Identificar si es cliente, artesano o repartidor        
+
             
             //cambiadoCarmen//$this->verificarToken();
             return redirect()->route('lisPublica');
+
+            $this->verificarToken();
+
+            return redirect()->route('Verificacion');*/
+            
+            return redirect(route('PerfilUsuario'));
         }else {
         
             return redirect(route('login'));

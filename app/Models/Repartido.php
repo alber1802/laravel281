@@ -15,9 +15,12 @@ class Repartido extends Model
 
     public function user()
     {
+
         return $this->belongsTo(User::class, 'id_artesano'); // Relaciona el 'user_id' con el modelo 'User'
     } 
+
     
+
     public function vehiculo()
     {
         return $this->belongsTo(Vehiculo::class, 'id_vehiculo'); 

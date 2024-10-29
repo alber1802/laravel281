@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
+<!-- Basi -->
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commcraft - Pedido</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <!-- Mobile Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="imagen/logo.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="imagen/logo.png">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="{{ asset('imagen/logo.png') }}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{ asset('imagen/logo.png') }}">
 
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="{{ asset('css/pages/bootstrap.min.css') }}">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="{{ asset('css/pages/style.css') }}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="{{ asset('css/pages/responsive.css') }}">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/pages/custom.css') }}">
-      <!-- importacion de script -->
-      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ asset('css/pages/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/pages/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/pages/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/pages/custom.css') }}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
+
+
 
 <body>
     <!-- Start Main Top -->
@@ -72,7 +72,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="index.html"><img src="imagen/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="index.html"><img src="{{ asset('imagen/logo.png') }}" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -84,12 +84,7 @@
 						<li class="dropdown active">
 							<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a>
 							<ul class="dropdown-menu">
-								<li><a href="shop.html">Sidebar Shop</a></li>
-								<li><a href="shop-detail.html">Shop Detail</a></li>
-								<li><a href="cart.html">Cart</a></li>
-								<li><a href="checkout.html">Checkout</a></li>
-								<li><a href="my-account.html">My Account</a></li>
-								<li><a href="wishlist.html">CARRITO</a></li>
+                                <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="gallery.html">Galeria</a></li>
@@ -105,7 +100,7 @@
                         <li class="side-menu"><a href="#">
 						<i class="fa fa-shopping-bag"></i>
                             <span class="badge">3</span>
-							<p>My Cart</p>
+							<p>Mi Carrito</p>
 					</a></li>
                     </ul>
                 </div>
@@ -161,106 +156,138 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Lista De Compras</h2>
+                    <h2>PEDIDO</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">TIENDA</a></li>
-                        <li class="breadcrumb-item active">Lista De Compras</li>
+                        <li class="breadcrumb-item active">PEDIDO</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <!-- End All Title Box -->
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+
+
+    <!-- PEDIDO -->
+
+
+<section class="h-100 gradient-custom" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px;">
+          <div class="card-header px-4 py-5">
+            <h1 class="text-muted mb-0">Detalles de tu pedido, <span style="color: #017598w;">{{ $pedido->user->nombre}}</span>!</h1>
+          </div>
+          <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h1 class="text-muted mb-0" style="color: #017598w;">Tu pedido</h1>
+              <h4 class="text-muted mb-0" style="color: #017598w;">Productos en tu pedido: {{ count($productos) }}</h4>
             </div>
-        @endif
-        @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        @endif
 
-    <!-- Start Wishlist-->
 
-    <div class="wishlist-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre Producto</th>
-                                    <th>Precio </th>
-                                    <th>Detalles</th>
-                                    <th>Añadir</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                                    @foreach($productos as $item)
-                                    <tr>
-                                        <td class="thumbnail-img">
-                                            <a href="#">
-                                                <img class="img-fluid" src="{{ asset($item->imgP)}}" alt="" />
-                                            </a>
-                                        </td>
-                                        <td class="name-pr">
-                                            <input type="hidden" value="{{$item->id_producto}}" class="prod_id">
-                                            <a href="#">
-                                                {{$item->nombreP}}
-                                            </a>
-                                        </td>
-                                        <td class="price-pr">
-                                            <p>{{$item->precioP}} Bs.</p>
-                                        </td>
-                                        <td class="add-pr">
-                                            <button class="btn btn-primary">
-                                                <i class="fa fa-eye"></i> Ver
-                                            </button>
-                                        </td>
-                                        <td class="add-pr">
-                                            <form action="{{ route('agregar.producto')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id_producto" value="{{ $item->id_producto }}">
-                                                <button type="submit" class="btn btn-success">
-                                                    <i class="fa fa-shopping-cart"></i> Añadir
-                                                </button>
-                                            </form>
-                                        </td>
-                                        
-                                        <td class="remove-pr">
-                                            <a href="#">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                        </table>
-                    </div>
-                    <!-- Mover el botón "Ir a carrito" aquí -->
-                    <div class="pt-5 text-end">
-                        <h6 class="mb-0">
-                            <a href="{{ route('carrito.mostrar')}}" class="btn btn-primary">
-                                Ir a carrito <i class="fas fa-long-arrow-alt-right ms-2"></i>
-                            </a>
-                        </h6>
-                    </div>
+           
+            <div class="container">
+                @php
+                    $totalSinDescuento = 0; // Inicializar total
+                    $total_pro = 0;
+                @endphp
+            @foreach ($productos as $item)
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-2">
+                    <img src="{{ asset($item->producto->imgP) }}"
+                      class="img-fluid" alt=" ">
+                  </div>
+
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 ">{{$item->producto->nombreP}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 ">{{$item->producto->colorP}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 ">Descuento: {{$item->producto->descuentoP}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">Cantidad: {{$item->cantidadPP}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        @php
+                            $subtotal = ($item->cantidadPP ?? 0) * $item->producto->precioP;
+                            $totalSinDescuento += $subtotal; // Acumular subtotal
+                            $total_pro+=$item->cantidadPP;
+                        @endphp
+                    <p class="text-muted mb-0">{{ $subtotal }} Bs.</p>
+                  </div>
                 </div>
+               
+              </div>
             </div>
+            @endforeach
+            </div>
+
+
+            <div class="pt-2">
+            <p class="fw-bold mb-0">Detalles del Pedido</p>
+            </div>
+
+            <div class="d-flex justify-content-between pt-2">
+            <div>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Total de productos:</span>{{ $total_pro}}</p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Total a pagar (sin descuento):</span>{{$totalSinDescuento}} Bs.</p>
+
+                @php
+                    // Calcular porcentaje de descuento
+                    $descuento = $pedido->descuento; // Asegúrate de que esto sea el descuento en Bs
+                    $porcentajeDescuento = ($descuento / $totalSinDescuento) * 100; // Cálculo del porcentaje
+                @endphp
+
+                @if ($descuento > 0)
+                    <p class="text-muted mb-0"><span class="fw-bold me-4">Descuento: </span>{{ $descuento }} Bs.</p>
+                    <p class="text-muted mb-0"><span class="fw-bold me-4">Obtuviste un descuento del: </span>({{ number_format($porcentajeDescuento, 2) }}%)</p>
+                @endif
+
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery: </span> Gratis</p>
+            </div>
+            <div class="align-self-end">
+                <p class="text-muted mb-0">Fecha: {{ $pedido->fecha_pedido ? \Carbon\Carbon::parse($pedido->fecha_pedido)->format('d M, Y') : 'No disponible' }}</p>
+            </div>
+            </div>
+
+          </div>
+
+          <div class="card-footer border-0 px-4 py-5" style="background-color: #017598; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+            <h1 class="d-flex align-items-center text-white text-uppercase mb-0">
+                Total a pagar: {{ number_format($pedido->total_pagar, 0) }} Bs.
+            </h1>
+
+            <div class="d-flex justify-content-between mt-4">
+                <!-- Botón de Cancelar Pedido -->
+                <form action="{{ route('pedido.cancelar', $pedido->id_pedido) }}" method="POST">
+                    @csrf
+                    @method('DELETE') 
+                    <button type="submit" class="btn btn-danger">Cancelar Pedido</button>
+                </form>
+
+                <!-- Botón de Métodos de Pago -->
+                    <a href="{{ route('metodo.pago', ['id_pedido' => $pedido->id_pedido])}} " class="btn btn-success">Métodos de Pago</a>
+            </div>
+          </div>
+
+
         </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- End Wishlist -->
 
-
-    <!-- End Wishli-->
+<!-- End PEDIDO -->
+ 
 
     <!-- Start Instagram Feed  -->
     <div class="instagram-box">
@@ -460,10 +487,21 @@
     <script src="{{asset('js/pages/form-validator.min.js') }}"></script>
     <script src="{{asset('js/pages/contact-form-script.js') }}"></script>
     <script src="{{asset('js/pages/custom.js') }}"></script>
+    <script src="{{asset('js/pages/pedido.js') }}"></script>
      <!--importe -->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-     
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>    
+   <!--para el mensaje-->
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
 </body>
 
 </html>
+

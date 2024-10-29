@@ -187,7 +187,10 @@
                         &nbsp; INFORMACION BASICA DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-12 col-md-6">
+
+
+							
+								<div class="col-12 col-md-8">
 									<div class="form-group">
 										<label for="nombreP" class="bmd-label-floating" >Nombre del Producto</label>
 										<input type="text" class="form-control" name="nombreP" id="nombreP" >
@@ -226,6 +229,9 @@
 								<div class="col-12 col-md-6">
 									<div class="form-group">
 										<label for="imagen">Imagen Frontal del producto <br><p>La vista frontal se proyecta hacia el plano frontal. </p></label>
+
+
+
                                         <input type='file' id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
 									</div>
 								</div>
@@ -471,5 +477,6 @@
 	<script src="{{asset('js/productosv2/js/main.js')}}" ></script>
 </body>
 </html>
+
 
 

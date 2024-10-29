@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paypals', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_metodoP');
+            $table->id('id_paypal');
+            $table->unsignedBigInteger('id_pago'); // ID único parq9
             $table->string('correo');
-            $table->string('contraseña'); // Considera almacenar de forma segura
-            $table->string('tipo_pago'); // Visa, MasterCard, etc.
+            $table->string('tipo_tarjeta'); 
             $table->decimal('monto', 10, 2);
-            $table->timestamps(); // Timestamps para created_at y updated_at
+            $table->timestamps(); 
 
-            // Definir la relación con el usuario
-            $table->foreign('id_metodoP')->references('id_metodoP')->on('pagos')->onDelete('cascade');
+            $table->foreign('id_pago')->references('id_pago')->on('pagos')->onDelete('cascade');
 
 
         });

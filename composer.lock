@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "df94efe1186ababed52e79076a562cfb",
+
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2180,6 +2181,7 @@
             "time": "2024-01-28T23:22:08+00:00"
         },
         {
+
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -2247,6 +2249,7 @@
             "time": "2024-03-31T07:05:07+00:00"
         },
         {
+
             "name": "milon/barcode",
             "version": "v11.0.0",
             "source": {

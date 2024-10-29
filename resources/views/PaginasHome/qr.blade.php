@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Título de la Página</title>
+    <title>Commcraft - QR</title>
     <style>
-        /* Fondo azul oscuro */
         body {
             background-color: #017598; 
             color: white; 
@@ -109,8 +108,8 @@
         <h3>Por favor, escanea el código QR para completar tu pago.</h3>
         
         <div class="container">
-            <h4>Asegurate de confirmar tu pedido</h4>
-            <a href="{{ route('carrito.mostrar') }}" class="button">VOLVER</a>
+            <h4>Gracias por tu compra</h4>
+            <a href="{{ route('Home') }}" class="button">VOLVER</a>
             <span>COMMCRAFT.COM</span>
         </div>  
     </div>

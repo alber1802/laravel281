@@ -5,22 +5,30 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProductoController;
+
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\ArtesanoController;
 use App\Http\Controllers\PublicaController;
+
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\IncluyeController;
 use App\Http\Controllers\EntregaController;
 use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\PdfController;
+
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\TarjetaController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\CatalogoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +39,16 @@ use App\Http\Controllers\PaypalController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::view('/Admin', "Admin.Administracion")->name('Administrador');
+Route::get('/Administrador', [AdministradorController::class, 'listar'])->name('Administrador.listar');
+Route::get('administracion/artesanos/{id_artesano}/edit', [AdministradorController::class, 'edit'])->name('administracion.artesanos.editartesano');
+
+
+
 
 //para cmabiar de pagina 
 Route::view('/Home', "welcome")->name('Home');
+Route::view('/Contactanos', "PaginasHome.Contactanos")->name('contactanos');
 //
 Route::view('/registerCliente', "LoginRegistro.Cliente")->name('registerCliente');
 Route::view('/registerArtesano', "LoginRegistro.ArtesanoRegistro")->name('registerArtesano');
@@ -48,6 +63,7 @@ Route::view('/ListaProductos',"PaginasHome.ListaCarrito")->name('ListaProductos'
 Route::view('/comercio',"PaginasHome.comercio")->name('comercio');
 //para shop-detail
 Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
+
 
 //-----------------------------------------------------------------------------
 
@@ -90,8 +106,47 @@ Route::middleware('auth')->group(function () {
 //orden de entrega
 //Route::get('/ReporteOrden/{id_carrito}/{id_artesano}', [PdfController::class, 'generarOrden'])->name('ReporteOrden');
 
+
+//**********************************para la liosta de productos********************************************** */
+//lista de artesanos
+//Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
+
+//muestra la lista de prodctos del artesano x
+Route::get('/lista.ProductosArtesanos', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
+
+//muestra la lista de productos
+Route::view('/lisPublica', "PaginasHome.lisPublica")->name('lisPublica');
+
+//manda a la pagina agregar productos
+Route::get('/agregarProductos', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
+
+//agrega productos
+Route::post('/registroNuevoProducto', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
+
+//registra la categoria
+Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
+
+//ir a la pagina de modificar producto
+
+Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+
+//modificar producto del artesano
+Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
+
+//manda los datos del aretsano para modificar
+Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
+
+//eliminar producto
+Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
+
+//muestra el idArtesano y lo manda a la pagina agregarProductos
+Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
+
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
+//******************************************************************************************************* */
+
+//-----------------------------CARRITO Y METODO PAGO-------------------------//
 
 
 
@@ -109,17 +164,35 @@ Route::get('/repartidores', [RepartidorController::class, 'listaRepartidor'])->n
 Route::get('/Lista-tienda', [CarritoController::class, 'listarProductos'])->name('carrito.tienda');
 Route::get('/Lcarrito', [CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
 
+
+//listar productos del catalogo
+Route::get('/catalogo',[CatalogoController::class, 'Catalogo'])->name('ver.catalogo');
+//mostrar el carrito del cliente
+Route::get('/carrito',[CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
+//agregar productos al carrito desde catalogo
 Route::post('/agregar-producto', [CarritoController::class, 'agregarProducto'])->name('agregar.producto');
-
+//eliminar el proucto del carrito
 Route::delete('/carrito/eliminar/{id_producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+//actualizar la cantidad desde carrito
+Route::post('/update-quantity', [CarritoController::class, 'updateQuantity']);
+//vista de pedido
+Route::view('/Pedido',"PaginasHome.Pedido")->name('ver.pedido'); //pagina Pedido
+//hacer el pedido desde carrito
+Route::post('/pedido', [PedidoController::class, 'crearPedido'])->name('pedido.crear');
+//ver los detalles del pedido
+Route::get('/pedido/detalles/{id_pedido}', [PedidoController::class, 'detalles'])->name('pedido.detalles');
 
-Route::post('/update-quantity', [CarritoController::class, 'updateQuantity']);//
-
+// Ruta para cancelar un pedido
+Route::delete('/pedidos/{id_pedido}/cancelar', [PedidoController::class, 'cancelar'])->name('pedido.cancelar');
+//vista de los metodos de pago
+//Route::view('/Pago',"PaginasHome.MetodoPago")->name('ver.pago');
+//mostrar los metodos de pago(manda el id_pedido)
+Route::get('/pago/{id_pedido}', [PagoController::class, 'mostrarMetodos'])->name('metodo.pago');
+//pagar con tarjeta
 Route::post('/tarjeta/agregar', [TarjetaController::class, 'agregarTarjeta'])->name('tarjeta.agregar');
-Route::post('/pedido/agregar', [PedidoController::class, 'agregarPedido'])->name('pedido.agregar');
-
+//genra qr
 Route::post('/qr', [QrController::class, 'crearQr'])->name('crear.qr');
-
+//pagar con paypal
 Route::post('/agregar-paypal', [PaypalController::class, 'agregarPaypal'])->name('agregar.paypal');
 
 
@@ -134,6 +207,28 @@ Route::view('/Actualizar-PerfilR', "Perfil.ActualizarRepartidor")->name('Actuali
 
 
 
+
+//--------------vizualizar la lista de productos, agregar nuevo y detalles
+/*//Route::view('/agregarProductos', "PaginasHome.agregarProductos")->name('agregarProductos');
+//Route::view('/lisProductos', "PaginasHome.lisProductos")->name('lisProductos');
+Route::post('/validar-registroP', [ProductoController::class,'registerP'])->name('validar-registroP');
+Route::get('/agregar-productos', [ProductoController::class, 'agregarProductos'])->name('PaginasHome.agregarProductos');
+Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
+Route::get('/productos', [ProductoController::class, 'listaP'])->name('PaginasHome.lisProductos');
+Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');*/
+//Route::get('/productos{id}', [TuControlador::class, 'eliminar'])->name('eliminarProducto');
+
+
+//--------------------------------------------------------------------------------
+
+//----------------------------------------------COMERCIO------------------------------------------------//
+
+Route::get('/Lista-Productos-Comercio', [GaleriaController::class, 'listaP'])->name('Lista-Productos-Comercio');
+
+Route::get('/DetalleProducto/{id}' , [GaleriaController::class, 'VerDetalle'])->name('Ver.Detalle.Producto');
+
+//-----------------------------------------------------------------------------------------------//
 
 
 Route::view('/DetalleProductos', "PaginasHome.DetalleProductos")->name('DetalleProductos');

@@ -10,26 +10,26 @@
         <!-- Normalize V8.0.1 -->
 	<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
 
-<!-- Bootstrap V4.3 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
+	<!-- Bootstrap V4.3 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
 
-<!-- Bootstrap Material Design V4.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
+	<!-- Bootstrap Material Design V4.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
 
-<!-- Font Awesome V5.9.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
+	<!-- Font Awesome V5.9.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
 
-<!-- Sweet Alerts V8.13.0 CSS file -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
+	<!-- Sweet Alerts V8.13.0 CSS file -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
 
-<!-- Sweet Alert V8.13.0 JS file-->
-<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
+	<!-- Sweet Alert V8.13.0 JS file-->
+	<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
 
-<!-- jQuery Custom Content Scroller V3.1.5 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
+	<!-- jQuery Custom Content Scroller V3.1.5 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
-<!-- General Styles -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+	<!-- General Styles -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
 
 
 
@@ -44,6 +44,7 @@
 			<div class="full-box nav-lateral-content">
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
+
 					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
@@ -53,6 +54,11 @@
         			<small class="roboto-condensed-light">Invitado</small>
     					@endif
 				</figcaption>
+
+					<img src="{{$artesano->user->url}}" class="img-fluid" alts="Avatar">
+					<figcaption class="roboto-medium text-center">
+					{{$artesano->user->name}} <br><small class="roboto-condensed-light">Alias : {{$artesano->user->nombre}}</small>
+					</figcaption>
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
@@ -70,7 +76,7 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-store fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
                                     <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
@@ -138,11 +144,27 @@
 					<li>
 						<a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; ADICIONAR PRODUCTO</a>
 					</li>
-					
+					<a href="{{ route('agregarProductos') }}">
+    				<i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTO
+					</a>
+
+					</li>
 					<li>
 						<a href="{{ route('lista.PedidosArtesanos') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; PEDIDOS </a>
 					</li>
+
 				</ul>
+
+				</ul><div>
+                            <h4><i class="fas fa-user"></i><span class="roboto-medium">&nbsp; </span> 
+                  			<form action="" style="display: inline-block !important;">
+							     {{ $artesano->user->name }} 
+								 {{ $artesano->user->paterno }}  
+								 {{ $artesano->user->materno }} </h4>
+                             
+                            </form>
+                        </div>	
+
 			</div>
 			<!-- Content -->
 			<div class="container-fluid">
@@ -166,8 +188,9 @@
         </tr>
     </thead>
     <tbody>
-        @if(!empty($datos) && count($datos) > 0)
+	@if(!empty($datos) && count($datos) > 0)
             @foreach($datos as $item)
+
                 @foreach($item->productos as $producto) 
                     <tr class="text-center">
                         <td>{{ $producto->nombreP }}</td>
@@ -208,52 +231,66 @@
 						</td>
                         <td>
 						<a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}"  class="btn btn-success">
+                 <!-- Asegúrate de acceder a productos aquí -->
+                    <tr class="text-center">
+                        <td>{{ $item->producto->nombreP }}</td>
+                        <td>{{ $item->producto->descripcionP }}</td>
+                        <td>{{ $item->producto->precioP }} Bs</td>
+                        <td>{{ $item->producto->stock }}</td>
+                        <td>{{ $item->producto->categoria ? $item->producto->categoria->nombreCa : 'Sin categoría' }}</td>
+                        <td>{{ $item->fechaP }}</td>
+                        <td><img src="{{  asset($item->producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
+                        <!-- Storage::url($item->producto->imgP) esto va enves de asset -->
+						<td>
+						<a href="{{ route('productos.editar', $item->producto->id_producto) }}" title="Modificar el producto {{ $item->producto->nombreP }}"  class="btn btn-success">
+
 
                                 <i class="fas fa-sync-alt"></i>
                             </a>
                         </td>
                         <td>
 
-						<a data-toggle="modal" data-target="#ModalCliente{{ $producto->id_producto }}" 
-   class="btn btn-warning" 
-   title="Eliminar el producto {{ $producto->nombreP }}" 
-   data-id="{{ $producto->id_producto }}" 
-   data-nombre="{{ $producto->nombreP }}">
-    <i class="far fa-trash-alt"></i> 
-</a>
+						<a data-toggle="modal" data-target="#ModalCliente{{ $item->producto->id_producto }}" 
+							class="btn btn-warning" 
+							title="Eliminar el producto {{ $item->producto->nombreP }}" 
+							data-id="{{ $item->producto->id_producto }}" 
+							data-nombre="{{ $item->producto->nombreP }}">
+								<i class="far fa-trash-alt"></i> 
+						</a>
 
-<!-- Modal -->
-<div class="modal fade" id="ModalCliente{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $producto->id_producto }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $producto->id_producto )}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="form-group">
-                            <label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $producto->nombreP }}?</label>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-                <div class="modal-footer" style="justify-content: center;">
-                    <button type="submit" class="btn btn-danger btn-sm">
-					<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-                    </tr>
-                @endforeach
+						<!-- Modal -->
+						<div class="modal fade" id="ModalCliente{{ $item->producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $item->producto->id_producto }}" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $item->producto->id_producto )}}" method="POST" enctype="multipart/form-data">
+										@csrf
+										<div class="modal-body">
+											<div class="container-fluid">
+												<div class="form-group">
+													<label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $item->producto->nombreP }}?</label>
+												</div>
+											</div>
+											<br>
+										</div>
+										<div class="modal-footer" style="justify-content: center;">
+											<button type="submit" class="btn btn-danger btn-sm">
+											<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
+											</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</tr>
+                
             @endforeach
         @else
             <tr>
                 <td colspan="8" class="text-center">No hay productos disponibles</td>
             </tr>
         @endif
+
     </tbody>
 </table>
 				</div>

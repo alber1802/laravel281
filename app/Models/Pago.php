@@ -10,14 +10,21 @@ class Pago extends Model
     use HasFactory;
 
     protected $table = 'pagos';
-    protected $primaryKey = 'id_metodoP'; 
+    protected $primaryKey = 'id_pago'; 
     public $incrementing = true;
-    protected $guarded = [];
+
+    protected $fillable = [
+        'id_usuario',
+        'id_pedido',
+        'monto',
+        'tipo_metodo',
+        'estado_pago',
+    ];
 
 
-    public function pedidos()
+    public function pedido()
     {
-        return $this->hasMany(Pedido::class, 'id_metodoP');
+        return $this->belongsTo(Pedido::class, 'id_pedido');
     }
 
     public function cliente()
@@ -27,17 +34,17 @@ class Pago extends Model
 
     public function tarjetas()
     {
-        return $this->hasMany(Tarjeta::class, 'id_metodoP');
+        return $this->hasMany(Tarjeta::class, 'id_pago','id_pago');
     }
 
     public function paypals()
     {
-        return $this->hasMany(Paypal::class, 'id_metodoP');
+        return $this->hasMany(Paypal::class, 'id_pago','id_pago');
     }
 
     public function qrs()
     {
-        return $this->hasMany(Qr::class, 'id_metodoP');
+        return $this->hasMany(Qr::class, 'id_pago','id_pago');
     }
 
 }

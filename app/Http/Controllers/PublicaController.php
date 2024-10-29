@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Publica;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Models\Artesano;
 use Illuminate\Support\Facades\DB;
 class PublicaController extends Controller
+
 {
 
     public function artesanoP()
     {
         $usuario = Auth::user();
+
 
         $cont = DB::select('
         SELECT 
@@ -47,10 +50,23 @@ class PublicaController extends Controller
 
 
     public function artesanoPP($id)
-    { 
-        $datos = Publica::with(['artesano.user'])->where('id_artesano', $id)->get();
+{
+    
+        // Traemos las publicaciones con los productos y sus categorías
+        $datos = Publica::with(['producto.categoria'])
+            ->where('id_artesano', $id)
+            ->get();
+    
         $artesano = Artesano::with('user')->findOrFail($id);
-        return view('PaginasHome.agregarProductos', ['datos' => $datos, 'artesano' => $artesano]);
+       // dd($datos);
+    
+        return view('PaginasHome.lisPublica', [
+            'datos' => $datos,
+            'artesano' => $artesano
+        ]);
     }
+    
+    
+
 
 }

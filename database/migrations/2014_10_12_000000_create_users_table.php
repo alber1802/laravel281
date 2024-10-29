@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('direccion', 255);
             $table->char('sexo', 1);
             $table->date('fecha_nacimiento');
+            $table->string('url', 255)->nullable();
             //
             $table->string('name');
             $table->string('email')->unique();

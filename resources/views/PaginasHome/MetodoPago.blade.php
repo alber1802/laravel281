@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
+<!-- BasiQ -->
 
 <head>
     <meta charset="utf-8">
@@ -9,17 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
+    <title>Commcraft - Metodos de Pago</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="imagen/logo.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="imagen/logo.png">
+    <link rel="shortcut icon" href="{{ asset('imagen/logo.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ asset('imagen/logo.png') }}">
 
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="{{ asset('css/pages/bootstrap.min.css') }}">
+   <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Site CSS -->
     <link rel="stylesheet" href="{{ asset('css/pages/style.css') }}">
     <!-- Responsive CSS -->
@@ -28,6 +30,25 @@
     <link rel="stylesheet" href="{{ asset('css/pages/custom.css') }}">
       <!-- importacion de script -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!--para el mensaje-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+     <style>
+        .list-group-item:hover {
+            background-color: #d4d6d4; /* #d7fcd7*/
+            color: black; 
+        }
+        .custom-header {
+            background-color: #017598; 
+            color: white !important; 
+        }
+        .custom-title {
+            font-size: 1.5rem;
+            font-weight: bold; 
+        }
+    </style>
+
 </head>
 
 
@@ -71,7 +92,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="index.html"><img src="imagen/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="index.html"><img src="{{ asset('imagen/logo.png') }}"  class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -83,12 +104,7 @@
 						<li class="dropdown active">
 							<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a>
 							<ul class="dropdown-menu">
-								<li><a href="shop.html">Sidebar Shop</a></li>
-								<li><a href="shop-detail.html">Shop Detail</a></li>
-								<li><a href="cart.html">Cart</a></li>
-								<li><a href="checkout.html">Checkout</a></li>
-								<li><a href="my-account.html">My Account</a></li>
-								<li><a href="wishlist.html">CARRITO</a></li>
+                                 <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="gallery.html">Galeria</a></li>
@@ -160,10 +176,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>CARRITO</h2>
+                    <h2>Metodos de Pago</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">TIENDA</a></li>
-                        <li class="breadcrumb-item active">CARRITO</li>
+                        <li class="breadcrumb-item active">PAGO</li>
                     </ul>
                 </div>
             </div>
@@ -171,195 +187,92 @@
     </div>
     <!-- End All Title Box -->
 
-    @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+
+<!-- PAGO -->
+
+
+<section class="h-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px;">
+
+            <div class="card-header px-4 py-5 custom-header">
+                <h1 class="mb-0" style="color: white;">Métodos de Pago</h1>
             </div>
-        @endif
 
-
-
-
-    <!-- CARRITO -->
-    <section class="h-100 h-custom" style="background-color: #017598;">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12">
-            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-              <div class="card-body p-0">
-                <div class="row g-0">
-                  <div class="col-lg-8">
-                    <div class="p-5">
-                      <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h1 class="fw-bold mb-0">Mi Carrito</h1>
-                        <h4 class="mb-0 text-muted">{{ count($productos) }} productos</h4>
-                      </div>
-
-                      <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h3 class="fw-bold mb-0">Imagen</h3>
-                        <h3 class="fw-bold mb-0">Precio</h3>
-                        <h3 class="fw-bold mb-0">Cantidad</h3>
-                        <h3 class="fw-bold mb-0">Eliminar</h3>
-                      </div>
-                        @php
-                            $total = 0; // Inicializa el total
-                            $descuento = 0; // Inicializa el descuento
-                            $total_pro = 0;
-
-                        @endphp
-                      @foreach ($productos as $item)
-                        <hr class="my-4">
-                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                            <img
-                                src="{{ asset($item->producto->imgP) }}"
-                                class="img-fluid rounded-3" alt=" ">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                            <h4 class="text-muted">{{ $item->producto->nombreP }}</h4>
-                            <h4 class="mb-0">Precio por unidad: {{ $item->producto->precioP }} Bs.</h4>
-                            </div>
-
-
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex" data-id="{{ $item->id_producto}}">
-                                <button class="btn btn-link px-2" onclick="changeQuantity(this, -1)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-
-                                <input id="form1" min="0" name="quantity" value="{{ $item->cantidadPP ?? 0 }}" type="number"
-                                    class="form-control form-control-sm text-center custom-input" />
-                                <button class="btn btn-link px-2" onclick="changeQuantity(this, 1)">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-
-
-                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                @php
-                                    $subtotal = ($item->cantidadPP ?? 0) * $item->producto->precioP; // Calcula el subtotal
-                                    $total += $subtotal; // Suma al total
-                                    $total_pro+=$item->cantidadPP;
-                                @endphp
-                            <h3 class="mb-0">{{ $subtotal }} Bs.</h3>
-                            </div>
-                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                <form action="{{ route('carrito.eliminar', $item->id_producto) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE') 
-                                    <button type="submit" class="btn btn-link text-muted" style="padding: 0;">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                      @endforeach
-                                     @php
-                                        // Determina el descuento basado en la cantidad de productos
-                                        $cantidadProductos = $total_pro;
-                                        if ($cantidadProductos > 12) {
-                                            $descuento = 0.25; // 25%
-                                            $porcentaje='25%';
-                                        } elseif ($cantidadProductos >= 9) {
-                                            $descuento = 0.15; // 15%
-                                            $porcentaje = '15%';
-                                        } elseif ($cantidadProductos >= 6) {
-                                            $descuento = 0.10; // 10%
-                                            $porcentaje = '10%';
-                                        }
-                                        $descuentoAplicado = $total * $descuento; 
-                                        $totalConDescuento = $total - $descuentoAplicado; 
-                                    @endphp
-                      <div class="pt-5">
-                        <h4 class="mb-0"><a href="{{ route('carrito.tienda') }}" class="text-body"><i
-                              class="fas fa-long-arrow-alt-left me-2"></i>Volver a tienda</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 bg-body-tertiary">
-                    <div class="p-5">
-                      <h1 class="fw-bold mb-0 mt-2 pt-1"> Cantidad a Pagar</h1>
-                      <hr class="my-4">
-
-                      <div class="d-flex justify-content-between mb-4">
-                        <h3 class="text-uppercase">TOTAL DE PRODUCTOS</h3>
-                        <h3> {{ $total_pro }} productos</h3>
-                      </div>
-
-                      <div class="d-flex justify-content-between mb-4">
-                        <h3 class="text-uppercase"> PRECIO TOTAL</h3>
-                        <h3> {{ $total }} Bs.</h3>
-                      </div>
-                      @if ($descuento > 0)
-                      <hr class="my-4">
-                       <div class="d-flex justify-content-between mb-0">
-                           <h3 class="text-uppercase">Descuento</h3>
-                           <h3>{{ $descuentoAplicado }} Bs.</h3> <!-- descuento aplicado -->
-                      </div>
-                      <p>Recibió un descuento del {{ $porcentaje }}!</p> <!-- porcentaje de descuento -->
-                       @endif
-                       <hr class="my-4">
-                      <div class="d-flex justify-content-between mb-5">
-                        <h3 class="text-uppercase">TOTAL A PAGAR</h3>
-                        <h3> {{ $totalConDescuento }} Bs.</h3>
-                      </div>
-                      <hr class="my-4">
-                      <h1 class="fw-bold mb-0">Metodo de pago</h1>
-
-                      <div class="mb-7 pb-2">
-                            
-                           <div class="mb-3">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paypalModal">
-                                    Pagar con PayPal
-                                </button>
-                            </div>    
-                            <div class="mb-3">
-                                
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tarjetaModal">
-                                    Pagar con Tarjeta
-                                    </button>
-                               
-                            </div>
-
-                            <div class="mb-3">
-                                <form action="{{route('crear.qr')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="id_cliente" value="{{$productos->first()->carrito->id_cliente}}">
-                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=" ">
-                                        Generar QR
-                                    </button>
-                                </form>
-                            </div>
-                      </div>
-                    
-                      <td class="add-pr">
-                            <form action= "{{ route('pedido.agregar') }}" method="POST">
-                              @csrf
-                                <input type="hidden" name="total_pagar" value="{{ $totalConDescuento }}">
-                                <input type="hidden" name="descuento" value="{{ $descuentoAplicado }}">
-                                <input type="hidden" name="fecha_pedido" value="{{ now()->format('Y-m-d') }}">
-                                <input type="hidden" name="estadoP" value="pendiente"> 
-                                <input type="hidden" name="id_carrito" value="{{$productos->first()->carrito->id_carrito}}"> 
-                                <input type="hidden" name="id_cliente" value="{{$productos->first()->carrito->id_cliente}}">
-
-
-                                <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
-                                    data-mdb-ripple-color="dark">Confirmar Pedido
-                                </button>
-                            </form>
-                        </td>
-                    </div>
-                  </div>
-                </div>
+          <div class="card-body p-4">
+            <div class="container">
+              <h2 class="fw-bold mb-4">Selecciona un Método de Pago</h2>
+              
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#tarjetaModal">
+                    <h3 class="mb-1">Tarjeta de Crédito</h3>
+                    <p class="text-muted">Paga con tu tarjeta de crédito de forma segura.</p>
+                    <img src="{{ asset('imagen/payment-icon/1.png') }}" alt="Icono 1" class="img-fluid mx-2" style="max-width: 100px;">
+                    <img src="{{ asset('imagen/payment-icon/2.png') }}" alt="Icono 2" class="img-fluid mx-2" style="max-width: 100px;">
+                </a>
+                
+                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#paypalModal">
+                    <h3 class="mb-1">PayPal</h3>
+                    <p class="text-muted">Usa tu cuenta de PayPal para realizar el pago.</p>
+                    <img src="{{ asset('imagen/payment-icon/8.png') }}" alt="Icono 2" class="img-fluid mx-2" style="width: 200px; height: auto;">
+                </a>
+                
+                <form action="{{ route('crear.qr') }}" method="POST" class="list-group-item">
+                    @csrf
+                    <input type="hidden" name="id_pedido" value="{{ $pedido->id_pedido }}">
+                    <button type="submit" class="list-group-item list-group-item-action w-100" style="border: none; background: none; padding: 0;">
+                        <h3 class="mb-1">Transferencia Bancaria</h3>
+                        <p class="text-muted">Realiza una transferencia directa a nuestra cuenta bancaria usando QR.</p>
+                        <img src="{{ asset('imagen/payment-icon/qr.png') }}" alt="Icono 2" class="img-fluid mx-2" style="width: 200px; height: auto;">
+                    </button>
+                </form>
+             </div>
+ 
+            <div class="pt-4">
+              <p class="fw-bold mb-0">Detalles del Pedido</p>
+            </div>
+            
+            <div class="d-flex justify-content-between pt-2">
+              <div>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Total a pagar:</span></p>
+              </div>
+              <div class="align-self-end">
+                <p class="text-muted mb-0 fw-bold">{{ number_format($pedido->total_pagar, 0) }} Bs.</p>
               </div>
             </div>
+
+            <!-- Botón de Cancelar Pedido -->
+            <div class="d-flex justify-content-between pt-4">
+                <form action="{{ route('pedido.cancelar', $pedido->id_pedido) }}" method="POST" class="flex-grow-1 me-2">
+                  @csrf
+                  @method('DELETE') 
+                  <button type="submit" class="btn btn-danger w-100">Cancelar Pedido</button>
+                </form>
+                
+                <form action="{{ route('Home') }}" method="GET" class="flex-grow-1 ms-2">
+                  <button type="submit" class="btn btn-success w-100">Volver a Inicio</button>
+                </form>
+            </div>
+              
+              <p class="text-muted mt-3 text-center">Si decides cancelar, tu pedido no podrá ser recuperado.</p>
+
+
           </div>
+
+
         </div>
       </div>
-    </section>
-        <!-- End CARRTO-->
+    </div>
+  </div>
+</section>
 
-    <!-- Tarjeta-->
-    <div class="modal fade" id="tarjetaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- End PAGO -->
+
+<!-- Tarjeta-->
+<div class="modal fade" id="tarjetaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -369,15 +282,14 @@
         <form action="{{ route('tarjeta.agregar') }}" method="POST">
         <div class="modal-body">
                 @csrf
-                <input type="hidden" name="id_cliente" value="{{$productos->first()->carrito->id_cliente}}"> <!-- Campo oculto para id_metodoP -->
+                <input type="hidden" name="id_pedido" value="{{$pedido->id_pedido}}"> 
 
                 <!-- Contenedor para las imágenes -->
                 <div class="mb-4 text-center">
                     <img src="{{ asset('imagen/payment-icon/1.png') }}" alt="Icono 1" class="img-fluid mx-2" style="max-width: 100px;">
                     <img src="{{ asset('imagen/payment-icon/2.png') }}" alt="Icono 2" class="img-fluid mx-2" style="max-width: 100px;">
-                    <img src="{{ asset('imagen/payment-icon/5.png') }}" alt="Icono 5" class="img-fluid mx-2" style="max-width: 100px;">
                 </div>
-                <!-- Contenedor para las imágenes -->
+                <!-- /Contenedor para las imágenes -->
                 <div class="form-outline mb-4">
                     <input type="text" name="nombre_titular" class="form-control form-control-lg" 
                         placeholder="Nombre" required autocomplete="cc-name" />
@@ -438,20 +350,14 @@
                 <div class="modal-body">
                     @csrf
 
-                    <input type="hidden" name="id_cliente" value="{{$productos->first()->carrito->id_cliente}}"> <!-- Campo oculto para id_metodoP -->
+                    <input type="hidden" name="id_pedido" value="{{$pedido->id_pedido}}"> 
                     <div class="mb-4 text-center">
-                       <img src="{{ asset('imagen/payment-icon/5.png') }}" alt="Icono 5" class="img-fluid mx-2" style="max-width: 100px;">
+                    <img src="{{ asset('imagen/payment-icon/8.png') }}" alt="Icono 2" class="img-fluid mx-2" style="width: 200px; height: auto;">
                     </div>
                     <!-- correo Electrnico -->
                     <div class="mb-4">
                         <label for="correo" class="form-label">Correo Electrónico</label>
                         <input type="email" name="correo" class="form-control" placeholder="correo@example.com" required />
-                    </div>
-
-                    <!-- Contraseña -->
-                    <div class="mb-4">
-                        <label for="contraseña" class="form-label">Contraseña</label>
-                        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required />
                     </div>
 
 
@@ -481,7 +387,7 @@
                     <!-- Monto Prellenado -->
                     <div class="mb-4">
                         <label for="monto" class="form-label">Monto</label>
-                        <input type="text" name="monto" class="form-control" placeholder="$totalConDescuento" value="{{ $totalConDescuento }}" readonly />
+                        <input type="text" name="monto" class="form-control" placeholder="$total" value="{{ $pedido->total_pagar }}" readonly />
                     </div>
 
                     <!-- Botón para Pagar -->
@@ -698,10 +604,13 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
  
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>    
+   <!--para el mensaje-->
 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
+   <script>
 function changeQuantity(button, change) {
     const input = button.closest('.d-flex').querySelector('input[name="quantity"]'); 
     let currentValue = parseInt(input.value) || 0;
@@ -744,19 +653,36 @@ function updateQuantityOnServer(productId, quantity) {
     })
     .then(data => {
         console.log('Cantidad actualizada:', data);
-        alert('Cantidad actualizada a: ' + data.quantity);
+        toastr.success('Cantidad actualizada a: ' + data.quantity); // Usar Toastr en lugar de alert
     })
     .catch(error => {
         console.error('Error al actualizar la cantidad:', error);
+        toastr.error('Error al actualizar la cantidad: ' + error.message); // Mostrar error con Toastr
     });
 
 
 }
 
+$(document).ready(function() {
+        toastr.options = {
+            "progressBar": true,
+            "closeButton": true,
+            "timeOut": "5000" // Tiempo en milisegundos
+        };
 
+        @if(session('tarjeta_agregada'))
+            toastr.info("{{ session('tarjeta_agregada') }}");
+        @endif
+
+        @if(session('paypal_agregado'))
+            toastr.info("{{ session('paypal_agregado') }}");
+        @endif
+    });
 
 
 </script>
+
+
 
 </body>
 
