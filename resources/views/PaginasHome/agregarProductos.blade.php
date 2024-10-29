@@ -40,10 +40,16 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="imagen/assets/Avatar.png" class="img-fluid" alt="Avatar">
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
-						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
-					</figcaption>
+    					@if (Auth::check())
+        				{{ Auth::user()->name }} <br>
+        			<small class="roboto-condensed-light">{{ Auth::user()->role }}</small>
+    					@else
+        			<small class="roboto-condensed-light">Invitado</small>
+    					@endif
+				</figcaption>
+
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
@@ -161,7 +167,7 @@
 			<div class="container-fluid">
 				<ul class="full-box list-unstyled page-nav-tabs">
                     <li>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVA CATEGORIA </button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fas fa-plus fa-fw"></i> &nbsp; ADICIONAR NUEVA CATEGORIA </button>
 					</li>
 					<li>
 						<a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTO</a>
@@ -170,32 +176,31 @@
 				</ul>
 					
 			</div>
->>>>>>> Stashed changes
+
 
 			<!-- Content -->
 			<div class="container-fluid">
-				<form name="registro" class="form-neon" action="{{ route('registroNuevoProducto', ['id_usuario' => $id_usuario])}}" method="POST" enctype="multipart/form-data">
+				<form name="registro" class="form-neon" action="{{ route('registroNuevoProducto')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 					<fieldset>
 						<legend><i class="fas fa-shopping-cart"></i>
-                        &nbsp; Información basica del Producto</legend>
+                        &nbsp; INFORMACION BASICA DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
-							<!--<p>El ID del usuario es: {{ $id_usuario }}</p>-->
-								<div class="col-12 col-md-8">
+								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="nombreP" class="bmd-label-floating">Nombre</label>
-										<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control" name="nombreP" id="nombreP" maxlength="35">
+										<label for="nombreP" class="bmd-label-floating" >Nombre del Producto</label>
+										<input type="text" class="form-control" name="nombreP" id="nombreP" >
 									</div>
 								</div>
-								<div class="col-12 col-md-4">
+								<div class="col-12 col-md-6"> 
                                     <div class="form-group">
 										<select style="text-align-last: center;" class="form-control" id="id_categoria" name="id_categoria">
     										<option value="0">Seleccione una categoría</option>
 
    												 @if(!empty($categorias) && count($categorias) > 0)
        												 @foreach($categorias as $categoria)
-            											<option value="{{ $categoria->id_categoria }}">{{ $categoria->nombreCa }}</option>
+            											<option value="{{ $categoria->id_categoria }}">{{ $categoria->nombreCa }}: {{ $categoria->descripcionCa }}</option>
         											@endforeach
     											@else
         											<option value="1">No hay categorías disponibles</option>
@@ -205,8 +210,8 @@
 								</div>
 								<div class="col-12 col-md-12">
 									<div class="form-group">
-										<label for="descripcionP" class="bmd-label-floating">Descripcion</label>
-										<textarea class="form-control" name="descripcionP" id="descripcionP" rows="5" maxlength="500" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,500}"></textarea>
+										<label for="descripcionP" class="bmd-label-floating">Descripcion del Producto</label>
+										<textarea class="form-control" name="descripcionP" id="descripcionP" rows="4"></textarea>
 									</div>
 								</div>
 								
@@ -215,13 +220,12 @@
 					</fieldset>
 					<br><br><br>
 					<fieldset>
-						<legend><i class="fas fa-file-image"></i> &nbsp; Imagenes del Producto</legend>
+						<legend><i class="fas fa-file-image"></i> &nbsp; IMAGENES DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
 										<label for="imagen">Imagen Frontal del producto <br><p>La vista frontal se proyecta hacia el plano frontal. </p></label>
->>>>>>> Stashed changes
                                         <input type='file' id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
 									</div>
 								</div>
@@ -243,25 +247,25 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-briefcase"></i> &nbsp; Especificaciones tecnicas del Producto</legend>
+						<legend><i class="fas fa-briefcase"></i> &nbsp; ESPECIFICACIONES TECNICAS DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="materialP" class="bmd-label-floating">Materiales</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="materialP" id="materialP" maxlength="35">
+										<label for="materialP" class="bmd-label-floating">Materiales del Producto</label>
+										<input type="text"  class="form-control" name="materialP" id="materialP" >
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="tipoP" class="bmd-label-floating">Dimensiones</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="tipoP" id="tipoP" maxlength="70">
+										<label for="tipoP" class="bmd-label-floating">Dimensiones del Producto, ejemplo 20x30 cm</label>
+										<input type="text"  class="form-control" name="tipoP" id="tipoP" >
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="colorP" class="bmd-label-floating">Colores Disponibles</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="colorP" id="colorP" maxlength="200">
+										<label for="colorP" class="bmd-label-floating">Colores Disponibles del Producto</label>
+										<input type="text" class="form-control" name="colorP" id="colorP">
 									</div>
 								</div>
 							</div>
@@ -269,15 +273,15 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-money-bill"></i> &nbsp; Precio y Disponibilidad del Producto</legend>
+						<legend><i class="fas fa-money-bill"></i> &nbsp; PRECIO Y DISPONIBILIDAD DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-    									<label for="precioP" class="bmd-label-floating">Precio</label>
+    									<label for="precioP" class="bmd-label-floating">Precio del Producto</label>
     									<div class="input-group">
         									
-        									<input type="number" class="form-control" name="precioP" id="precioP" maxlength="35">
+        									<input type="number" class="form-control" name="precioP" id="precioP" >
 											<div class="input-group-prepend">
             									<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span> 
         									</div>
@@ -287,19 +291,19 @@
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="descuentoP" class="bmd-label-floating">Descuento</label>
+										<label for="descuentoP" class="bmd-label-floating">Descuento del Producto, ejemplo 5%,10%, ....</label>
 										<div class="input-group">
-											<input type="number" class="form-control" name="descuentoP" id="descuentoP" maxlength="70">
+											<input type="number" class="form-control" name="descuentoP" id="descuentoP" >
 											<div class="input-group-prepend">
-            									<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span> 
+            									<span class="input-group-text">%</span> 
         									</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="stock" class="bmd-label-floating">Disponibilidad</label>
-										<input type="number" class="form-control" name="stock" id="stock" maxlength="200">
+										<label for="stock" class="bmd-label-floating">Disponibilidad del Producto</label>
+										<input type="number" class="form-control" name="stock" id="stock">
 									</div>
 								</div>
 							</div>
@@ -307,7 +311,7 @@
 					</fieldset>
 					<br><br><br>
                    
-						<legend><i class="fas fa-truck"></i>&nbsp; Opciones de envio del Producto</legend>
+						<legend><i class="fas fa-truck"></i>&nbsp; OPCIONES DE ENVIO DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
@@ -326,7 +330,7 @@
 									<div class="form-group">
 										<label for="costoEnvio" class="bmd-label-floating">Costo de Envio</label>
 										<div class="input-group">
-										<input type="number" class="form-control" name="costoEnvio" id="costoEnvio" maxlength="70">
+										<input type="number" class="form-control" name="costoEnvio" id="costoEnvio" >
 										<div class="input-group-prepend">
             									<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span> 
         								</div>
@@ -337,7 +341,7 @@
 									<div class="form-group">
 										<label for="tiempoEntrega" class="bmd-label-floating">Tiempo de Entrega</label>
 										<div class="input-group">
-										<input type="number" class="form-control" name="tiempoEntrega" id="tiempoEntrega" maxlength="200">
+										<input type="number" class="form-control" name="tiempoEntrega" id="tiempoEntrega">
 										<div class="input-group-prepend">
             									<span class="input-group-text"><i class="fas fa-clock"></i></span> 
         								</div>
@@ -349,22 +353,20 @@
 					</fieldset>
 					<br><br><br>
                  <fieldset>
-						<legend><i class="fas fa-book"></i>&nbsp; Politicas de Devolucion del Producto</legend>
+						<legend><i class="fas fa-book"></i>&nbsp; POLITICAS DE DEVOLUCION DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
     								<div class="form-group">
-        								<label for="devolucionP" class="bmd-label-floating">Políticas de Devolución (PDF o Word)</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="devolucionP" id="devolucionP" maxlength="70">
-
-        						<!--<input type="file" class="form-control" name="devolucionP" id="devolucionP" accept=".pdf,.doc,.docx">-->
+        								<label for="devolucionP" class="bmd-label-floating">Políticas de Devolución del Producto </label>
+										<input type="text" class="form-control" name="devolucionP" id="devolucionP" >
     								</div>
 								</div>
 
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="garantiaP" class="bmd-label-floating">Garantia</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="garantiaP" id="garantiaP" maxlength="70">
+										<label for="garantiaP" class="bmd-label-floating">Garantia del Producto</label>
+										<input type="text"  class="form-control" name="garantiaP" id="garantiaP" >
 									</div>
 								</div>
 							</div>
@@ -372,21 +374,21 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-file-shield"></i> &nbsp; Certificaciones y autenticidad del Producto</legend>
+						<legend><i class="fas fa-file-shield"></i> &nbsp; CERTIFICACIONES Y AUTENTICIDAD DEL PRODUCTO </legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
     								<div class="form-group">
-        								<label for="certificacionP" class="bmd-label-floating">Certificaciones</label>
-										<input type="text" pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="certificacionP" id="certificacionP" maxlength="70">
-        								<!--<input type="file" class="form-control" name="certificacionP" id="certificacionP" accept=".pdf,.doc,.docx">-->
+        								<label for="certificacionP" class="bmd-label-floating">Certificaciones del Producto</label>
+										<input type="text"  class="form-control" name="certificacionP" id="certificacionP" >
+        								
     								</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="autP" class="bmd-label-floating">Autenticidad</label>
+										<label for="autP" class="bmd-label-floating">Autenticidad del Producto</label>
 										<div class="input-group">
-										<input type="number" class="form-control" name="autP" id="autP" maxlength="70">
+										<input type="number" class="form-control" name="autP" id="autP">
 										</div>
 									</div>
 								</div>
@@ -403,7 +405,7 @@
 				</form>
 			</div>
 			
-        <!-- MODAL CATEGORIA --> <form name="registroC" class="form-neon" action="{{ route('validar-registerC') }}" method="POST" enctype="multipart/form-data"> 
+        <form name="registroC" class="form-neon" action="{{ route('validar-registerC') }}" method="POST" enctype="multipart/form-data"> 
                         @csrf
         <div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="ModalCliente" aria-hidden="true">
            
@@ -419,12 +421,12 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <div class="form-group">
-                                    <label for="nombreCa" class="bmd-label-floating">Nombre</label>
-                                    <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,30}" class="form-control" name="nombreCa" id="nombreCa" maxlength="30">
+                                    <label for="nombreCa" class="bmd-label-floating">Nombre de la Categoria</label>
+                                    <input type="text" class="form-control" name="nombreCa" id="nombreCa" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="descripcionCa" class="bmd-label-floating">Descripcion</label>
-                                    <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,30}" class="form-control" name="descripcionCa" id="descripcionCa" maxlength="30">
+                                    <label for="descripcionCa" class="bmd-label-floating">Descripcion de la Categoria</label>
+                                    <input type="text" class="form-control" name="descripcionCa" id="descripcionCa">
                                 </div>
 
                             </div>

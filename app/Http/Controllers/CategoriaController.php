@@ -19,7 +19,8 @@ class CategoriaController extends Controller
         $categoria->descripcionCa = $request->descripcionCa;
         $categoria->save();
         //dd('Método liddhhhhdstaP fue llamado'); 
-        return redirect()->route('PaginasHome.lisProductos')->with('success', 'Categoria creado con éxito.');
+        return back()->with('success', 'categoria creado con éxito.');
+        //return redirect()->route('PaginasHome.lisProductos')->with('success', 'Categoria creado con éxito.');
 
     } 
    

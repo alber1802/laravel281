@@ -38,5 +38,7 @@ class Artesano extends Model
     {
         return $this->hasOne(Artesano::class, 'id_artesano');
     }
+    
+
 
 }

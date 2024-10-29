@@ -11,9 +11,11 @@ class Repartido extends Model
     protected $guarded = [];
     protected $primaryKey = 'id_repartidor';
 
+    public $timestamps = false; 
+
     public function user()
     {
-        return $this->belongsTo(User::class); // Relaciona el 'user_id' con el modelo 'User'
+        return $this->belongsTo(User::class, 'id_artesano'); // Relaciona el 'user_id' con el modelo 'User'
     } 
     
     public function vehiculo()
@@ -24,6 +26,13 @@ class Repartido extends Model
     public function pedidos()
     {
         return $this->hasMany(Pedido::class);
+    }
+
+    use HasFactory;
+
+    public function entregas()
+    {
+        return $this->hasMany(Entrega::class, 'id_repartidor'); 
     }
 
 }

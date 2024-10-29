@@ -19,6 +19,7 @@ class Publica extends Model
 
     public function productos()
     {
-        return $this->hasMany(Producto::class, 'id_producto', 'id_producto'); // Ajusta los nombres de las claves según tu base de datos
+        
+        return $this->hasMany(Producto::class, 'id_producto', 'id_producto','id'); // Ajusta los nombres de las claves según tu base de datos
     }
 }

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Lista artesanos</title>
+	<title>repartidores</title>
 
 	
 
@@ -44,9 +44,10 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="imagen/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
-						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
+					<br>
+					<small class="roboto-condensed-light">Web Developer</small>
 					</figcaption>
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
@@ -154,65 +155,56 @@
 			<!-- Page header -->
 			<div class="full-box page-header">
 				<h3 class="text-left">
-					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ARTESANO
+               <i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ENTREGAS PENDIENTES 
 				</h3>
 				<p class="text-justify">
-				El módulo "Lista de Artesanos" está diseñado para gestionar y visualizar información sobre artesanos que forman parte de una plataforma de e-commerce o un sistema de gestión de productos artesanales. Este módulo facilita la administración de datos relacionados con cada artesano, permitiendo a los administradores y usuarios acceder a información detallada sobre su comunidad, especialidades, descripciones de productos y calificaciones.
+				
 				</p>
 			</div>
 			
-			<div class="container-fluid">
-                       
-                        
-				<ul class="full-box list-unstyled page-nav-tabs">
+			<div class="container-fluid">          
+				<ul class="full-box list-unstyled page-nav-tabs">	
 					<li>
-						<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO ARTESANO</a>
-					</li>
-					<li>
-						<a class="active" href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ARTESANO</a>
-					</li>
-					<li>
-						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR ARTESANO</a>
+						<a href="user-search.html"><i class="fas fa-file"></i> &nbsp; ENTREGAS TERMINADAS</a>
 					</li>
 				</ul>
 			</div>
-			
 			<!-- Content -->
 			<div class="container-fluid">
 				<div class="table-responsive">
-					<table class="table table-dark table-sm" id="dataTables-example" id="listaArtesanos" name="listaArtesanos">
-						<thead>
-							<tr class="text-center roboto-medium">
-								<th>NOMBRE</th>
-                                <th>COMUNIDAD</th>
-								<th>ESPECIALIDAD</th>							
-								<th>CALIFICACION</th>
-                                <th>DETALLES</th>
-							</tr>
-						</thead>
-						<tbody>
-                        @if(!empty($datos) && count($datos) > 0)
-                        @foreach($datos as $item)
-							<tr class="text-center" >
-								<th>  {{ $item->user->nombre }} {{ $item->user->paterno }} {{ $item->user->materno }} </th>
-								<th>{{ $item->comunidad->nombreCo }}</th>
-								<th>{{ $item->especialidadA }} </th>
-                                <th>{{ $item->calificacionA }} </th>
-								<td>
-									<a href="{{route('lista.ProductosArtesanos', $item->id_artesano) }}" class="btn btn-success" title='Visualizar los productos del {{ $item->user->nombre }}'  >
-	  									<i class="fas fa-eye"></i>	
-									</a>
-								</td>
-							</tr>
-                            @endforeach
-                            @else
-                            <tr>
-                                <td colspan="5" class="text-center">No hay artesanos disponibles</td>
-                            </tr>
-                            @endif
-						</tbody>
-					</table>
-				</div>
+					<table class="table table-dark table-sm" id="listaRepartidor" id="listaRepartidor" name="listaRepartidor">
+                    <thead>
+            <tr class="text-center">
+                <th>FECHA DE ENTREGA</th>
+				<th>COSTO DE ENTREGA</th>
+                <th>ID CLIENTE</th>
+                <th>ID PEDIDO</th>
+				<th>DETALLES</th>
+            </tr>
+        </thead>
+        <tbody>
+		@if(!empty($datos) && count($datos) > 0)
+		@foreach($datos as $item)
+                <tr class="text-center">
+                    <td>{{ $item->fecha_entrega }}</td>
+					<td>{{ $item->costo_entrega}}</td>
+					<td>{{ $item->id_cliente }}</td>
+					<td>{{ $item->id_pedido }}</td>			
+				
+					<td>
+   						<a type="submit" href="" class="btn btn-success" title='Visualizar los productos del'>
+						   <i class="fas fa-truck" style="color: red;"></i></a> 
+					</td>
+                </tr>
+				@endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">No tiene entregas pendientes</td>
+                        </tr>
+                    @endif
+        </tbody>
+		</table>
+	</div>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 						<li class="page-item disabled">

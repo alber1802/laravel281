@@ -93,9 +93,11 @@ class LoginController extends Controller
         $artesano->save();
 
         Auth::login($user);
-        $this->verificarToken();
+        
+        //cambiadoCarmen////$this->verificarToken();
 
-        return redirect()->route('Verificacion');
+       //cambiadoCarmen// //return redirect()->route('Verificacion');
+        return redirect(route('PerfilUsuario'));
     }
 
     public function registerRepartidor(Request $request){
@@ -158,9 +160,9 @@ class LoginController extends Controller
             // Obtener el ID del usuario autenticado
             $user = Auth::user(); 
             // Identificar si es cliente, artesano o repartidor        
-            $this->verificarToken();
-
-             return redirect()->route('Verificacion');
+            
+            //cambiadoCarmen//$this->verificarToken();
+            return redirect()->route('lisPublica');
         }else {
         
             return redirect(route('login'));

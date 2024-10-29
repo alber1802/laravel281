@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pedido;
 use App\Models\Pago;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 class PedidoController extends Controller
@@ -33,5 +34,5 @@ class PedidoController extends Controller
         return redirect('/Lcarrito',)->with('success', 'Pedido creado exitosamente.');
         
     }
-    
+   
 }

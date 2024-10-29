@@ -8,6 +8,11 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ArtesanoController;
 use App\Http\Controllers\PublicaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\IncluyeController;
+use App\Http\Controllers\EntregaController;
+use App\Http\Controllers\RepartidorController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificacionMail;
 use Illuminate\Support\Str;
@@ -46,44 +51,56 @@ Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
 //-----------------------------------------------------------------------------
 
-//lista de artesanos
-Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
+Route::get('/lisPublica', [PublicaController::class, 'artesanoP'])->middleware('auth')->name('lisPublica');
 
-//muestra la lista de productos del artesano x
-Route::get('/lista.ProductosArtesanos/{id}', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
+Route::middleware('auth')->group(function () {
+    //manda a la pagina agregar productos
+    Route::get('/agregarProductos', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
+    //agrega productos
+    Route::post('/registroNuevoProducto', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
 
-//muestra la lista de productos
-Route::view('/lisPublica', "PaginasHome.lisPublica")->name('lisPublica');
+    //ir a la pagina de modificar producto
+    Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
+    //modificar producto del artesano
+    Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
+    //registra la categoria
+    Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
+    //manda los datos del aretsano para modificar
+    Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
+    //eliminar producto
+    Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
+    //muestra el idArtesano y lo manda a la pagina agregarProductos
+    Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
+    //lista de clientes y pedidos
+    Route::get('/lista.PedidosArtesanos', [CarritoController::class, 'listaPedidos'])->name('lista.PedidosArtesanos');
+    //lista de pedidos x cliente
+    Route::get('/lisPedidosPxC/{id_cliente}', [CarritoController::class, 'listaPedidosxCliente'])->name('lisPedidosPxC');
+    //lista de pedidos pendientes
+    Route::get('/lisPedidosP/{id_carrito}', [CarritoController::class, 'listaPedidosPendientes'])->name('lisPedidosP');
+    //registro entrega
+    Route::post('/registroEntregas', [EntregaController::class,'registerE'])->name('registroEntregas');
+    //lista de pedidos anteriores x cliente
+    Route::get('/lisPedidosPxCA/{id_cliente}', [CarritoController::class, 'listaPedidosxClienteA'])->name('lisPedidosPxCA');
+    //lista de pedidos anteriores
+    Route::get('/lisPedidosA/{id_carrito}', [CarritoController::class, 'listaPedidosAnteriores'])->name('lisPedidosA');
+});
 
-//manda a la pagina agregar productos
-Route::get('/agregarProductos/{id_usuario}', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
 
-//agrega productos
-Route::post('/registroNuevoProducto/{id_usuario}', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
 
-//registra la categoria
-Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
-
-//ir a la pagina de modificar producto
-
-Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
-
-//modificar producto del artesano
-Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
-
-//manda los datos del aretsano para modificar
-Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
-
-//eliminar producto
-Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
-
-//muestra el idArtesano y lo manda a la pagina agregarProductos
-Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
+//orden de entrega
+//Route::get('/ReporteOrden/{id_carrito}/{id_artesano}', [PdfController::class, 'generarOrden'])->name('ReporteOrden');
 
 Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
-
 Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
 
+
+
+Route::get('/repartidores', [RepartidorController::class, 'listaRepartidor'])->name('repartidores');
+//lista de repartidores
+//Route::view('/repartidores', "PaginasHome.repartidores")->name('repartidores');
+
+
+//Route::get('/listaRepartidor',[EntregaController::class,'listaRepartidor'])->name('listaRepartidor');
 
 //-----------------------------CARRITO Y METODO EPAGO-------------------------//
 
