@@ -94,6 +94,11 @@ class LoginController extends Controller
         $artesano->save();
 
         Auth::login($user);
+
+        
+        //cambiadoCarmen////$this->verificarToken();
+
+       //cambiadoCarmen// //return redirect()->route('Verificacion');
        /* $this->verificarToken();
 
         return redirect()->route('Verificacion');*/
@@ -145,6 +150,7 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
+        //dd($request->all());
         // Validar los campos de entrad
             $credentials = [
                 "email"  =>  $request->email,
@@ -158,13 +164,13 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Obtener el ID del usuario autenticado 
-            /* $user = Auth::user(); 
+            $user = Auth::user(); 
             // Identificar si es cliente, artesano o repartidor        
+
             $this->verificarToken();
 
-            return redirect()->route('Verificacion');*/
+            return redirect()->route('Verificacion');
             
-            return redirect(route('PerfilUsuario'));
         }else {
         
             return redirect(route('login'));

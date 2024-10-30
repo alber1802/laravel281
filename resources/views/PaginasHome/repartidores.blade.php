@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Lista productos</title>
+	<title>repartidores</title>
 
 	
 
@@ -28,6 +28,11 @@
 <!-- jQuery Custom Content Scroller V3.1.5 -->
 <link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
+<!-- General Styles -->
+<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+
+
+
 
 </head>
 <body>
@@ -39,14 +44,19 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+
 					<img src="#" class="img-fluid" alt="Avatar">
+
 					<figcaption class="roboto-medium text-center">
-						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
+					<br>
+					<small class="roboto-condensed-light">Web Developer</small>
 					</figcaption>
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
+						<!--
 						<li>
 							<a href="home.html"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Dashboard</a>
 						</li>
@@ -63,7 +73,7 @@
 									<a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Artesanos</a>
 								</li>
 							</ul>
-						</li>
+						</li>-->
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -83,17 +93,17 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
-                                    <a href="{{ route('lisProductos') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
+                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 								</li>
 								<li>
 									<a href="#"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Productos</a>
 								</li>
 							</ul>
 						</li>
-
+<!--
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Artesanos <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -126,7 +136,7 @@
 
 						<li>
 							<a href="company.html"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
-						</li>
+						</li>-->
 					</ul>
 				</nav>
 			</div>
@@ -148,83 +158,56 @@
 			<!-- Page header -->
 			<div class="full-box page-header">
 				<h3 class="text-left">
-					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS
+               <i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE ENTREGAS PENDIENTES 
 				</h3>
 				<p class="text-justify">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+				
 				</p>
 			</div>
 			
-			<div class="container-fluid">
-                       
-                        
-				<ul class="full-box list-unstyled page-nav-tabs">
+			<div class="container-fluid">          
+				<ul class="full-box list-unstyled page-nav-tabs">	
 					<li>
-						<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTOS</a>
+						<a href="user-search.html"><i class="fas fa-file"></i> &nbsp; ENTREGAS TERMINADAS</a>
 					</li>
-					<li>
-						<a class="active" href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
-					</li>
-					<li>
-						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PRODUCTOS</a>
-					</li>
-				</ul><div>
-                            <span class="roboto-medium">ARTESANO:</span> 
-                  			<form action="" style="display: inline-block !important;">
-                            	Carlos Alfaro
-                                <button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>
-                            </form>
-                        </div>	
+				</ul>
 			</div>
-			
 			<!-- Content -->
 			<div class="container-fluid">
 				<div class="table-responsive">
-					<table class="table table-dark table-sm" id="dataTables-example" id="listaProductos" name="listaProd">
-						<thead>
-							<tr class="text-center roboto-medium">
-								<th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-								<th>PRECIO</th>
-								<th>STOCK</th>								
-								<th>CATEGORIA</th>
-                                <th>PRODUCTO</th>
-								<th>ACTUALIZAR</th>
-								<th>ELIMINAR</th>
-							</tr>
-						</thead>
-						<tbody>
-                        @if(!empty($datos) && count($datos) > 0)
-                        @foreach($datos as $item)
-							<tr class="text-center" >
-								<th>{{ $item->nombreP }}</th>
-								<th>{{ $item->descripcionP }}</th>
-								<th>{{ $item->precioP }} Bs</th>
-								<th>{{ $item->stock }}</th>
-                                <th>  {{ $item->categoria ? $item->categoria->nombreCa : 'Sin categoría' }} </th>
-								<th><img src="{{ url($item->imgP) }}" style="max-width: 100px; max-height: 100px;"></th>
-								<td>
-									<a href="{{route('productos.editar', $item->id_producto) }}" class="btn btn-success">
-	  									<i class="fas fa-sync-alt"></i>	
-									</a>
-								</td>
-								<td>
-									<form action="">
-										<button type="button" class="btn btn-warning">
-		  									<i class="far fa-trash-alt"></i>
-										</button>
-									</form>
-								</td>
-							</tr>
-                            @endforeach
-                            @else
-                            <tr>
-                                <td colspan="5" class="text-center">No hay productos disponibles</td>
-                            </tr>
-                            @endif
-						</tbody>
-					</table>
-				</div>
+					<table class="table table-dark table-sm" id="listaRepartidor" id="listaRepartidor" name="listaRepartidor">
+                    <thead>
+            <tr class="text-center">
+                <th>FECHA DE ENTREGA</th>
+				<th>COSTO DE ENTREGA</th>
+                <th>ID CLIENTE</th>
+                <th>ID PEDIDO</th>
+				<th>DETALLES</th>
+            </tr>
+        </thead>
+        <tbody>
+		@if(!empty($datos) && count($datos) > 0)
+		@foreach($datos as $item)
+                <tr class="text-center">
+                    <td>{{ $item->fecha_entrega }}</td>
+					<td>{{ $item->costo_entrega}}</td>
+					<td>{{ $item->id_cliente }}</td>
+					<td>{{ $item->id_pedido }}</td>			
+				
+					<td>
+   						<a type="submit" href="" class="btn btn-success" title='Visualizar los productos del'>
+						   <i class="fas fa-truck" style="color: red;"></i></a> 
+					</td>
+                </tr>
+				@endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">No tiene entregas pendientes</td>
+                        </tr>
+                    @endif
+        </tbody>
+		</table>
+	</div>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 						<li class="page-item disabled">

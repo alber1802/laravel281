@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('css/pages/responsive.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/pages/catalogo.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/pages/botones.css') }}">
       <!-- importacion de script -->
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -137,7 +139,6 @@
     </div>
     <!-- End All Title Box -->
 
-
 <!-- Start CATALOGO-->
 <div class="py-3 py-md-5 bg-light">
     <div class="container">
@@ -145,26 +146,62 @@
             <div class="col-md-12">
                 <h1 class="mb-4">NUESTROS PRODUCTOS</h1>
             </div>
+            <!--busqueda-->
+            <div class="col-md-12">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Buscar productos..." />
+                    <button id="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                        <!-- Filtro de precio y categoría -->
+                        <div class="filter-container">
+                            <div class="price-filter">
+                                <input type="number" id="min-price" placeholder="Precio Mínimo" />
+                                <input type="number" id="max-price" placeholder="Precio Máximo" />
+                                <button id="filter-button">Filtrar</button>
+                            </div>
+                            <div class="category-filter">
+                                <select id="category-select">
+                                    <option value="">Seleccionar Categoría</option>
+                                    @foreach($categorias as $categoria)
+                                        <option value="{{ $categoria->nombreCa }}">{{ $categoria->nombreCa }}</option>
+                                    @endforeach
+                                </select>
+                                <button id="category-filter-button">Filtrar por Categoría</button>
+                            </div>
+                        </div>
+            </div>
         </div>
         <div class="row">
             @foreach($productos as $item)
             <div class="col-md-3 mb-4">
-                <div class="product-card">
+                <div class="product-card" data-precio="{{ $item->precioP }}" data-categoria="{{ $item->categoria->nombreCa }}">
                     <div class="product-card-img">
+                        @if ($item->stock > 0)
                         <label class="stock bg-success">En Stock</label>
-                        <img src="{{ asset($item->imgP) }}" alt="Laptop" class="img-fluid">
+                        @else
+                        <label class="out-of-stock">Agotado</label>
+                        @endif
+                        <img src="{{ asset($item->imgP) }}" alt=" " class="img-fluid">
                     </div>
                     <div class="product-card-body">
-                        <p class="product-brand">ARTESANO</p>
+                        <p class="product-categoria">{{$item->categoria->nombreCa}}</p>
                         <h5 class="product-name">
                             <a href="">
                                 {{$item->nombreP}}
                             </a>
                         </h5>
                         <div>
+                            @if ($item->descuentoP > 0)
+                            <span class="selling-price">{{ number_format($item->precioP - $item->descuentoP, 0) }} Bs.</span>
+                            <span class="original-price">{{ number_format($item->precioP, 0) }} Bs.</span>
+                            @else
                             <span class="selling-price">{{ number_format($item->precioP, 0) }} Bs.</span>
-                           
-                        </div>
+                            @endif
+                            </div>
                         <div class="mt-2">
                             <form action="{{ route('agregar.producto') }}" method="POST" style="display: inline;">
                                 @csrf
@@ -173,7 +210,6 @@
                                     <i class="fa fa-shopping-cart"></i> Añadir a carrito
                                 </button>
                             </form>
-                            <a href="" class="btn btn1"><i class="fa fa-heart"></i></a>
                             <a href="{{route('Ver.Detalle.Producto', ['id' => $item->id_producto])}} " class="btn btn1">Ver</a>
                         </div>
                         
@@ -184,15 +220,16 @@
         </div>
 
         <div class="row">
-           <div class="col-md-12 mt-4">
-                <a href="{{route('carrito.mostrar')}}" class="btn btn-primary">Ir al Carrito</a> <!-- Botón de Ir al Carrito -->
+            <div class="col-md-12 mt-4 text-center">
+                <p class="lead">¡Revise su carrito de compras!</p> 
+                <a href="{{route('carrito.mostrar')}}" class="btn btn-carrito">Ver carrito</a> <!-- Botón de Ir al Carrito -->
             </div>
         </div>
 
     </div>
 </div>
 
-    <!-- End catalogo-->
+    <!-- End ctalogo-->
 
     <!-- Start Instagram Feed  -->
     <div class="instagram-box">
@@ -422,8 +459,67 @@
             };
             toastr.success("{{ session('agregar_producto') }}");
         @endif
+
+        @if(session('error_agregar'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": "5000", // Tiempo en milisegundos
+            };
+            toastr.error("{{ session('error_agregar') }}", 'Error!');
+        @endif
     });
-    </script>
+
+    // Filtrar por precio
+document.getElementById('filter-button').addEventListener('click', function() {
+    const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const price = parseFloat(card.getAttribute('data-precio'));
+        const parentCol = card.closest('.col-md-3');
+        if (price >= minPrice && price <= maxPrice) {
+            parentCol.style.display = ''; // Muestra la columna
+        } else {
+            parentCol.style.display = 'none'; // Oculta la columna
+        }
+    });
+});
+
+// Filtrar por categoría
+document.getElementById('category-filter-button').addEventListener('click', function() {
+    const category = document.getElementById('category-select').value;
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const productCategory = card.getAttribute('data-categoria');
+        const parentCol = card.closest('.col-md-3');
+        if (category === "" || productCategory === category) {
+            parentCol.style.display = ''; // Muestra la columna
+        } else {
+            parentCol.style.display = 'none'; // Oculta la columna
+        }
+    });
+});
+
+// Búsqueda por nombre de producto
+document.getElementById('search-button').addEventListener('click', function() {
+    const searchInput = document.getElementById('search-input').value.toLowerCase();
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const productName = card.querySelector('.product-name a').textContent.toLowerCase();
+        const parentCol = card.closest('.col-md-3');
+        if (productName.includes(searchInput)) {
+            parentCol.style.display = ''; // Muestra la columna
+        } else {
+            parentCol.style.display = 'none'; // Oculta la columna
+        }
+    });
+});
+</script>
+
 
 </body>
 

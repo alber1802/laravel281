@@ -22,5 +22,11 @@ class Publica extends Model
         return $this->belongsTo(Artesano::class, 'id_artesano', 'id_artesano'); // Relación con el modelo 'Artesano'
     }
 
-    
+
+    public function productos()
+    {
+        
+        return $this->hasMany(Producto::class, 'id_producto', 'id_producto','id'); // Ajusta los nombres de las claves según tu base de datos
+    }
+
 }

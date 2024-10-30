@@ -13,7 +13,11 @@ class Cliente extends Model
 
     public function user()
     {
+
+        return $this->belongsTo(User::class, 'id_cliente');
+
         return $this->belongsTo(User::class, 'id_cliente', 'id_usuario');
+
     }
 
     public function resenas()

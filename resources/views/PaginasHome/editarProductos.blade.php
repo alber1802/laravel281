@@ -40,7 +40,7 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="imagen/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
 						Carlos Alfaro <br><small class="roboto-condensed-light">Web Developer</small>
 					</figcaption>
@@ -157,7 +157,7 @@
                 Bienvenido a la sección de ingreso edicion del productos, donde podrás modificar artículos a nuestro catálogo. Esta funcionalidad está diseñada para facilitar la gestión de productos, permitiendo a los usuarios ingresar información detallada sobre cada artículo, como su nombre, descripción, precio, stock disponible y categoría. 
 				</p>
 			</div>
-			
+	<!-- Content 	
 			<div class="container-fluid">
 				<ul class="full-box list-unstyled page-nav-tabs">
                    
@@ -168,23 +168,23 @@
 				</ul>
 					
 			</div>
-			
+			-->	
 		
 
-			<!-- Content -->
+			
 			<div class="container-fluid">
 				<form name="producto-modificar" class="form-neon" action="{{ route('producto-modificar', $producto->id_producto) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 					<fieldset>
 						<legend><i class="fas fa-shopping-cart"></i>
-                        &nbsp; Información basica del Producto</legend>
+                        &nbsp; INFORMACION DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 							
 								<div class="col-12 col-md-8">
 									<div class="form-group">
-										<label for="nombreP" class="bmd-label-floating">Nombre</label>
-										<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control"  value="{{ $producto->nombreP }}"name="nombreP" id="nombreP" maxlength="35">
+										<label for="nombreP" class="bmd-label-floating">Nombre del Producto</label>
+										<input type="text" class="form-control"  value="{{ $producto->nombreP }}"name="nombreP" id="nombreP" >
 									</div>
 								</div>
 							
@@ -195,9 +195,9 @@
 										<select style="text-align-last: center;" class="form-control" id="id_categoria" name="id_categoria">
        									@foreach($categorias as $categoria)
 										   <option value="{{ $categoria->id_categoria }}" 
-            {{ $producto->id_categoria == $categoria->id_categoria ? 'selected' : '' }}>
-            {{ $categoria->nombreCa }}
-        </option>
+            								{{ $producto->id_categoria == $categoria->id_categoria ? 'selected' : '' }}>
+            										{{ $categoria->nombreCa }}
+       										 </option>
         								@endforeach
    									
 										</select>
@@ -205,8 +205,8 @@
 								</div>
 								<div class="col-12 col-md-12">
 									<div class="form-group">
-										<label for="descripcionP" class="bmd-label-floating">Descripcion</label>	
-										<textarea class="form-control" name="descripcionP" id="descripcionP" rows="5" maxlength="500" value="{{ $producto->descripcionP }}"  pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,500}"> {{ $producto->descripcionP }}</textarea>
+										<label for="descripcionP" class="bmd-label-floating">Descripcion del Producto</label>	
+										<textarea class="form-control" name="descripcionP" id="descripcionP" rows="4" value="{{ $producto->descripcionP }}" > {{ $producto->descripcionP }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -214,27 +214,46 @@
 					</fieldset>
 					<br><br><br>
 					<fieldset>
-						<legend><i class="fas fa-file-image"></i> &nbsp; Imagenes del Producto</legend>
+						<legend><i class="fas fa-file-image"></i> &nbsp; IMAGENES DEL PRODUCTO </legend>
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-12 col-md-6">
+							<div class="col-12 col-md-6">
+							<div id="carousel-{{ $producto->id_producto }}" class="carousel slide" data-ride="carousel">
+                    			<div class="carousel-inner">
+                        		@if($producto->imgP)
+                        			<div class="carousel-item active">
+                            			<img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        			</div>
+                        		@endif
+                        		@if($producto->imgP2)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        		</div>
+                        		@endif
+                        		@if($producto->imgP3)
+                        		<div class="carousel-item">
+                            		<img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 250px;">
+                        		</div>
+                        		@endif
+                    		</div>
+                    		<a class="carousel-control-prev" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="prev">
+                        		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Previous</span>
+                    		</a>
+                    		<a class="carousel-control-next" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="next">
+                        		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        		<span class="sr-only">Next</span>
+                    		</a>
+                		</div>
+						</div>
+								<div class="col-12 col-md-4">
 									<div class="form-group">
 										<label for="imagen">Imagen Frontal del producto <br><p>La vista frontal se proyecta hacia el plano frontal. </p></label>
-										<img src="{{ Storage::url($producto->imgP) }}" style="max-width: 100px; max-height: 100px;">
+							
                                         <input type='file' value="Storage::url($producto->imgP)" id="imgP" name="imgP" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
 										<label for="imagen">Imagen Superior del producto<br><p> La vista superior se proyecta hacia el plano horizontal.  </p></label>
-										<img src="{{ Storage::url($producto->imgP2) }}"  style="max-width: 100px; max-height: 100px;">
                                         <input type='file' id="imgP2" name="imgP2" value="{{ Storage::url($producto->imgP2) }}"  accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
 										<label for="imagen">Imagen Lateral del producto<br><p>La vista lateral se proyecta hacia el plano de perfil. </p></label>
-										<img src="{{ Storage::url($producto->imgP3) }}" style="max-width: 100px; max-height: 100px;">
                                         <input type='file' value="{{ Storage::url($producto->imgP3) }}" id="imgP3" name="imgP3" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" />
 									</div>
 								</div>
@@ -244,25 +263,25 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-briefcase"></i> &nbsp; Especificaciones tecnicas del Producto</legend>
+						<legend><i class="fas fa-briefcase"></i> &nbsp; ESPECIFICACIONES TECNICAS DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="materialP" class="bmd-label-floating">Materiales</label>
-										<input type="text" value="{{ $producto->materialP }}"  pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="materialP" id="materialP" maxlength="35">
+										<label for="materialP" class="bmd-label-floating">Materiales del Producto</label>
+										<input type="text" value="{{ $producto->materialP }}"  class="form-control" name="materialP" id="materialP" >
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="tipoP" class="bmd-label-floating">Dimensiones</label>
-										<input type="text" value="{{ $producto->tipoP }}"  pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="tipoP" id="tipoP" maxlength="70">
+										<label for="tipoP" class="bmd-label-floating">Dimensiones del Producto, ejemplo 20x40 cm , 10 cm</label>
+										<input type="text" value="{{ $producto->tipoP }}"  class="form-control" name="tipoP" id="tipoP" >
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="colorP" class="bmd-label-floating">Colores Disponibles</label>
-										<input type="text" value="{{ $producto->colorP }}"  pattern="[a-zA-Z0-9]{1,35}" class="form-control" name="colorP" id="colorP" maxlength="200">
+										<label for="colorP" class="bmd-label-floating">Colores Disponibles del Producto</label>
+										<input type="text" value="{{ $producto->colorP }}"  class="form-control" name="colorP" id="colorP" >
 									</div>
 								</div>
 							</div>
@@ -270,12 +289,12 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-money-bill"></i> &nbsp; Precio y Disponibilidad del Producto</legend>
+						<legend><i class="fas fa-money-bill"></i> &nbsp; PRECIO Y DISPONIBILIDAD DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-    									<label for="precioP" class="bmd-label-floating">Precio</label>
+    									<label for="precioP" class="bmd-label-floating">Precio del Producto</label>
     									<div class="input-group">
         									
         									<input type="number" value="{{ $producto->precioP }}"  class="form-control" name="precioP" id="precioP" maxlength="35">
@@ -288,20 +307,20 @@
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="descuentoP" class="bmd-label-floating">Descuento</label>
+										<label for="descuentoP" class="bmd-label-floating">Descuento del Producto</label>
 										
 										<div class="input-group">
-											<input type="number" class="form-control" name="descuentoP" value="{{ $producto->descuentoP }}"  id="descuentoP" maxlength="70">
+											<input type="number" class="form-control" name="descuentoP" value="{{ $producto->descuentoP }}"  id="descuentoP" >
 											<div class="input-group-prepend">
-            									<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span> 
+            									<span class="input-group-text"> %</span> 
         									</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="stock" class="bmd-label-floating">Disponibilidad</label>
-										<input type="number" value="{{ $producto->stock }}"  class="form-control" name="stock" id="stock" maxlength="200">
+										<label for="stock" class="bmd-label-floating">Disponibilidad del Producto (Stock)</label>
+										<input type="number" value="{{ $producto->stock }}"  class="form-control" name="stock" id="stock" >
 									</div>
 								</div>
 							</div>
@@ -309,14 +328,14 @@
 					</fieldset>
 					<br><br><br>
                    
-						<legend><i class="fas fa-truck"></i>&nbsp; Opciones de envio del Producto</legend>
+						<legend><i class="fas fa-truck"></i>&nbsp; OPCIONES DE ENVIO DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<div class="form-group">
 										<label for="usuario_usuario" class="bmd-label-floating">Metodos de Envio</label>
 										<select class="form-control" id="metodoP" name="metodoP">
-                                            <option id="1" name="1" value="ninguno">Seleccione un Metodo de Envio</option>
+                                            <option id="1" name="1" value="{{ $producto->metodoP }}">{{ $producto->metodoP }}</option>
                                             <option id="2" name="2" value="Estandar">Estandar</option>
                                             <option id="3" name="3" value="Expreso">Expreso</option>
                                             <option id="4" name="4" value="Gratuito">Gratuito</option>
@@ -339,7 +358,7 @@
 									<div class="form-group">
 										<label for="tiempoEntrega" class="bmd-label-floating">Tiempo de Entrega</label>
 										<div class="input-group">
-										<input type="number" class="form-control" name="tiempoEntrega" value="{{ $producto->tiempoEntrega }}"  id="tiempoEntrega" maxlength="200">
+										<input type="number" class="form-control" name="tiempoEntrega" value="{{ $producto->tiempoEntrega }}"  id="tiempoEntrega" >
 										<div class="input-group-prepend">
             									<span class="input-group-text"><i class="fas fa-clock"></i></span> 
         								</div>
@@ -351,22 +370,20 @@
 					</fieldset>
 					<br><br><br>
                  <fieldset>
-						<legend><i class="fas fa-book"></i>&nbsp; Politicas de Devolucion del Producto</legend>
+						<legend><i class="fas fa-book"></i>&nbsp; POLITICAS DE DEVOLCION DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
     								<div class="form-group">
-        								<label for="devolucionP" class="bmd-label-floating">Políticas de Devolución (PDF o Word)</label>
-										<input type="text" value="{{ $producto->devolucionP }}"  pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="devolucionP" id="devolucionP" maxlength="70">
-
-        						<!--<input type="file" class="form-control" name="devolucionP" id="devolucionP" accept=".pdf,.doc,.docx">-->
+        								<label for="devolucionP" class="bmd-label-floating">Políticas de Devolución </label>
+										<input type="text" value="{{ $producto->devolucionP }}"   class="form-control" name="devolucionP" id="devolucionP" >
     								</div>
 								</div>
 
 								<div class="col-12 col-md-6">
 									<div class="form-group">
 										<label for="garantiaP"  class="bmd-label-floating">Garantia</label>
-										<input type="text" value="{{ $producto->garantiaP }}"  pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="garantiaP" id="garantiaP" maxlength="70">
+										<input type="text" value="{{ $producto->garantiaP }}"  class="form-control" name="garantiaP" id="garantiaP" >
 									</div>
 								</div>
 							</div>
@@ -374,21 +391,20 @@
 					</fieldset>
 					<br><br><br>
                     <fieldset>
-						<legend><i class="fas fa-file-shield"></i> &nbsp; Certificaciones y autenticidad del Producto</legend>
+						<legend><i class="fas fa-file-shield"></i> &nbsp; CERTIFICACIONES Y AUTENTICIDAD DEL PRODUCTO</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12 col-md-6">
     								<div class="form-group">
-        								<label for="certificacionP" class="bmd-label-floating">Certificaciones</label>
-										<input type="text" value="{{ $producto->certificacionP }}"  pattern="[a-zA-Z0-9]{1,35}"  class="form-control" name="certificacionP" id="certificacionP" maxlength="70">
-        								<!--<input type="file" class="form-control" name="certificacionP" id="certificacionP" accept=".pdf,.doc,.docx">-->
+        								<label for="certificacionP" class="bmd-label-floating">Certificaciones del Producto</label>
+										<input type="text" value="{{ $producto->certificacionP }}"  class="form-control" name="certificacionP" id="certificacionP" >
     								</div>
 								</div>
 								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<label for="autP" class="bmd-label-floating">Autenticidad</label>
+										<label for="autP" class="bmd-label-floating">Autenticidad del Producto</label>
 										<div class="input-group">
-										<input type="number" value="{{ $producto->autP }}"  class="form-control" name="autP" id="autP" maxlength="70">
+										<input type="number" value="{{ $producto->autP }}"  class="form-control" name="autP" id="autP" m>
 										</div>
 									</div>
 								</div>

@@ -44,49 +44,31 @@
 			<div class="full-box nav-lateral-content">
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="{{$artesano->user->url}}" class="img-fluid" alts="Avatar">
+
+					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
-					{{$artesano->user->name}} <br><small class="roboto-condensed-light">Alias : {{$artesano->user->nombre}}</small>
-					</figcaption>
+    					@if (Auth::check())
+        				{{ Auth::user()->name }} <br>
+        			<small class="roboto-condensed-light">{{ Auth::user()->role }}</small>
+    					@else
+        			<small class="roboto-condensed-light">Invitado</small>
+    					@endif
+				</figcaption>
 				</figure>
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
-						<!--
-						<li>
-							<a href="home.html"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Dashboard</a>
-						</li>
-						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Artesanos <i class="fas fa-chevron-down"></i></a>
-							<ul>
-								<li>
-									<a href="client-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Artesanos</a>
-								</li>
-								<li>
-									<a href="client-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Artesanos</a>
-								</li>
-								<li>
-									<a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Artesanos</a>
-								</li>
-							</ul>
-						</li>-->
+						
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="client-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Cliente</a>
-								</li>
-								<li>
 									<a href="client-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de clientes</a>
-								</li>
-								<li>
-									<a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar cliente</a>
 								</li>
 							</ul>
 						</li>
-
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-store fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
 								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
@@ -94,45 +76,35 @@
 								<li>
                                     <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 								</li>
-								<li>
-									<a href="#"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Productos</a>
-								</li>
 							</ul>
 						</li>
-<!--
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Artesanos <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-briefcase fa-fw"></i> &nbsp; Categoria <i class="fas fa-chevron-down"></i></a>
 							<ul>
+								
 								<li>
-									<a href="reservation-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Artesanos</a>
+                                    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Categoria</a>
 								</li>
 								<li>
-									<a href="reservation-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Artesanos</a>
-								</li>
-								<li>
-									<a href="reservation-search.html"><i class="fas fa-search-dollar fa-fw"></i> &nbsp; Buscar Artesanos</a>
+                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Categorias</a>
 								</li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas  fa-user-secret fa-fw"></i> &nbsp; Usuarios <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="user-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo usuario</a>
+									<a href="reservation-new.html"><i class="fa-solid fa-clipboard fa -fw"></i> &nbsp; Pedidos Pendientes</a>
 								</li>
 								<li>
-									<a href="user-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de usuarios</a>
-								</li>
-								<li>
-									<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar usuario</a>
+									<a href="reservation-list.html"><i class="fas fa-clipboard-check fa-fw"></i> &nbsp; Pedidos Finalizados</a>
 								</li>
 							</ul>
 						</li>
 
-						<li>
-							<a href="company.html"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
-						</li>-->
+						
+					
 					</ul>
 				</nav>
 			</div>
@@ -160,43 +132,38 @@
                 Lista de Productos del Artesano" es una funcionalidad que permite mostrar todos los productos que un artesano específico ha publicado en la plataforma. Esta lista es útil tanto para los consumidores que desean conocer la oferta de un artesano, como para el propio artesano para gestionar y visualizar sus productos.
 				</p>
 			</div>
-			
 			<div class="container-fluid">
                        
                         
 				<ul class="full-box list-unstyled page-nav-tabs">
 					<li>
-					
-					<a href="{{ route('agregarProductos') }}">
-    				<i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO PRODUCTO
-					</a>
+						<a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; ADICIONAR PRODUCTO</a>
+					</li>
 
-					</li>
+				
 					<li>
-						<a href="user-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PRODUCTO</a>
+						<a href="{{ route('lista.PedidosArtesanos') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; PEDIDOS </a>
 					</li>
-				</ul><div>
-                            <h4><i class="fas fa-user"></i><span class="roboto-medium">&nbsp; </span> 
-                  			<form action="" style="display: inline-block !important;">
-							     {{ $artesano->user->name }} 
-								 {{ $artesano->user->paterno }}  
-								 {{ $artesano->user->materno }} </h4>
-                             
-                            </form>
-                        </div>	
+
+				</ul>
+
+				</ul>
+
 			</div>
-			
 			<!-- Content -->
 			<div class="container-fluid">
 				<div class="table-responsive">
+					<!-- Content -->
+			<div class="full-box tile-container">
+
+
 					<table class="table table-dark table-sm" id="dataTables-example" id="listaProductos" name="listaProd">
     <thead>
-        <tr class="text-center roboto-medium">
+        <tr class="text-center ">
             <th>NOMBRE</th>
-            <th>DESCRIPCION</th>
             <th>PRECIO</th>
             <th>STOCK</th>
-            <th>CATEGORIA</th>
+           <!-- <th>CATEGORIA</th>-->
             
             <th>FECHA PUBLICACION</th>
 			<th>PRODUCTO</th>
@@ -206,82 +173,92 @@
     </thead>
     <tbody>
 	@if(!empty($datos) && count($datos) > 0)
-            @foreach($datos as $item)
-                 <!-- Asegúrate de acceder a productos aquí -->
-                    <tr class="text-center">
-                        <td>{{ $item->producto->nombreP }}</td>
-                        <td>{{ $item->producto->descripcionP }}</td>
-                        <td>{{ $item->producto->precioP }} Bs</td>
-                        <td>{{ $item->producto->stock }}</td>
-                        <td>{{ $item->producto->categoria ? $item->producto->categoria->nombreCa : 'Sin categoría' }}</td>
-                        <td>{{ $item->fechaP }}</td>
-                        <td><img src="{{  asset($item->producto->imgP) }}" style="max-width: 100px; max-height: 100px;"></td>
-                        <!-- Storage::url($item->producto->imgP) esto va enves de asset -->
-						<td>
-						<a href="{{ route('productos.editar', $item->producto->id_producto) }}" title="Modificar el producto {{ $item->producto->nombreP }}"  class="btn btn-success">
+    @foreach($datos as $item)
+        @foreach($item->productos as $producto) 
+            <tr class="text-center">
+                <td>{{ $producto->nombreP }}</td>
+                <td>{{ $producto->precioP }} Bs</td>
+                <td>{{ $producto->stock }}</td>
+                <td>{{ $item->fechaP }}</td>
+                <td>
+                    <div id="carousel-{{ $producto->id_producto }}" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
+                            @if($producto->imgP)
+                                <div class="carousel-item active">
+                                    <img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                </div>
+                            @endif
+                            @if($producto->imgP2)
+                                <div class="carousel-item">
+                                    <img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                </div>
+                            @endif
+                            @if($producto->imgP3)
+                                <div class="carousel-item">
+                                    <img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                </div>
+                            @endif
+                        </div>
+                        <a class="carousel-control-prev" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}" class="btn btn-success">
+                        <i class="fas fa-sync-alt"></i>
+                    </a>
+                </td>
+                <td>
+                    <a data-toggle="modal" data-target="#ModalCliente{{ $producto->id_producto }}" 
+                       class="btn btn-warning" 
+                       title="Eliminar el producto {{ $producto->nombreP }}" 
+                       data-id="{{ $producto->id_producto }}" 
+                       data-nombre="{{ $producto->nombreP }}">
+                        <i class="far fa-trash-alt"></i> 
+                    </a>
 
-                                <i class="fas fa-sync-alt"></i>
-                            </a>
-                        </td>
-                        <td>
-
-						<a data-toggle="modal" data-target="#ModalCliente{{ $item->producto->id_producto }}" 
-							class="btn btn-warning" 
-							title="Eliminar el producto {{ $item->producto->nombreP }}" 
-							data-id="{{ $item->producto->id_producto }}" 
-							data-nombre="{{ $item->producto->nombreP }}">
-								<i class="far fa-trash-alt"></i> 
-						</a>
-
-						<!-- Modal -->
-						<div class="modal fade" id="ModalCliente{{ $item->producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $item->producto->id_producto }}" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $item->producto->id_producto )}}" method="POST" enctype="multipart/form-data">
-										@csrf
-										<div class="modal-body">
-											<div class="container-fluid">
-												<div class="form-group">
-													<label id="productoNombre">¿Esta seguro que desea eliminar el producto {{ $item->producto->nombreP }}?</label>
-												</div>
-											</div>
-											<br>
-										</div>
-										<div class="modal-footer" style="justify-content: center;">
-											<button type="submit" class="btn btn-danger btn-sm">
-											<i class="far fa-trash-alt"></i>  &nbsp; ELIMINAR
-											</button>
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</tr>
-                
-            @endforeach
-        @else
-            <tr>
-                <td colspan="8" class="text-center">No hay productos disponibles</td>
+                    <!-- Modal -->
+                    <div class="modal fade" id="ModalCliente{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $producto->id_producto }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $producto->id_producto )}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label id="productoNombre">¿Está seguro que desea eliminar el producto {{ $producto->nombreP }}?</label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="modal-footer" style="justify-content: center;">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="far fa-trash-alt"></i> &nbsp; ELIMINAR
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
-        @endif
+        @endforeach
+    @endforeach
+@else
+    <tr>
+        <td colspan="8" class="text-center">No hay productos disponibles</td>
+    </tr>
+@endif
 
-    </tbody>
-</table>
 				</div>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a class="page-link" href="#" tabindex="-1">Anterior</a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item">
-							<a class="page-link" href="#">Siguiente</a>
-						</li>
-					</ul>
-				</nav>
+			
 			</div>
 
 		</section>
@@ -304,5 +281,6 @@
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 
 	<script src="{{asset('js/productosv2/js/main.js')}}" ></script>
+
 </body>
 </html>

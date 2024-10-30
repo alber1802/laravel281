@@ -206,7 +206,7 @@
 							</tr>
                             @endforeach
                             @else
-                            <tr><?php  dd('Método liddhhhhdstaP fue llamado'); ?>
+                            <tr>
                                 <td colspan="5" class="text-center">No hay artesanos disponibles</td>
                             </tr>
                             @endif

@@ -32,10 +32,21 @@ class Carrito extends Model
                     ->withPivot('cantidadPP', 'created_at', 'updated_at');
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
+    }
+    /**public function pedido()
+        {
+            return $this->hasMany(Pedido::class, 'id_carrito');
+        }
+    */
+
+
     public function users()
     {
             return $this->hasMany(User::class, 'id_usuario','id_usuario');
     }
     
-    
+
 }

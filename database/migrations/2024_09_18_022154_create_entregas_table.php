@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('id_pedido')->references('id_pedido')->on('pedidos')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidos')->onUpdate('cascade')->onDelete('cascade');
+            $table->double('latitud', 15, 8)->nullable();  // Agregar columna 'latitud'
+            $table->double('longitud', 15, 8)->nullable(); // Agregar columna 'longitud'
         });
     }
 

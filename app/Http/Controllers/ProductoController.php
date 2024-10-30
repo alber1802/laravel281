@@ -18,16 +18,16 @@ class ProductoController extends Controller
             $producto->delete();
             return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto eliminado correctamente.');
         }
-
-        return redirect()->route('PaginasHome.lisProductos')->with('error', 'Producto no encontrado.');
+        return back()->with('success', 'Producto creado con éxito.');
+        //return redirect()->route('PaginasHome.lisProductos')->with('error', 'Producto no encontrado.');
     }
 
     public function eliminarProducto($id_producto)
     {
         $producto = Producto::findOrFail($id_producto);
         $producto->delete();
-
-        return redirect()->route('PaginasHome.lisProductos')->with('success', 'Producto eliminado exitosamente');
+        return back()->with('success', 'Producto creado con éxito.');
+        //return redirect()->route('PaginasHome.lisPublica')->with('success', 'Producto eliminado exitosamente');
     }
 
     public function update(Request $request, $id)
@@ -53,8 +53,6 @@ class ProductoController extends Controller
                 'autP' => 'nullable|string|max:255', 
                  
             ]);
-            
- 
         $producto = Producto::find($id);
         $producto->nombreP = $request->nombreP; 
         $producto->descripcionP = $request->descripcionP;
@@ -63,15 +61,12 @@ class ProductoController extends Controller
         $producto->stock = $request->stock;
         $producto->colorP = $request->colorP;
         $producto->tipoP = $request->tipoP;
-
         $producto->id_categoria = $request->id_categoria;
 
     if ($request->hasFile('imgP')) {
    
         $imagenes = $request->file('imgP')->store('public/imagenesProductos');
         $producto->imgP = str_replace('public/', '', $imagenes);
-        //$imgP = Storage::url($imagenes);
-        //$producto->imgP = $imgP;
     }
     if ($request->hasFile('imgP2')) {
    
@@ -81,7 +76,7 @@ class ProductoController extends Controller
     if ($request->hasFile('imgP3')) {
    
         $imagenes = $request->file('imgP3')->store('public/imagenesProductos');
-        $producto->imgP = str_replace('public/', '', $imagenes);
+        $producto->imgP3 = str_replace('public/', '', $imagenes);
     }
         $producto->devolucionP = $request->devolucionP;
         $producto->certificacionP = $request->certificacionP;
@@ -95,28 +90,24 @@ class ProductoController extends Controller
 
         $producto->save();
         
-        
-        return redirect()->route('PaginasHome.lisArtesano')->with('success', 'Producto creado con éxito.');
+        return back()->with('success', 'Producto creado con éxito.');
+        //return redirect()->route('PaginasHome.lisArtesano')->with('success', 'Producto creado con éxito.');
     
     }
 
     public function editar($id)
-    {
-       
+    {     
             $producto = Producto::findOrFail($id);
             $categorias = Categoria::all();
             return view('PaginasHome.editarProductos', [
                 'producto' => $producto,
                 'categorias' => $categorias
             ]); 
-               
+            
     }
     public function adicionar(Request $request)
     {  
         $usuario = Auth::user();
-        $id_usuario=$usuario->$id_usuario;
-
-
         //dd('Método liddhhhhdstaP fue llamado'); 
         $request->validate([
             'imgP' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -137,20 +128,15 @@ class ProductoController extends Controller
     if ($request->hasFile('imgP')) {
    
         $imagenes = $request->file('imgP')->store('public/imagenesProductos');
-        $imgP = Storage::url($imagenes);
-        $producto->imgP = $imgP;
+        $producto->imgP = str_replace('public/', '', $imagenes);
     }
     if ($request->hasFile('imgP2')) {
-   
         $imagenes = $request->file('imgP2')->store('public/imagenesProductos');
-        $imgP2 = Storage::url($imagenes);
-        $producto->imgP2 = $imgP2;
+        $producto->imgP2 = str_replace('public/', '', $imagenes);
     }
     if ($request->hasFile('imgP3')) {
-   
         $imagenes = $request->file('imgP3')->store('public/imagenesProductos');
-        $imgP3 = Storage::url($imagenes);
-        $producto->imgP3 = $imgP3;
+        $producto->imgP3 = str_replace('public/', '', $imagenes);
     }
         $producto->devolucionP = $request->devolucionP;
         $producto->certificacionP = $request->certificacionP;
@@ -165,12 +151,13 @@ class ProductoController extends Controller
         $producto->save();
         
         $publica = new Publica();
-        $publica->id_artesano = $id_usuario;
+        $publica->id_artesano = $usuario->id_usuario;
         $publica->id_producto = $producto->id_producto; 
         $publica->fechaP = now();
         $publica->estadoP = 7;
         $publica->save();
-        return redirect()->route('PaginasHome.lisArtesano')->with('success', 'Producto creado con éxito.');
+
+        return back()->with('success', 'Producto creado con éxito.');
     } 
     public function registerC(Request $request){
         $categoria = new Categoria();
@@ -187,6 +174,9 @@ class ProductoController extends Controller
     {    
        // $usuario = Auth::user();
         $categorias = Categoria::all(); 
+        return view('PaginasHome.agregarProductos', [
+            'categorias' => $categorias 
+    ]);
         //dd($categorias);
         return view('PaginasHome.agregarProductos', ['categorias' => $categorias ]);
     }
