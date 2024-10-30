@@ -34,6 +34,12 @@ class Artesano extends Model
     {
         return $this->hasMany(Publica::class, 'id_artesano', 'id_artesano'); // Relaciona el 'comunidad_id' con el modelo 'Comunidad'
     }
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'id_artesano');
+    }
+
     /*public function artesano()
     {
         return $this->hasOne(Artesano::class, 'id_artesano');

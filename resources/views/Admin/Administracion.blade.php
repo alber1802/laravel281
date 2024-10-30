@@ -19,7 +19,7 @@
 			<!-- SideBar User info -->
 			<div class="full-box dashboard-sideBar-UserInfo">
 				<figure class="full-box">
-					<img src="./assets/img/avatar.jpg" alt="UserIcon">
+					<img src="{{ asset('imagen/logo.png') }}" alt="UserIcon">
 					<figcaption class="text-center text-titles">User Name</figcaption>
 				</figure>
 				<ul class="full-box list-unstyled text-center">
@@ -59,6 +59,12 @@
 						<li>
 							<a href="salon.html"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Salon</a>
 						</li>
+						<li>
+							<a href="{{ route('NuevaCategoria') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Categoria</a>
+						</li>
+						<li>
+							<a href="{{ route('NuevaComunidad') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Comunidad</a>
+						</li>
 					</ul>
 				</li>
 				<li>
@@ -67,13 +73,22 @@
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="#"><i class="zmdi zmdi-account zmdi-hc-fw"></i>Clientes</a>
+							<a href="{{ route('NuevoCliente') }}">
+								<i class="zmdi zmdi-account zmdi-hc-fw"></i> Cliente
+							</a>
+							<!--<a href="#"><i class="zmdi zmdi-account zmdi-hc-fw"></i>Clientes</a>-->
 						</li>
 						<li>
-							<a href="#"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Artesano</a>
+							<a href="{{ route('NuevoArtesano') }}">
+								<i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Artesano
+							</a>
+							<!--<a href="#"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Artesano</a>-->
 						</li>
 						<li>
-							<a href="#"><i class="zmdi zmdi-face zmdi-hc-fw"></i>Repartidor</a>
+						<a href="{{ route('NuevoRepartidor') }}">
+							<i class="zmdi zmdi-face zmdi-hc-fw"></i> Repartidor
+						</a>
+							<!--<a href="#"><i class="zmdi zmdi-face zmdi-hc-fw"></i>Repartido</a>-->
 						</li>
 	
 					</ul>
@@ -134,19 +149,21 @@
 		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Settings <small>School Data</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Administracion <small>COMMCRAFT</small></h1>
 			</div>
-			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+			<p class="lead">La administración del sistema organiza y controla, optimizando la experiencia de compra para el cliente.</p>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li><a href="#listYear" data-toggle="tab"><i class="zmdi zmdi-calendar-note"></i> Lista  Artesanos</a></li>
-                        <li><a href="#listCliente" data-toggle="tab"><i class="zmdi zmdi-calendar-note"></i> Lista  Clientes</a></li>
-                        <li><a href="#listRepartidor" data-toggle="tab"><i class="zmdi zmdi-calendar-check"></i> Lista  Repartidor</a></li>
-					  	<li><a href="#listprod" data-toggle="tab"><i class="zmdi zmdi-timer"></i> Lista Producto</a></li>
-					  	<li><a href="#listCliente" data-toggle="tab"><i class="zmdi zmdi-time-restore"></i> Lista  Pedidos </a></li>
+					  	<li><a href="#listYear" data-toggle="tab"><i class="zmdi zmdi-calendar-note"></i> Lista  Artesanos </a></li>
+                        <li><a href="#listCliente" data-toggle="tab"><i class="zmdi zmdi-calendar-note"></i> Lista  Clientes </a></li>
+                        <li><a href="#listRepartido" data-toggle="tab"><i class="zmdi zmdi-calendar-check"></i> Lista  Repartidores </a></li>
+					  	<li><a href="#listprod" data-toggle="tab"><i class="zmdi zmdi-timer"></i> Lista Productos </a></li>
+					  	<li><a href="#listPedido" data-toggle="tab"><i class="zmdi zmdi-time-restore"></i> Lista  Pedidos </a></li>
+						<li><a href="#listComunidad" data-toggle="tab"><i class="zmdi zmdi-time-restore"></i> Lista  Comunidades </a></li>
+						<li><a href="#listCategoria" data-toggle="tab"><i class="zmdi zmdi-time-restore"></i> Lista  Categorias </a></li>
 					</ul>
 					<div class="tab-content">
                         	
@@ -192,7 +209,19 @@
                                                 <td>{{ $artesano->comunidad->nombreCo }}</td>
                                                 <td>{{ $artesano->comunidad->ciudad }}</td>
                                                 <td><a href="{{ route('administracion.artesanos.editartesano', $artesano->id_artesano) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td>
+													<a href="{{ route('administracion.artesanos.productos', $artesano->id_artesano) }}" class="btn btn-info btn-raised btn-xs">
+														<i class="zmdi zmdi-eye"></i>
+													</a>
+												</td>
+
+												<td>
+													<form action="{{ route('artesanos.destroy', $artesano->id_artesano) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar este artesano?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
                                             </tr>
                                         @endforeach
                                     @endif	
@@ -247,10 +276,16 @@
                                                 <td>{{ $cliente->user ? $cliente->user->email : 'Sin correo' }}</td>
                                                 <td>{{ $cliente->preferencia }}</td>
                                               
-                
 
-                                                <td><a href="#" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td><a href="{{ route('administracion.clientes.editcliente', $cliente->id_cliente) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+
+												<td>
+													<form action="{{ route('clientes.destroy', $cliente->id_cliente) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar este artesano?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
                                             </tr>
                                         @endforeach
                                     @endif	
@@ -268,7 +303,7 @@
 							</div>
 					  	</div>
 
-                        <div class="tab-pane fade" id="listRepartidor">
+                        <div class="tab-pane fade" id="listRepartido">
 							<div class="table-responsive">
                             <table class="table table-hover text-center">
 									<thead>
@@ -293,30 +328,36 @@
 										</tr>
 									</thead>
 									<tbody>
-                                    @if($repartidores->isEmpty())
+                                    @if($repartidos->isEmpty())
                                             <tr>
                                                 <td colspan="11">No hay resultados</td>
                                             </tr>
                                     @else
-                                        @foreach($repartidores as $repartidor)
+                                        @foreach($repartidos as $repartido)
                                             <tr>
-                                                <td>{{ $repartidor->user ? $repartidor->user->id_usuario : 'Sin id' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->name : 'Sin nombre' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->paterno : 'Sin apellido' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->materno : 'Sin apellido' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->sexo : 'Sin sexo' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->telefono : 'Sin teléfono' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->direccion : 'Sin dirección' }}</td>
-                                                <td>{{ $repartidor->user ? $repartidor->user->email : 'Sin correo' }}</td>
-                                                <td>{{ $repartidor->disponibilidadR }}</td>
-                                                <td>{{ $repartidor->calificacionR }}</td>
-                                                <td>{{ $repartidor->vehiculo->modeloV }}</td>
-                                                <td>{{ $repartidor->vehiculo->placaV }}</td>
-                                                <td>{{ $repartidor->vehiculo->colorV }}</td>
-                                                <td>{{ $repartidor->vehiculo->tipoV }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->id_usuario : 'Sin id' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->name : 'Sin nombre' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->paterno : 'Sin apellido' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->materno : 'Sin apellido' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->sexo : 'Sin sexo' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->telefono : 'Sin teléfono' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->direccion : 'Sin dirección' }}</td>
+                                                <td>{{ $repartido->user ? $repartido->user->email : 'Sin correo' }}</td>
+                                                <td>{{ $repartido->disponibilidadR }}</td>
+                                                <td>{{ $repartido->calificacionR }}</td>
+                                                <td>{{ $repartido->vehiculo->modeloV }}</td>
+                                                <td>{{ $repartido->vehiculo->placaV }}</td>
+                                                <td>{{ $repartido->vehiculo->colorV }}</td>
+                                                <td>{{ $repartido->vehiculo->tipoV }}</td>
 
-                                                <td><a href="#" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td><a href="{{ route('administracion.repartidos.editrepartidor', $repartido->id_repartidor) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>
+													<form action="{{ route('repartidos.destroy', $repartido->id_repartidor) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar este repartidor?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
                                             </tr>
                                         @endforeach
                                     @endif	
@@ -397,6 +438,64 @@
                                                 <td>{{ $producto->categoria->nombreCa}} </td>
                                                 <td>{{ $producto->categoria->descripcionCa}} </td>
                                                 
+                                                <td><a href="{{ route('administracion.productos.editproducto', $producto->id_producto) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>
+													<form action="{{ route('productos.destroy', $producto->id_producto) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar este producto?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+								  	<li class="disabled"><a href="#!">«</a></li>
+								  	<li class="active"><a href="#!">1</a></li>
+								  	<li><a href="#!">2</a></li>
+								  	<li><a href="#!">3</a></li>
+								  	<li><a href="#!">4</a></li>
+								  	<li><a href="#!">5</a></li>
+								  	<li><a href="#!">»</a></li>
+								</ul>
+							</div>
+					  	</div>
+
+						<div class="tab-pane fade" id="listPedido">
+						    <div class="table-responsive">
+                                <table class="table table-hover text-center">
+									<thead>
+										<tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Total Pagar</th>
+                                            <th class="text-center">Fecha Pedido</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Descuento</th>
+                                            <th class="text-center">Carrito</th>
+                                            <th class="text-center">Usuario</th>
+
+											<th class="text-center">Actualizar</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    @if($pedidos->isEmpty())
+                                        <tr>
+                                            <td colspan="15">No hay resultados</td>
+                                        </tr>
+                                    @else 
+                                        @foreach($pedidos as $pedido)
+                                            <tr>
+                                                <td>{{ $pedido->id_pedido }}</td>
+                                                <td>{{ $pedido->total_pagar }}</td>
+                                                <td>{{ $pedido->fecha_pedido }}</td>
+                                                <td>{{ $pedido->estadoP }}</td>
+                                                <td>{{ $pedido->descuento }}</td>
+                                                <td>{{ $pedido->id_carrito }}</td>
+                                                <td>{{ $pedido->id_usuario }}</td>
+
                                                 <td><a href="#" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
                                                 <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
@@ -416,7 +515,107 @@
 							</div>
 					  	</div>
 
+						<div class="tab-pane fade" id="listComunidad">
+						    <div class="table-responsive">
+                                <table class="table table-hover text-center">
+									<thead>
+										<tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Ciudad</th>
+                                            <th class="text-center">Ubicacion</th>
 
+											<th class="text-center">Actualizar</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    @if($comunidads->isEmpty())
+                                        <tr>
+                                            <td colspan="15">No hay resultados</td>
+                                        </tr>
+                                    @else 
+                                        @foreach($comunidads as $comunidad)
+                                            <tr>
+                                                <td>{{ $comunidad->id_comunidad }}</td>
+                                                <td>{{ $comunidad->nombreCo }}</td>
+                                                <td>{{ $comunidad->ciudad }}</td>
+                                                <td>{{ $comunidad->ubicacionC }}</td>
+
+												<td><a href="{{ route('administracion.comunidads.editcomunidad', $comunidad->id_comunidad) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>
+													<form action="{{ route('comunidads.destroy', $comunidad->id_comunidad) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar esta comunidad?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+								  	<li class="disabled"><a href="#!">«</a></li>
+								  	<li class="active"><a href="#!">1</a></li>
+								  	<li><a href="#!">2</a></li>
+								  	<li><a href="#!">3</a></li>
+								  	<li><a href="#!">4</a></li>
+								  	<li><a href="#!">5</a></li>
+								  	<li><a href="#!">»</a></li>
+								</ul>
+							</div>
+					  	</div>
+
+						  <div class="tab-pane fade" id="listCategoria">
+						    <div class="table-responsive">
+                                <table class="table table-hover text-center">
+									<thead>
+										<tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Descripcion</th>
+
+											<th class="text-center">Actualizar</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    @if($categorias->isEmpty())
+                                        <tr>
+                                            <td colspan="15">No hay resultados</td>
+                                        </tr>
+                                    @else 
+                                        @foreach($categorias as $categoria)
+                                            <tr>
+                                                <td>{{ $categoria->id_categoria }}</td>
+                                                <td>{{ $categoria->nombreCa }}</td>
+                                                <td>{{ $categoria->descripcionCa }}</td>
+
+												<td><a href="{{ route('administracion.categorias.editcategoria', $categoria->id_categoria) }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>
+													<form action="{{ route('categorias.destroy', $categoria->id_categoria) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="submit" class="btn btn-danger btn-raised btn-xs" onclick="return confirm('¿Estás seguro de eliminar esta categoria?')"><i class="zmdi zmdi-delete"></i></button>
+													</form>
+												</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+								  	<li class="disabled"><a href="#!">«</a></li>
+								  	<li class="active"><a href="#!">1</a></li>
+								  	<li><a href="#!">2</a></li>
+								  	<li><a href="#!">3</a></li>
+								  	<li><a href="#!">4</a></li>
+								  	<li><a href="#!">5</a></li>
+								  	<li><a href="#!">»</a></li>
+								</ul>
+							</div>
+					  	</div>
                          
 					</div>
 				</div>

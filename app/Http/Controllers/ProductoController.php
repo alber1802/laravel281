@@ -197,7 +197,48 @@ class ProductoController extends Controller
         return view('PaginasHome.lisProductos', ['datos' => $datos]); 
     }
 
-  
+    public function edit($id_producto)
+    {
+        $producto = Producto::with('categoria')->findOrFail($id_producto);
+        return view('Admin.EditarProducto', compact('producto'));
+    }
+
+    public function updatee(Request $request, $id_producto)
+    {
+        $producto = Producto::findOrFail($id_producto);
+        $categoria = $producto->categoria;
+
+        $producto->update([
+            'nombreP' => $request->nombreP,
+            'descripcionP' => $request->descripcionP,
+            'materialP' => $request->materialP,
+            'precioP' => $request->precioP,
+            'stock' => $request->stock,
+            'colorP' => $request->colorP,
+            'tipoP' => $request->tipoP,
+            'descuentoP' => $request->descuentoP,
+            'metodoP' => $request->metodoP,
+            'costoEnvio' => $request->costoEnvio,
+            'tiempoEntrega' => $request->tiempoEntrega,
+            'devolucionP' => $request->devolucionP,
+            'garantiaP' => $request->garantiaP,
+            'certificacionP' => $request->certificacionP,
+        ]);
+ 
+        $categoria->update([
+            'nombreCa' => $request->nombreCa,
+        ]); 
+
+        return redirect()->route('Administrador.listar')->with('success', 'Producto actualizado correctamente');
+    }
+
+    public function destroy($id_producto)
+    {
+        $producto = Producto::where('id_producto', $id_producto)->firstOrFail();
+        $producto->delete();
+
+        return redirect()->route('Administrador.listar')->with('success', 'Producto eliminado correctamente');
+    }
 }
 
 

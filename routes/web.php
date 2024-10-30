@@ -35,9 +35,110 @@ use App\Http\Controllers\AdministradorController;
 */
 Route::view('/Admin', "Admin.Administracion")->name('Administrador');
 Route::get('/Administrador', [AdministradorController::class, 'listar'])->name('Administrador.listar');
-Route::get('administracion/artesanos/{id_artesano}/edit', [AdministradorController::class, 'edit'])->name('administracion.artesanos.editartesano');
+
+// NUEVOS USUARIOS CLIENTE, ARTESANO, REPARTIDOR 
+Route::view('/NuevoCliente', "Admin.NuevoCliente")->name('NuevoCliente');
+Route::post('/validarRegistro', [ClienteController::class,'registroCliente'])->name('validarRegistro');
+
+Route::view('/NuevoArtesano', "Admin.NuevoArtesano")->name('NuevoArtesano');
+Route::post('/validarRegistroA', [ArtesanoController::class,'registroArtesano'])->name('validarRegistroA');
+
+Route::view('/NuevoRepartidor', "Admin.NuevoRepartidor")->name('NuevoRepartidor');
+Route::post('/validarRegistroR', [RepartidoController::class,'registroRepartidor'])->name('validarRegistroR');
 
 
+// NUEVA CATEGORIA
+Route::view('/NuevaCategoria', "Admin.NuevaCategoria")->name('NuevaCategoria');
+Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
+
+// NUEVA COMUNIDAD
+Route::view('/NuevaComunidad', "Admin.NuevaComunidad")->name('NuevaComunidad');
+Route::post('/comunidads', [ComunidadController::class, 'store'])->name('comunidads.store');
+
+// CONTROLADORES
+
+// ARTESANOS
+Route::resource('artesanos', ArtesanoController::class);
+Route::get('/artesanos', [ArtesanoController::class, 'index'])->name('artesanos.index');
+Route::delete('/artesanos/{id_artesano}', [ArtesanoController::class, 'destroy'])->name('artesanos.destroy');
+
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('artesanos', ArtesanoController::class);
+});
+Route::get('administracion/artesanos/{id_artesano}/edit', [ArtesanoController::class, 'edit'])->name('administracion.artesanos.editartesano');
+Route::put('administracion/artesanos/{id_artesano}', [ArtesanoController::class, 'update'])->name('administracion.artesanos.update');
+Route::resource('administracion/artesanos', ArtesanoController::class);
+
+Route::get('/administracion/Administrador', [AdministradorController::class, 'listar'])->name('Administrador.listar');
+
+// REPARTIDORES
+Route::resource('repartidos', RepartidoController::class);
+Route::get('/repartidos', [RepartidoController::class, 'index'])->name('repartidos.index');
+Route::delete('/repartidos/{id_repartido}', [RepartidoController::class, 'destroy'])->name('repartidos.destroy');
+
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('repartidos', RepartidoController::class);
+});
+Route::get('administracion/repartidos/{id_repartido}/edit', [RepartidoController::class, 'edit'])->name('administracion.repartidos.editrepartidor');
+Route::put('administracion/repartidos/{id_repartido}', [RepartidoController::class, 'update'])->name('administracion.repartidos.update');
+Route::resource('administracion/repartidos', RepartidoController::class);
+
+// CLIENTES
+Route::resource('clientes', ClienteController::class);
+Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+Route::delete('/clientes/{id_cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('clientes', ClienteController::class);
+});
+Route::get('administracion/clientes/{id_repartido}/edit', [ClienteController::class, 'edit'])->name('administracion.clientes.editcliente');
+Route::put('administracion/clientes/{id_repartido}', [ClienteController::class, 'update'])->name('administracion.clientes.update');
+Route::resource('administracion/clientes', ClienteController::class);
+
+// PRODUCTOS
+Route::resource('productos', ProductoController::class);
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+Route::delete('/productos/{id_cliente}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('productos', ProductoController::class);
+});
+Route::get('administracion/productos/{id_producto}/edit', [ProductoController::class, 'edit'])->name('administracion.productos.editproducto');
+Route::put('administracion/productos/{id_producto}', [ProductoController::class, 'updatee'])->name('administracion.productos.update');
+Route::resource('administracion/productos', ProductoController::class);
+
+// CATEGORIAS
+Route::resource('categorias', CategoriaController::class);
+Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+Route::delete('/categorias/{id_categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('categorias', CategoriaController::class);
+});
+Route::get('administracion/categorias/{id_categoria}/edit', [CategoriaController::class, 'edit'])->name('administracion.categorias.editcategoria');
+Route::put('administracion/categorias/{id_categoria}', [CategoriaController::class, 'update'])->name('administracion.categorias.update');
+Route::resource('administracion/categorias', CategoriaController::class);
+
+Route::get('/administracion/Administrador', [AdministradorController::class, 'listar'])->name('Administrador.listar');
+
+// COMUNIDADS
+Route::resource('comunidads', ComunidadController::class);
+Route::get('/comunidads', [ComunidadController::class, 'index'])->name('comunidads.index');
+Route::delete('/comunidads/{id_comunidad}', [ComunidadController::class, 'destroy'])->name('comunidads.destroy');
+
+Route::prefix('admin')->group(function () {
+    Route::get('administracion', [AdministracionController::class, 'index'])->name('Admin.Administracion');
+    Route::resource('comunidads', ComunidadController::class);
+});
+Route::get('administracion/comunidads/{id_comunidad}/edit', [ComunidadController::class, 'edit'])->name('administracion.comunidads.editcomunidad');
+Route::put('administracion/comunidads/{id_comunidad}', [ComunidadController::class, 'update'])->name('administracion.comunidads.update');
+Route::resource('administracion/comunidads', ComunidadController::class);
+
+// MOSTRAR PRODUCTOS DE UN ARTESANO
+Route::get('/artesanos/{id_artesano}/productos', [ArtesanoController::class, 'productos'])->name('administracion.artesanos.productos');
 
 
 //para cmabiar de pagina 

@@ -62,6 +62,12 @@ class Producto extends Model
         return $this->hasMany(Incluye::class, 'id_producto','id_producto'); 
     }
 
+    public function artesano()
+    {
+        return $this->belongsTo(Artesano::class, 'id_artesano');
+    }
+
+
     public function carritos()
     {
         return $this->belongsToMany(Carrito::class, 'incluyes', 'id_producto', 'id_carrito')
