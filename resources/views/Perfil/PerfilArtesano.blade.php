@@ -14,7 +14,8 @@
         <div class="horizontal-nav">
         <a href="{{route('Home')}}" ><div class="nav-item">Ir Inicio</div></a>
             <div class="nav-item">Reseñas</div>
-            <a href="{{route('lista.ProductosArtesanos')}}" ><div class="nav-item">Ver Productos</div></a>
+            <a href="{{route('lisPublica')}}" ><div class="nav-item">Ver Productos</div></a>
+            <!--<a href="{{route('lista.ProductosArtesanos')}}" ><div class="nav-item">Ver Productos</div></a> carmen -->
             <div class="nav-item">Notificaciones</div>
             <div class="nav-item"><a href="{{route('ActualizarArtesano')}}" >Editar Perfil</a></div>
             <a href="{{route('Cerrar-Session')}}" ><div class="nav-item">Cerrar Seccion</div></a>

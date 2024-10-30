@@ -101,49 +101,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/lisPedidosA/{id_carrito}', [CarritoController::class, 'listaPedidosAnteriores'])->name('lisPedidosA');
 });
 
-
-
-//orden de entrega
-//Route::get('/ReporteOrden/{id_carrito}/{id_artesano}', [PdfController::class, 'generarOrden'])->name('ReporteOrden');
-
-
-//**********************************para la liosta de productos********************************************** */
-//lista de artesanos
-//Route::view('/lisArtesano', "PaginasHome.lisArtesano")->name('lisArtesano');
-
-//muestra la lista de prodctos del artesano x
-Route::get('/lista.ProductosArtesanos', [PublicaController::class, 'artesanoP'])->name('lista.ProductosArtesanos');
-
-//muestra la lista de productos
-Route::view('/lisPublica', "PaginasHome.lisPublica")->name('lisPublica');
-
-//manda a la pagina agregar productos
-Route::get('/agregarProductos', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
-
-//agrega productos
-Route::post('/registroNuevoProducto', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
-
-//registra la categoria
-Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
-
-//ir a la pagina de modificar producto
-
-Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
-
-//modificar producto del artesano
-Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
-
-//manda los datos del aretsano para modificar
-Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
-
-//eliminar producto
-Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
-
-//muestra el idArtesano y lo manda a la pagina agregarProductos
-Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
-
-Route::get('/lisProductos', [ProductoController::class, 'listaP'])->name('lisProductos');
-Route::delete('/productos/{id}', [ProductoController::class, 'eliminar'])->name('EliminarProducto');
 //******************************************************************************************************* */
 
 //-----------------------------CARRITO Y METODO PAGO-------------------------//

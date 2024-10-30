@@ -18,21 +18,20 @@ return new class extends Migration
             $table->string('estado_entrega', 50);
             $table->string('tipo_entrega', 50);
             $table->unsignedBigInteger('id_pedido');
-            $table->unsignedBigInteger('id_repartidor');        
+            $table->unsignedBigInteger('id_repartidor');
             $table->timestamps();
             $table->foreign('id_pedido')->references('id_pedido')->on('pedidos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidos')->onUpdate('cascade')->onDelete('cascade');   
+            $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidos')->onUpdate('cascade')->onDelete('cascade');
             $table->double('latitud', 15, 8)->nullable();  // Agregar columna 'latitud'
             $table->double('longitud', 15, 8)->nullable(); // Agregar columna 'longitud'
         });
     }
 
-   
-      
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('entregas'); // Elimina la tabla completa
+        Schema::dropIfExists('entregas');
     }
-    
-  
 };

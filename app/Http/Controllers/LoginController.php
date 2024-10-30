@@ -164,18 +164,13 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Obtener el ID del usuario autenticado 
-            /* $user = Auth::user(); 
+            $user = Auth::user(); 
             // Identificar si es cliente, artesano o repartidor        
-
-            
-            //cambiadoCarmen//$this->verificarToken();
-            return redirect()->route('lisPublica');
 
             $this->verificarToken();
 
-            return redirect()->route('Verificacion');*/
+            return redirect()->route('Verificacion');
             
-            return redirect(route('PerfilUsuario'));
         }else {
         
             return redirect(route('login'));
