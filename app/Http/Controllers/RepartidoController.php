@@ -10,10 +10,8 @@ use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\Pedido;
 use App\Models\Comunidad;
-use Illuminate\Support\Facades\DB;
 
-
-class ArtesanoController extends Controller
+class RepartidoController extends Controller
 {
     public function listar(){   
         $artesanos = Artesano::with('user', 'comunidad')->get();
@@ -41,23 +39,25 @@ class ArtesanoController extends Controller
         $datos = Artesano::with('user', 'comunidad')->get();
         return view('PaginasHome.lisArtesano', ['datos' => $datos]);
     }
-
+    
     public function index()
     {
-        $artesanos = Artesano::with('user')->get();
-        return view('Admin.Administracion', compact('artesanos'));
+        // Obtener todos los repartidos con sus respectivos usuarios
+        $repartidos = Repartido::with('user')->get();
+        
+        return view('Admin.Administracion', compact('repartidos'));
+    }
+    
+    public function edit($id_repartidor)
+    {
+        $repartido = Repartido::with('user')->findOrFail($id_repartidor); // Si la columna es 'id_repartidor'
+        return view('Admin.EditarRepartidor', compact('repartido'));
     }
 
-    public function edit($id_artesano)
+    public function update(Request $request, $id_repartidor)
     {
-        $artesano = Artesano::with('user')->findOrFail($id_artesano);
-        return view('Admin.EditarArtesano', compact('artesano'));
-    }
-
-    public function update(Request $request, $id_artesano)
-    {
-        $artesano = artesano::findOrFail($id_artesano);
-        $user = $artesano->user;
+        $repartido = repartido::findOrFail($id_repartidor);
+        $user = $repartido->user;
 
         $user->update([
             'name' => $request->name,
@@ -70,44 +70,21 @@ class ArtesanoController extends Controller
             'email' => $request->email,
         ]);
  
-        $artesano->update([
-            'descripcionA' => $request->descripcionA,
+        $repartido->update([
+            'disponibilidadR' => $request->disponibilidadR, // Corrige el nombre sin espacio extra
         ]);
 
-        return redirect()->route('Administrador.listar')->with('success', 'Artesano actualizado correctamente');
+        return redirect()->route('Administrador.listar')->with('success',  'repartido actualizado correctamente');
     }
-
-    public function destroy($id_artesano)
+    public function destroy($id_repartidor)
     {
-        $artesano = Artesano::where('id_artesano', $id_artesano)->firstOrFail();
-        $artesano->delete();
+        $repartido = Repartido::where('id_repartidor', $id_repartidor)->firstOrFail();
+        $repartido->delete();
 
-        return redirect()->route('Administrador.listar')->with('success', 'Artesano eliminado correctamente');
+        return redirect()->route('Administrador.listar')->with('success', 'Repartidor eliminado correctamente.');
     }
 
-    public function store(Request $request)
-    {
-        // Validar los datos
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'paterno' => 'required|string|max:255',
-            'materno' => 'required|string|max:255',
-            'nombre' => 'required|string|max:255',
-            'sexo' => 'required|string|max:255',
-            'telefono' => 'required|string|max:255',
-            'direccion' => 'required|string|max:255',
-            'email' => 'required|email|unique:artesanos,email',
-            'descripcionA' => 'required|string|max:255',
-        ]);
-
-        // Crear el nuevo artesano
-        Artesano::create($validated);
-
-        // Redireccionar con un mensaje de éxito
-        return redirect()->route('Administrador.listar')->with('success', 'Artesano agregado exitosamente');
-    }
-
-    public function registroArtesano(Request $request){
+    public function registroRepartidor(Request $request){
         $user = new User();
         $user->name = $request->name;
         $user->nombre = $request->nombre; // nombre de usuario alias
@@ -128,28 +105,27 @@ class ArtesanoController extends Controller
         }
         $user->save();
         //--------------------
-        $comunidad=new Comunidad();
-        $comunidad->nombreCo=$request->nombreCo;
-        $comunidad->ciudad=$request->ciudad;
-        $comunidad->ubicacionC=$request->nombreCo.' '.$request->ciudad;
-        $comunidad->save();
+        $vehiculo =new Vehiculo();
 
-    
-        // Guardar datos específicos de Artesano
-        $artesano = new Artesano();
-        $artesano->id_artesano = $user->id_usuario; // Relación con User
-        $artesano->id_comunidad = $comunidad->id_comunidad ;
-        $artesano->especialidadA = $request->especialidadA;
-        $artesano->descripcionA = $request->descripcionA;
-        // Verifica si la calificación está presente, si no, asigna un valor predeterminado
-        $artesano->calificacionA = $request->calificacionA ?? 0; // Si no hay calificación, asigna 0
-        $artesano->save();
+        $vehiculo->modeloV=$request->modeloV;
+        $vehiculo->placaV=$request->placaV;
+        $vehiculo->colorV=$request->colorV;
+        $vehiculo->tipoV=$request->tipoV;
+        $vehiculo->save();
+
+        // Guardar datos específicos de Repartidor
+        $repartidor = new Repartido();
+        $repartidor->id_repartidor = $user->id_usuario; // Relación con User
+        $repartidor->id_vehiculo = $vehiculo->id_vehiculo;
+        $repartidor->disponibilidadR = $request->disponibilidadR ?? 1; // Si no se envía, se asigna "Tiempo completo"
+        $repartidor->calificacionR = $request->calificacionR ?? 6; // Asignar calificación por defecto si no se proporciona
+        $repartidor->save();
 
         Auth::login($user);
        /* $this->verificarToken();
 
         return redirect()->route('Verificacion');*/
-        return redirect(route('Administrador.listar'));
+        return redirect(route('PerfilUsuario'));
     }
 
     public function login(Request $request){
@@ -228,31 +204,4 @@ class ArtesanoController extends Controller
         // Si el código es incorrecto o ha expirado
         return back()->withErrors(['codigo' => 'Código incorrecto o expirado.']);
     }
-
-    public function productos($id_artesano)
-    {
-        // Consulta para obtener productos y datos del artesano, incluyendo la categoría
-        $productos = DB::table('productos')
-            ->join('publicas', 'productos.id_producto', '=', 'publicas.id_producto')
-            ->join('users', 'publicas.id_artesano', '=', 'users.id_usuario') // Unir con la tabla users
-            ->join('categorias', 'productos.id_categoria', '=', 'categorias.id_categoria') // Unir con la tabla categorias
-            ->where('publicas.id_artesano', $id_artesano)
-            ->select(
-                'productos.*', 
-                'publicas.fechaP', 
-                'users.name', 
-                'users.paterno', 
-                'users.materno', 
-                'categorias.nombreCa',  // Selecciona el nombre de la categoría
-                'categorias.descripcionCa' // Selecciona la descripción de la categoría
-            ) // Selecciona los campos que quieres mostrar
-            ->get();
-
-        return view('Admin.productosArtesano', [
-            'productos' => $productos,
-            'id_artesano' => $id_artesano,
-        ]);
-    }
-
-
 }

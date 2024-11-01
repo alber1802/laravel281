@@ -12,7 +12,8 @@ class Categoria extends Model
     protected $table = 'categorias';
     protected $guarded = [];
     protected $primaryKey = 'id_categoria';
-    protected $fillable = ['nombreCa', 'descripcion'];
+    //protected $fillable = ['nombreCa', 'descripcion'];
+    protected $fillable = ['nombreCa', 'descripcionCa'];
     public function categorias()
     {
         
