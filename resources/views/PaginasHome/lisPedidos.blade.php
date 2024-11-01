@@ -152,10 +152,10 @@
 					<td>{{$item->email }}</td>
 					<td>
 
- <a type="submit" href="{{ route('lisPedidosPxCA', $item->id_cliente) }}" title='{{ $item->nombreCliente }}'>{{ $item->cantidadTerminado }} </a> 
+ <a type="submit" href="{{ route('lisPedidosPxCA', $item->id_usuario) }}" title='{{ $item->nombreCliente }}'>{{ $item->cantidadTerminado }} </a> 
 
 </td>
-<td> <a type="submit" href="{{ route('lisPedidosPxC', $item->id_cliente) }}" title='{{ $item->nombreCliente }}'> {{ $item->cantidadPendiente }}
+<td> <a type="submit" href="{{ route('lisPedidosPxC', $item->id_usuario) }}" title='{{ $item->nombreCliente }}'> {{ $item->cantidadPendiente }}
 	</a> 
 </td>
 					

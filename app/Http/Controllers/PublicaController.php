@@ -14,8 +14,6 @@ class PublicaController extends Controller
     public function artesanoP()
     {
         $usuario = Auth::user();
-
-
         $cont = DB::select('
         SELECT 
             (SELECT
@@ -25,7 +23,7 @@ class PublicaController extends Controller
                 clientes cl
             WHERE
                 u.id_usuario = cl.id_cliente
-                AND cl.id_cliente = c.id_cliente
+                AND cl.id_cliente = c.id_usuario
                 ) AS nombreCliente,
             SUM(i.cantidadPP) AS cantidadSuma 
         FROM 

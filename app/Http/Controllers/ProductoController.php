@@ -108,10 +108,6 @@ class ProductoController extends Controller
     public function adicionar(Request $request)
     {  
         $usuario = Auth::user();
-        $id_usuario=$usuario->$id_usuario;
-
-
-        $usuario = Auth::user();
         //dd('Método liddhhhhdstaP fue llamado'); 
         $request->validate([
             'imgP' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -162,8 +158,6 @@ class ProductoController extends Controller
         $publica->save();
 
         return back()->with('success', 'Producto creado con éxito.');
-
-        //return redirect()->route('PaginasHome.lisPublica/{{$id_usuario}}')->with('success', 'Producto creado con éxito.');
     } 
     public function registerC(Request $request){
         $categoria = new Categoria();

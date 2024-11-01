@@ -24,11 +24,11 @@ class CarritoController extends Controller
                 clientes cl
             WHERE
                 u.id_usuario = cl.id_cliente
-                AND cl.id_cliente = c.id_cliente
+                AND cl.id_cliente = c.id_usuario
             ) AS nombreCliente,
             SUM(CASE WHEN ped.estadoP = "Pendiente" THEN i.cantidadPP ELSE 0 END) AS cantidadPendiente,
             SUM(CASE WHEN ped.estadoP = "Terminado" THEN i.cantidadPP ELSE 0 END) AS cantidadTerminado, 
-            c.id_cliente, u.direccion,u.telefono,u.email
+            c.id_usuario, u.direccion,u.telefono,u.email
         FROM 
         carritos c,publicas p,pedidos ped, incluyes i, users u
         WHERE 
@@ -36,8 +36,8 @@ class CarritoController extends Controller
             AND p.id_producto = i.id_producto
             AND c.id_carrito = ped.id_carrito
             AND i.id_carrito = c.id_carrito
-            AND u.id_usuario = c.id_cliente
-        GROUP BY nombreCliente, c.id_cliente, u.direccion,u.telefono,u.email
+            AND u.id_usuario = c.id_usuario
+        GROUP BY nombreCliente, c.id_usuario, u.direccion,u.telefono,u.email
         ORDER BY ped.fecha_pedido DESC;',  [$usuario->id_usuario]);
 
 
@@ -53,13 +53,13 @@ class CarritoController extends Controller
     (SELECT CONCAT(u.nombre, " ", u.paterno, " ", u.materno)
      FROM users u, clientes cl
      WHERE u.id_usuario = cl.id_cliente 
-     AND cl.id_cliente = c.id_cliente) AS nombreCliente,
+     AND cl.id_cliente = c.id_usuario) AS nombreCliente,
     GROUP_CONCAT(
         (SELECT CONCAT(nombreP,": ",descripcionP) 
          FROM productos 
          WHERE id_producto = i.id_producto) 
         SEPARATOR "<br>") AS productos, 
-    c.id_cliente,
+    c.id_usuario,
     ped.fecha_pedido,
     ped.descuento,
     ped.estadoP
@@ -70,13 +70,13 @@ FROM
     pedidos ped
 WHERE 
     p.id_artesano = ?
-    AND c.id_cliente = ? 
+    AND c.id_usuario = ? 
     AND p.id_producto = i.id_producto 
     AND c.id_carrito = ped.id_carrito 
     AND ped.estadoP = "Pendiente" 
     AND i.id_carrito = c.id_carrito 
 GROUP BY 
-    c.id_carrito, c.id_cliente, ped.fecha_pedido, ped.descuento, ped.estadoP
+    c.id_carrito, c.id_usuario, ped.fecha_pedido, ped.descuento, ped.estadoP
 ORDER BY 
     ped.fecha_pedido DESC', [$usuario->id_usuario,$id_cliente]);
         $cliente = $datos[0]->nombreCliente; 
@@ -93,13 +93,13 @@ public function listaPedidosxClienteA($id_cliente)
     (SELECT CONCAT(u.nombre, " ", u.paterno, " ", u.materno)
      FROM users u, clientes cl
      WHERE u.id_usuario = cl.id_cliente 
-     AND cl.id_cliente = c.id_cliente) AS nombreCliente,
+     AND cl.id_cliente = c.id_usuario) AS nombreCliente,
     GROUP_CONCAT(
         (SELECT CONCAT(nombreP,": ",descripcionP) 
          FROM productos 
          WHERE id_producto = i.id_producto) 
         SEPARATOR "<br>") AS productos, 
-    c.id_cliente,
+    c.id_usuario,
     ped.fecha_pedido,
     ped.descuento,
     ped.estadoP
@@ -110,13 +110,13 @@ FROM
     pedidos ped
 WHERE 
     p.id_artesano = ?
-    AND c.id_cliente = ? 
+    AND c.id_usuario = ? 
     AND p.id_producto = i.id_producto 
     AND c.id_carrito = ped.id_carrito 
     AND ped.estadoP = "Terminado" 
     AND i.id_carrito = c.id_carrito 
 GROUP BY 
-    c.id_carrito, c.id_cliente, ped.fecha_pedido, ped.descuento, ped.estadoP
+    c.id_carrito, c.id_usuario, ped.fecha_pedido, ped.descuento, ped.estadoP
 ORDER BY 
     ped.fecha_pedido DESC', [$usuario->id_usuario,$id_cliente]);
     $cliente = $datos[0]->nombreCliente; 
@@ -132,7 +132,7 @@ ORDER BY
         WITH TotalDescuentos AS (
             SELECT 
             
-                c.id_cliente,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
+                c.id_usuario,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
     	u.direccion,ped.id_pedido, ped.fecha_pedido, ped.descuento, ped.estadoP,
                 pr.nombreP,i.cantidadPP,pr.descripcionP, pr.precioP,
                 ROUND((pr.precioP * i.cantidadPP), 2) AS total,
@@ -142,7 +142,7 @@ ORDER BY
                 carritos c, publicas p, pedidos ped, incluyes i, productos pr,users u
             WHERE 
                 p.id_artesano = ? 
-                AND c.id_cliente = 6 and c.id_cliente=u.id_usuario
+               and c.id_usuario=u.id_usuario
                 AND p.id_producto = i.id_producto
                 AND pr.id_producto = i.id_producto
                 AND c.id_carrito = ped.id_carrito 
@@ -151,8 +151,8 @@ ORDER BY
                 AND i.id_carrito = c.id_carrito
         )
         SELECT 
-            id_cliente,
-    nombreC,direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_cliente ORDER BY fecha_pedido) AS totalP
+            id_usuario,
+    nombreC,direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_usuario ORDER BY fecha_pedido) AS totalP
     FROM 
         TotalDescuentos;', [$usuario->id_usuario, $id_carrito]);
         $totalP = $datos[0]->totalP; 
@@ -174,7 +174,7 @@ ORDER BY
         $datos = DB::select('
         WITH TotalDescuentos AS (
             SELECT 
-				c.id_cliente,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
+				c.id_usuario,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
     	u.direccion,ped.id_pedido, ped.fecha_pedido, ped.descuento, ped.estadoP,
                 pr.nombreP,i.cantidadPP,pr.descripcionP, pr.precioP,
                 ROUND((pr.precioP * i.cantidadPP), 2) AS total,
@@ -184,7 +184,7 @@ ORDER BY
                 carritos c, publicas p, pedidos ped, incluyes i, productos pr,users u
             WHERE 
                 p.id_artesano = ? 
-                AND c.id_cliente = 6 and c.id_cliente=u.id_usuario
+                 and c.id_usuario=u.id_usuario
                 AND p.id_producto = i.id_producto
                 AND pr.id_producto = i.id_producto
                 AND c.id_carrito = ped.id_carrito 
@@ -193,7 +193,7 @@ ORDER BY
                 AND i.id_carrito = c.id_carrito
         )
         SELECT 
-            	id_cliente, nombreC, direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_cliente ORDER BY fecha_pedido) AS totalP
+            	id_usuario, nombreC, direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_usuario ORDER BY fecha_pedido) AS totalP
         FROM 
             TotalDescuentos;', [$usuario->id_usuario, $id_carrito]);
 
@@ -209,7 +209,7 @@ ORDER BY
                 JOIN repartidos r ON r.id_repartidor = u.id_usuario
                 WHERE r.id_repartidor = e.id_repartidor) as nombreRepartidor
         FROM entregas e
-        WHERE e.id_pedido = 6;');    
+        WHERE e.id_pedido = 2;');    
     
         return view('PaginasHome.lisPedidosAnteriores', ['datos' => $datos,'totalP'=>$totalP,'fechaP'=>$fechaP,'nombreC' => $nombreC,'datos2'=>$datos2]);
     }
