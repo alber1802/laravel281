@@ -28,7 +28,7 @@ use App\Http\Controllers\QrController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\CatalogoController;
-
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -167,41 +167,35 @@ Route::view('/shop-detail',"PaginasHome.shop-detail")->name('shop-detail');
 
 
 //-----------------------------------------------------------------------------
+//PRODUCTOS Y ARTESANOS
 
-Route::get('/lisPublica', [PublicaController::class, 'artesanoP'])->middleware('auth')->name('lisPublica');
 
 Route::middleware('auth')->group(function () {
-    //manda a la pagina agregar productos
+    Route::get('/lisPublica', [PublicaController::class, 'artesanoP'])->name('lisPublica');
     Route::get('/agregarProductos', [ProductoController::class, 'artesano_id'])->name('agregarProductos');
-    //agrega productos
     Route::post('/registroNuevoProducto', [ProductoController::class, 'adicionar'])->name('registroNuevoProducto');
-
-    //ir a la pagina de modificar producto
     Route::get('/PaginasHome.editarProducto/{id}', [ProductoController::class, 'editar'])->name('productos.editar');
-    //modificar producto del artesano
     Route::post('/producto-modificar/{id}', [ProductoController::class, 'update'])->name('producto-modificar');
-    //registra la categoria
     Route::post('/validar-registerC', [CategoriaController::class,'registerC'])->name('validar-registerC');
-    //manda los datos del aretsano para modificar
     Route::get('/PaginasHome.editarProducto/{id_producto}', [ProductoController::class, 'editar'])->name('productos.editar');
-    //eliminar producto
     Route::post('/PaginasHome.eliminarP/{id_producto}', [ProductoController::class, 'eliminarProducto'])->name('eliminarP');
-    //muestra el idArtesano y lo manda a la pagina agregarProductos
     Route::get('/lisArtesano', [ArtesanoController::class, 'listaArt'])->name('lisArtesano');
-    //lista de clientes y pedidos
     Route::get('/lista.PedidosArtesanos', [CarritoController::class, 'listaPedidos'])->name('lista.PedidosArtesanos');
-    //lista de pedidos x cliente
     Route::get('/lisPedidosPxC/{id_cliente}', [CarritoController::class, 'listaPedidosxCliente'])->name('lisPedidosPxC');
-    //lista de pedidos pendientes
     Route::get('/lisPedidosP/{id_carrito}', [CarritoController::class, 'listaPedidosPendientes'])->name('lisPedidosP');
-    //registro entrega
     Route::post('/registroEntregas', [EntregaController::class,'registerE'])->name('registroEntregas');
-    //lista de pedidos anteriores x cliente
     Route::get('/lisPedidosPxCA/{id_cliente}', [CarritoController::class, 'listaPedidosxClienteA'])->name('lisPedidosPxCA');
-    //lista de pedidos anteriores
     Route::get('/lisPedidosA/{id_carrito}', [CarritoController::class, 'listaPedidosAnteriores'])->name('lisPedidosA');
+    
+    Route::get('/lisCategoria', [CategoriaController::class, 'categoriaP'])->name('lisCategoria');
+    Route::post('/editarC/{id}', [CategoriaController::class, 'editarCa'])->name('editarC');
+    Route::post('/eliminarC/{id}', [CategoriaController::class, 'eliminarCa'])->name('eliminarC');
+    Route::get('/lisClientes', [CategoriaController::class, 'listaClientes'])->name('lisClientes');
+
+     Route::get('/dashboard', [DashboardController::class, 'ventasSemanales'])->name('dashboard');
 });
 
+   
 //******************************************************************************************************* */
 
 //-----------------------------CARRITO Y METODO PAGO-------------------------//

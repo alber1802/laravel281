@@ -57,12 +57,15 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
+						<li>
+							<a href="{{route('dashboard') }}"><i class="fas fa-home"></i> &nbsp; Dashboard Administrador</a>
 						
+						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="client-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de clientes</a>
+									<a href="{{ route('lisClientes') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de clientes</a>
 								</li>
 							</ul>
 						</li>
@@ -70,22 +73,18 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-store fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
 							<ul>
                                 <li>
-								    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
+								    <a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Productos</a>
 								</li>
 								<li>
-                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
+                                    <a href="{{ route('lisPublica') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 								</li>
 							</ul>
 						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-briefcase fa-fw"></i> &nbsp; Categoria <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								
 								<li>
-                                    <a href="#"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Categoria</a>
-								</li>
-								<li>
-                                    <a href="#"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Categorias</a>
+                                    <a href="{{ route('lisCategoria') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Categorias</a>
 								</li>
 							</ul>
 						</li>
@@ -94,10 +93,7 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="reservation-new.html"><i class="fa-solid fa-clipboard fa -fw"></i> &nbsp; Pedidos Pendientes</a>
-								</li>
-								<li>
-									<a href="reservation-list.html"><i class="fas fa-clipboard-check fa-fw"></i> &nbsp; Pedidos Finalizados</a>
+									<a href="#"><i class="{{ route('lista.PedidosArtesanos') }}"></i> &nbsp; Lista de Pedidos Pendientes</a>
 								</li>
 							</ul>
 						</li>

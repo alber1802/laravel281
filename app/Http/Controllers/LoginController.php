@@ -167,9 +167,9 @@ class LoginController extends Controller
             $user = Auth::user(); 
             // Identificar si es cliente, artesano o repartidor        
 
-            $this->verificarToken();
-
-            return redirect()->route('Verificacion');
+            //carmen----->//$this->verificarToken();
+            //return redirect()->route('Verificacion');
+            return redirect()->route('lisPublica');
             
         }else {
         

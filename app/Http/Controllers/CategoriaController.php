@@ -10,9 +10,58 @@ use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\Pedido;
 use App\Models\Comunidad;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class CategoriaController extends Controller
 {
+    public function listaClientes()
+    {
+        $usuario = Auth::user();
+        DB::statement('SET SESSION sql_mode = ""');
+        $datos = DB::select('
+        SELECT 
+   CONCAT(u.nombre, " ", u.paterno, " ", u.materno) AS nombreCliente, 2024-EXTRACT(YEAR FROM u.fecha_nacimiento) AS edad , u.*, cli.preferencia
+FROM 
+    carritos c, incluyes i, publicas p,users u, clientes cli
+WHERE 
+    p.id_artesano = ?
+    AND p.id_producto = i.id_producto 
+    AND i.id_carrito = c.id_carrito 
+    AND c.id_usuario=cli.id_cliente
+    AND cli.id_cliente=u.id_usuario GROUP BY nombreCliente
+;', [$usuario->id_usuario]); 
+        return view('PaginasHome.lisClientes', ['datos' => $datos]);
+    }
+    public function categoriaP()
+    {
+        $usuario = Auth::user();
+        $datos = DB::select('
+        SELECT c.*
+        from categorias c;'); 
+        return view('PaginasHome.lisCategoria', ['datos' => $datos]);
+    }
+    public function editarCa(Request $request,$id)
+    {
+        $validatedData = $request->validate([
+          
+            'nombreCa' => 'required|string|max:255',
+            'descripcionCa' => 'required|string',
+             
+        ]);
+        $categoria = Categoria::find($id);
+        $categoria->nombreCa = $request->nombreCa; 
+        $categoria->descripcionCa = $request->descripcionCa;
+
+        $categoria->save();
+        
+        return back()->with('success', 'Producto creado con éxito.');
+    } 
+    public function eliminarCa($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+        return back()->with('success', 'Producto creado con éxito.');
+    }
     public function listar(){   
         $artesanos = Artesano::with('user', 'comunidad')->get();
         $clientes = Cliente::with('user')->get();

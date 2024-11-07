@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Lista productos</title>
+	<title>Lista categoria</title>
 
 	
 
@@ -122,29 +122,19 @@
 			<!-- Page header -->
 			<div class="full-box page-header">
 				<h3 class="text-left">
-					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS DEL ARTESANO
+					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CATEGORIA DEL ARTESANO
 				</h3>
-				<p class="text-justify">
-                Lista de Productos del Artesano" es una funcionalidad que permite mostrar todos los productos que un artesano específico ha publicado en la plataforma. Esta lista es útil tanto para los consumidores que desean conocer la oferta de un artesano, como para el propio artesano para gestionar y visualizar sus productos.
-				</p>
 			</div>
 			<div class="container-fluid">
                        
                         
 				<ul class="full-box list-unstyled page-nav-tabs">
-					<li>
-						<a href="{{ route('agregarProductos') }}"><i class="fas fa-plus fa-fw"></i> &nbsp; ADICIONAR PRODUCTO</a>
-					</li>
-
-				
-					<li>
-						<a href="{{ route('lista.PedidosArtesanos') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; PEDIDOS </a>
+			
+                    <li>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCategoria"><i class="fas fa-plus fa-fw"></i> &nbsp; ADICIONAR NUEVA CATEGORIA </button>
 					</li>
 
 				</ul>
-
-				</ul>
-
 			</div>
 			<!-- Content -->
 			<div class="container-fluid">
@@ -155,80 +145,89 @@
 
 					<table class="table table-dark table-sm" id="dataTables-example" id="listaProductos" name="listaProd">
     <thead>
-        <tr class="text-center ">
+        <tr class="text-center "> 
+            <th>FECHA DE CREACION</th>
             <th>NOMBRE</th>
-            <th>PRECIO</th>
-            <th>STOCK</th>
-           <!-- <th>CATEGORIA</th>-->
-            
-            <th>FECHA PUBLICACION</th>
-			<th>PRODUCTO</th>
+            <th>DESCRIPCION</th>
             <th>ACTUALIZAR</th>
             <th>ELIMINAR</th>
         </tr>
     </thead>
     <tbody>
 	@if(!empty($datos) && count($datos) > 0)
-    @foreach($datos as $item)
-        @foreach($item->productos as $producto) 
+        @foreach($datos as $item)
             <tr class="text-center">
-                <td>{{ $producto->nombreP }}</td>
-                <td>{{ $producto->precioP }} Bs</td>
-                <td>{{ $producto->stock }}</td>
-                <td>{{ $item->fechaP }}</td>
+                <td>{{ $item->created_at}}</td>
+                <td>{{ $item->nombreCa }}</td>
+                <td>{{ $item->descripcionCa }}</td>
+                
                 <td>
-                    <div id="carousel-{{ $producto->id_producto }}" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <div class="carousel-inner">
-                            @if($producto->imgP)
-                                <div class="carousel-item active">
-                                    <img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
-                                </div>
-                            @endif
-                            @if($producto->imgP2)
-                                <div class="carousel-item">
-                                    <img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
-                                </div>
-                            @endif
-                            @if($producto->imgP3)
-                                <div class="carousel-item">
-                                    <img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
-                                </div>
-                            @endif
-                        </div>
-                        <a class="carousel-control-prev" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carousel-{{ $producto->id_producto }}" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+    <a data-toggle="modal" data-target="#editarCategoria{{ $item->id_categoria }}" 
+       class="btn btn-warning" 
+       title="Editar la categoria {{ $item->nombreCa }}" 
+       data-id="{{ $item->id_categoria }}" 
+       data-nombre="{{ $item->nombreCa }}" 
+       data-descripcion="{{ $item->descripcionCa }}">
+        <i class="far fa-edit"></i> 
+    </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editarCategoria{{ $item->id_categoria }}" tabindex="-1" role="dialog" aria-labelledby="editarCategoriaLabel{{ $item->id_categoria }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form name="editarCa" class="form-neon" action="{{ route('editarC', $item->id_categoria) }}" method="POST" enctype="multipart/form-data"> 
+                    @csrf
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarCategoriaLabel{{ $item->id_categoria }}">Editar Categoria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </td>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <label for="nombreCa" class="bmd-label-floating">Nombre de la Categoria</label>
+                                <input type="text" class="form-control" name="nombreCa" id="nombreCa" value="{{ $item->nombreCa }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcionCa" class="bmd-label-floating">Descripcion de la Categoria</label>
+                                <input type="text" class="form-control" name="descripcionCa" id="descripcionCa" value="{{ $item->descripcionCa }}">
+                            </div>
+                            <input type="hidden" name="id_categoria" value="{{ $item->id_categoria }}">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; MODIFICAR</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</td>
+
+                
                 <td>
-                    <a href="{{ route('productos.editar', $producto->id_producto) }}" title="Modificar el producto {{ $producto->nombreP }}" class="btn btn-success">
-                        <i class="fas fa-sync-alt"></i>
-                    </a>
-                </td>
-                <td>
-                    <a data-toggle="modal" data-target="#ModalCliente{{ $producto->id_producto }}" 
+                    <a data-toggle="modal" data-target="#ModalCliente{{  $item->id_categoria}}" 
                        class="btn btn-warning" 
-                       title="Eliminar el producto {{ $producto->nombreP }}" 
-                       data-id="{{ $producto->id_producto }}" 
-                       data-nombre="{{ $producto->nombreP }}">
+                       title="Eliminar la categoria {{ $item->nombreCa }}" 
+                       data-id="{{  $item->id_categoria }}" 
+                       data-nombre="{{  $item->nombreCa}}">
                         <i class="far fa-trash-alt"></i> 
                     </a>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="ModalCliente{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{ $producto->id_producto }}" aria-hidden="true">
+                    <div class="modal fade" id="ModalCliente{{  $item->id_categoria }}" tabindex="-1" role="dialog" aria-labelledby="ModalCliente{{  $item->id_categoria }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form name="eliminarP" class="form-neon" action="{{ route('eliminarP', $producto->id_producto )}}" method="POST" enctype="multipart/form-data">
+                                <form name="eliminarC" class="form-neon" action="{{route('eliminarC', $item->id_categoria)}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="form-group">
-                                                <label id="productoNombre">¿Está seguro que desea eliminar el producto {{ $producto->nombreP }}?</label>
+                                                <label id="productoNombre">¿Está seguro que desea eliminar la categoria {{ $item->nombreCa}}?</label>
                                             </div>
                                         </div>
                                         <br>
@@ -246,10 +245,9 @@
                 </td>
             </tr>
         @endforeach
-    @endforeach
 @else
     <tr>
-        <td colspan="8" class="text-center">No hay productos disponibles</td>
+        <td colspan="8" class="text-center">No hay categorias disponibles</td>
     </tr>
 @endif
 
@@ -258,7 +256,42 @@
 			</div>
 
 		</section>
-	
+        <form name="registroA" class="form-neon" action="{{route('validar-registerC') }}" method="POST" enctype="multipart/form-data"> 
+                        @csrf
+        <div class="modal fade" id="ModalCategoria" tabindex="-1" role="dialog" aria-labelledby="ModalCategoria" aria-hidden="true">
+           
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalCategoria">Agregar categoria</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="form-group">
+                                    <label for="nombreCa" class="bmd-label-floating">Nombre de la Categoria</label>
+                                    <input type="text" class="form-control" name="nombreCa" id="nombreCa" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcionCa" class="bmd-label-floating">Descripcion de la Categoria</label>
+                                    <input type="text" class="form-control" name="descripcionCa" id="descripcionCa">
+                                </div>
+
+                            </div>
+                            <br>
+  
+                        </div>
+                        
+                        <div class="modal-footer">
+                        <button type="submit"  class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                        </div>
+                    </form>
 	</main>
 
     <script src="{{asset('js/productosv2/js/jquery-3.4.1.min.js') }}" ></script>

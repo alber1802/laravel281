@@ -130,8 +130,7 @@ ORDER BY
         //dd('Método liddhhhhdstaP fue llamado'); 
         $datos = DB::select('
         WITH TotalDescuentos AS (
-            SELECT 
-            
+            SELECT           
                 c.id_usuario,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
     	u.direccion,ped.id_pedido, ped.fecha_pedido, ped.descuento, ped.estadoP,
                 pr.nombreP,i.cantidadPP,pr.descripcionP, pr.precioP,

@@ -49,8 +49,6 @@ class PublicaController extends Controller
 
     public function artesanoPP($id)
 {
-    
-        // Traemos las publicaciones con los productos y sus categorías
         $datos = Publica::with(['producto.categoria'])
             ->where('id_artesano', $id)
             ->get();

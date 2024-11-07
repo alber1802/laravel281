@@ -3,33 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Lista de pedidos TERMINADOS</title>
+	<title>Lista productos</title>
 
 	
 
         <!-- Normalize V8.0.1 -->
 	<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
 
-<!-- Bootstrap V4.3 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
+	<!-- Bootstrap V4.3 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
 
-<!-- Bootstrap Material Design V4.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
+	<!-- Bootstrap Material Design V4.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
 
-<!-- Font Awesome V5.9.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
+	<!-- Font Awesome V5.9.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
 
-<!-- Sweet Alerts V8.13.0 CSS file -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
+	<!-- Sweet Alerts V8.13.0 CSS file -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
 
-<!-- Sweet Alert V8.13.0 JS file-->
-<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
+	<!-- Sweet Alert V8.13.0 JS file-->
+	<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
 
-<!-- jQuery Custom Content Scroller V3.1.5 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
+	<!-- jQuery Custom Content Scroller V3.1.5 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
-<!-- General Styles -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+	<!-- General Styles -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
 
 
 
@@ -42,8 +42,9 @@
 		<section class="full-box nav-lateral">
 			<div class="full-box nav-lateral-bg show-nav-lateral"></div>
 			<div class="full-box nav-lateral-content">
-				<figure class="full-box nav-lateral-avatar">
+			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
+
 					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
@@ -120,54 +121,67 @@
 
 			<!-- Page header -->
 			<div class="full-box page-header">
-			<h3 class="text-left" style="text-transform: uppercase;">
-    <i class="fas fa-clipboard-list fa-fw"></i> &nbsp;LISTA DE PEDIDOS FINALIZADOS</h3> 
-	<br><h5 class="text-left" style="text-transform: uppercase;">cliente: {{$cliente}}</h5>
+				<h3 class="text-left">
+					<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CLIENTES
+				</h3>
+			</div>
+			<div class="container-fluid">
+                       
+                        
+				<ul class="full-box list-unstyled page-nav-tabs">	
+					<li>
+						<a href="{{ route('lista.PedidosArtesanos') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; PEDIDOS </a>
+					</li>
+
+				</ul>
+
 			</div>
 			<!-- Content -->
 			<div class="container-fluid">
 				<div class="table-responsive">
-					<table class="table table-dark table-sm" id="dataTables-example" id="lisPedidos" name="lisPedidos">
-                    <thead>
+					<!-- Content -->
+			<div class="full-box tile-container">
+
+
+					<table class="table table-dark table-sm" id="dataTables-example" id="lisClientes" name="lisClientes">
+    <thead>
+        <tr class="text-center ">
+            <th>NOMBRE CLIENTE</th>
+            <th>TELEFONO</th>
+            <th>DIRECCION</th>
+            <th>GENERO</th>
+            <th>EDAD</th>
+            
+        <th>EMAIL</th>
+			<th>PREFERENCIA</th>
+        </tr>
+    </thead>
+    <tbody>
+	@if(!empty($datos) && count($datos) > 0)
+    @foreach($datos as $item)
             <tr class="text-center">
-                <th>FECHA DE PEDIDOS</th>
-				<th>PRODUCTOS</th>
-				<th>DESCUENTO % </th>
-                <th>DETALLES PEDIDO</th>
+                <td>{{ $item->nombreCliente }}</td>
+                <td>{{ $item->telefono }} Bs</td>
+                <td>{{ $item->direccion }}</td>
+                <td>{{ $item->sexo }}</td>
+                <td>{{ $item->edad }}</td>
+                <td>{{ $item->email }} Bs</td>
+                <td>{{ $item->preferencia }}</td>
+                  
             </tr>
-        </thead>
-        <tbody>
-            @foreach($datos as $item)
-                <tr class="text-center">
-                    <td>{{ $item->fecha_pedido }}</td>
-					<td>{!! $item->productos !!}</td>
-					<td>{{ $item->descuento }}</td>
-<td>
-	<a type="submit" href="{{ route('lisPedidosA', [$item->id_carrito,1]) }}"><i class="fas fa-shopping-cart" style="color: success;"></i> </a>
-</td>
+    @endforeach
+@else
+    <tr>
+        <td colspan="8" class="text-center">No hay clientes disponibles</td>
+    </tr>
+@endif
 
-
-                </tr>
-            @endforeach
-        </tbody>
-					</table>
 				</div>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a class="page-link" href="#" tabindex="-1">Anterior</a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item">
-							<a class="page-link" href="#">Siguiente</a>
-						</li>
-					</ul>
-				</nav>
+			
 			</div>
 
 		</section>
+	
 	</main>
 
     <script src="{{asset('js/productosv2/js/jquery-3.4.1.min.js') }}" ></script>
@@ -186,5 +200,6 @@
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 
 	<script src="{{asset('js/productosv2/js/main.js')}}" ></script>
+
 </body>
 </html>
