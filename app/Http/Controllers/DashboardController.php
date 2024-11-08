@@ -78,7 +78,7 @@ ORDER BY fecha;
             COUNT(CASE WHEN stock < 10 THEN 1 END) AS productosCasiAgotados
         FROM productos;
         ');
-        return view('PaginasHome.dashboard', [
+        return view('Admin.Dashboard', [
             'datos' => $datos->ventasSemanales,
             'datos2' => $datos2->ventasDiarias,
             'datos3' => $datos3->ventasMensuales,

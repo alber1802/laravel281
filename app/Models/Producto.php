@@ -54,7 +54,7 @@ class Producto extends Model
     public function obtiene()
 
     {
-        return $this->hasMany(Obtiene::class); 
+        return $this->hasMany(Obtiene::class, 'id_producto', 'id_producto');
     }
 
     public function incluyes()

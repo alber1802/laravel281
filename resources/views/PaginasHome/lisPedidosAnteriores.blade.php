@@ -10,26 +10,26 @@
         <!-- Normalize V8.0.1 -->
 	<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
 
-<!-- Bootstrap V4.3 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
+    <!-- Bootstrap V4.3 -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
 
-<!-- Bootstrap Material Design V4.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
+    <!-- Bootstrap Material Design V4.0 -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
 
-<!-- Font Awesome V5.9.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
+    <!-- Font Awesome V5.9.0 -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
 
-<!-- Sweet Alerts V8.13.0 CSS file -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
+    <!-- Sweet Alerts V8.13.0 CSS file -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
 
-<!-- Sweet Alert V8.13.0 JS file-->
-<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
+    <!-- Sweet Alert V8.13.0 JS file-->
+    <script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
 
-<!-- jQuery Custom Content Scroller V3.1.5 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
+    <!-- jQuery Custom Content Scroller V3.1.5 -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
-<!-- General Styles -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+    <!-- General Styles -->
+    <link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
 
 
 
@@ -44,7 +44,7 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+					<img src="{{url( Auth::user()->url) }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
         				{{ Auth::user()->name }} <br>
@@ -57,10 +57,6 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
-						<li>
-							<a href="{{route('dashboard') }}"><i class="fas fa-home"></i> &nbsp; Dashboard Administrador</a>
-						
-						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -93,7 +89,7 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="#"><i class="{{ route('lista.PedidosArtesanos') }}"></i> &nbsp; Lista de Pedidos Pendientes</a>
+									<a href="{{ route('lista.PedidosArtesanos') }}"><i class=""></i> &nbsp; Lista de Pedidos Pendientes</a>
 								</li>
 							</ul>
 						</li>
@@ -179,79 +175,81 @@
 </div>
 </div>			
 			</div>	
-						<fieldset>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Fila 1: Fecha de entrega y Repartidor -->
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="fecha_entrega">Fecha de entrega del Pedido</label>
-                    <input type="date" class="form-control"  value="{{$datos2->fecha_entrega }}"  name="fecha_entrega" id="fecha_entrega">
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="prestamo_estado" class="bmd-label-floating">Repartidor</label>
-                    <input type="text" class="form-control" value="{{$datos2->nombreRepartidor }}"  >
-                </div>
-            </div>
-        </div>
+            
+                <fieldset>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Fila 1: Fecha de entrega y Repartidor -->
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="fecha_entrega">Fecha de entrega del Pedido</label>
+                                    <input type="date" class="form-control"  value="{{$datos2->fecha_entrega }}"  name="fecha_entrega" id="fecha_entrega">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="prestamo_estado" class="bmd-label-floating">Repartidor</label>
+                                    <input type="text" class="form-control" value="{{$datos2->NombreR }}"  >
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="row">
-            <!-- Fila 2: Costo, Estado y Tipo de entrega -->
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="costo_entrega" class="bmd-label-floating">Costo de Entrega</label>
-                    <input type="text" class="form-control" value="{{$datos2->costo_entrega}}" name="costo_entrega" id="costo_entrega">
-                </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="estado_entrega" class="bmd-label-floating">Estado de Entrega</label>
-                    <input type="text" class="form-control"  value="{{$datos2->estado_entrega}}" name="estado_entrega" id="estado_entrega">
-                </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="tipo_entrega" class="bmd-label-floating">Tipo de Entrega</label>
-                    <input type="text" value="{{$datos2->tipo_entrega}}" class="form-control" name="tipo_entrega" id="tipo_entrega">
-                </div>
-            </div>
-        </div>
+                        <div class="row">
+                            <!-- Fila 2: Costo, Estado y Tipo de entrega -->
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="costo_entrega" class="bmd-label-floating">Costo de Entrega</label>
+                                    <input type="text" class="form-control" value="{{$datos2->costo_entrega}}" name="costo_entrega" id="costo_entrega">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="estado_entrega" class="bmd-label-floating">Estado de Entrega</label>
+                                    <input type="text" class="form-control"  value="{{$datos2->estado_entrega}}" name="estado_entrega" id="estado_entrega">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="tipo_entrega" class="bmd-label-floating">Tipo de Entrega</label>
+                                    <input type="text" value="{{$datos2->tipo_entrega}}" class="form-control" name="tipo_entrega" id="tipo_entrega">
+                                </div>
+                            </div>
+                        </div>
 
-<div class="row">
-    <div class="col-12 col-md-10">
-        <div class="form-group">
-            <label for="direccion">Dirección de la Entrega</label>
-            <div class="input-group">
-                <input type="text" value="{{$datos2->direccion_entrega  ?? ''}}"  class="form-control" name="direccion_entrega" id="direccion_entrega" placeholder="Ingresa una dirección">
-				
-				<!--<button onclick="buscarDireccion()" class="btn btn-raised btn-success btn-sm"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR DIRECCION</button>-->
-            </div>
-        </div>
-    </div>
-</div>
+                            <div class="row">
+                                <div class="col-12 col-md-10">
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección de la Entrega</label>
+                                        <div class="input-group">
+                                            <input type="text" value="{{$datos2->direccion_entrega  ?? ''}}"  class="form-control" name="direccion_entrega" id="direccion_entrega" placeholder="Ingresa una dirección">
+                                            
+                                            <!--<button onclick="buscarDireccion()" class="btn btn-raised btn-success btn-sm"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR DIRECCION</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
-		<div class="row">	
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="latitud">Latitud</label>
-                    <input type="text" class="form-control" value="{{$datos2->latitud  ?? ''}}" id="latitud" name="latitud" readonly>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="longitud">Longitud</label>
-                    <input type="text" class="form-control" value="{{$datos2->longitud ?? '' }}" id="longitud" name="longitud" readonly>
-                </div>
-            </div>
-            <div class="col-12">
-                <div id="mapa" style="width: 100%; height: 400px;"></div>
-            </div>
-        </div>
-    </div>
-</fieldset>
+                        <div class="row">	
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="latitud">Latitud</label>
+                                    <input type="text" class="form-control" value="{{$datos2->latitud  ?? ''}}" id="latitud" name="latitud" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="longitud">Longitud</label>
+                                    <input type="text" class="form-control" value="{{$datos2->longitud ?? '' }}" id="longitud" name="longitud" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div id="mapa" style="width: 100%; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            
 
                     </div>
                 </div>

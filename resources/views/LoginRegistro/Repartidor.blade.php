@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Repartidor</title>
     <link rel="stylesheet" href="{{asset('css/LoginRegistro/repartidor.css')}}">
+
+    <link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 </head>
 <body>
 <div class="background"></div>

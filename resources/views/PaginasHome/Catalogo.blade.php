@@ -51,9 +51,9 @@
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
+                          <li><a href="{{route('PerfilUsuario')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
+                            <li><a href="{{route('contactanos')}}"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
+                            <li><a href="{{route('nosotros')}}"><i class="fas fa-headset"></i> CONTACTANOS</a></li>
                         </ul>
                     </div>
                 </div>
@@ -84,17 +84,18 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
-					<ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="about.html">Sobre Nosotros</a></li>
-						<li class="dropdown active">
-							<a href="#" class="nav-link dropdown-toggle arrow">TIENDA</a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
-							</ul>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="gallery.html">Galeria</a></li>
-						<li class="nav-item"><a class="nav-link" href="contact-us.html">Contactanos</a></li>
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('nosotros')}}">SOBRE NOSOTROSs</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a> 
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
+                                <li><a href="{{route('carrito.mostrar')}}">Carrito</a></li>             
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="{{route('contactanos')}}">CONTACTANOS</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -185,7 +186,7 @@
                         @else
                         <label class="out-of-stock">Agotado</label>
                         @endif
-                        <img src="{{ asset($item->imgP) }}" alt=" " class="img-fluid">
+                        <img src="{{url($item->imgP) }}" alt=" " class="img-fluid">
                     </div>
                     <div class="product-card-body">
                         <p class="product-categoria">{{$item->categoria->nombreCa}}</p>
@@ -328,7 +329,7 @@
 						<div class="footer-top-box">
 							<h3>Business Time</h3>
 							<ul class="list-time">
-								<li>Monday - Friday: 08.00am to 05.00pm</li> <li>Saturday: 10.00am to 08.00pm</li> <li>Sunday: <span>Closed</span></li>
+								<li>Monday - Friday: 08.00am a 05.00pm</li> <li>Saturday: 10.00am a 08.00pm</li> <li>Sunday: <span>Closed</span></li>
 							</ul>
 						</div>
 					</div>

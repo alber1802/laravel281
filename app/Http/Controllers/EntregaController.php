@@ -6,8 +6,8 @@ use App\Models\Repartidor;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Auth;
+
 class EntregaController extends Controller
 {
     public function registerE(Request $request){
@@ -30,6 +30,50 @@ class EntregaController extends Controller
         $entregas ->save();
 
         return redirect()->route('PaginasHome.lisPedidosPxC');
+    }
+
+
+    public function PedidosR()
+    {
+        $usuario= Auth::user();
+        
+        $pedidos = db::select('SELECT  
+                            pe.id_usuario,
+                            pe.total_pagar, 
+                            pe.fecha_pedido,
+                            pe.estadoP,
+                            pe.descuento,
+                            pe.created_at,
+                            i.cantidadPP,
+                            pr.*, 
+                            ca.nombreCa,
+                            ca.descripcionCa,
+                            concat(u.name ," ",
+                            u.paterno," " ,
+                            u.materno) as nombreCompleto,
+                            u.email,
+                            en.estado_entrega
+
+                        FROM 
+                            pedidos pe 
+                        JOIN 
+                            incluyes i  on i.id_carrito=pe.id_carrito
+                        JOIN 
+                            productos pr ON pr.id_producto = i.id_producto
+                        JOIN 
+                            categorias ca ON ca.id_categoria = pr.id_categoria  
+                        JOIN 
+                            publicas pu ON pu.id_producto = i.id_producto
+                        JOIN 
+                            artesanos a ON a.id_artesano = pu.id_artesano
+                        JOIN 
+                            users u ON u.id_usuario = a.id_artesano
+                        JOIN 
+	                        entregas en on en.id_pedido = pe.id_pedido
+                            
+                        WHERE pe.id_usuario =?', [$usuario->id_usuario]
+                        );
+         return view('PaginasHome.PedidosUses', ['pedidos' => $pedidos]); 
     }
  
 }

@@ -11,6 +11,7 @@ class Obtiene extends Model
     public $incrementing = false;
     protected $primaryKey = ['id_resena', 'id_producto'];
     protected $guarded = [];
+    protected $fillable = ['id_producto', 'id_resena'];
 
     public function publicas()
     {
@@ -19,11 +20,11 @@ class Obtiene extends Model
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class);
+        return $this->belongsTo(Producto::class, 'id_producto', 'id_producto');
     }
 
     public function resena()
     {
-        return $this->belongsTo(Resena::class);
+        return $this->belongsTo(Resena::class, 'id_resena', 'id_resena');
     }
 }

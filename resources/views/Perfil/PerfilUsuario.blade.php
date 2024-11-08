@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Cliente</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/PerfilUsuario.css')}}">
+    <!--para el mensaje de confirmacion y errror-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
     <div class="container">
@@ -46,12 +48,11 @@
         <div class="right-section">
             <!-- Barra de navegación horizontal -->
             <div class="horizontal-nav">
-                <div class="nav-item" >Inicio</div>
-                <div class="nav-item"><a href="{{route('ActualizarPerfil')}}" >Editar Perfil</a></div>
-                <div class="nav-item">Ver Productos</div>
-                <div class="nav-item">Notificaciones</div>
-                <div class="nav-item">Mensajes</div>
-                <div class="nav-item"><a href="{{route('Cerrar-Session')}}" >Cerrar Seccion</a></div>
+                <a href="{{route('Home')}}" ><div class="nav-item">Ir Inicio</div></a>
+                <a href="{{route('pedidos.Realizados')}}" ><div class="nav-item">Pedidos Realizados</div></a>
+                <a href="{{route('Actualizar-PerfilC')}}" ><div class="nav-item">Editar Perfil</div></a>
+                <a href="{{route('ver.catalogo')}}" ><div class="nav-item">Ver Catalogo</div></a>
+                <a href="{{route('Cerrar-Session')}}" ><div class="nav-item">Cerrar Seccion</div></a>
             </div>
 
             <!-- Apartados de información -->
@@ -76,29 +77,52 @@
                 </div>
             </div>
           
-            <div class="thend-item">
-                <p><span>Tendencia1</span></p>
-                <p><span>Tendencia2</span></p>
-                <p><span>Tendencia3</span></p>
-            </div>
-
+            <h3>Productos en tendencia </h3>
+        <div class="derecha">
+           
+        @forelse($productos as $producto)
+                <div class="card">
+                  <a href="{{route('Ver.Detalle.Producto', ['id' => $producto->id_producto])}} "><div class="image"><img src="{{url($producto->imgP)}}" ></div></a>
+                    <span class="title">{{$producto->nombreP}}</span>
+                    <span class="price">{{$producto->precioP}}</span>
+                </div>
+            @empty
+                <p>No hay productos con reseñas disponibles.</p>
+            @endforelse
+        </div>
             <!-- Tendencias para ti -->
+           
+           
+
             
         </div>
     </div>
 
-    <script>
-        function toggleExtraInfo() {
-            var extraInfo = document.getElementById("extra-info");
-            var btn = document.querySelector(".show-more-btn");
-            if (extraInfo.classList.contains("hidden")) {
-                extraInfo.classList.remove("hidden");
-                btn.innerHTML = "Ver Menos";
-            } else {
-                extraInfo.classList.add("hidden");
-                btn.innerHTML = "Ver Más";
-            }
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+     <script>
+    $(document).ready(function() {
+        @if(session('carrito_vacio'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": "5000", // Tiempo en milisegundos
+            };
+            toastr.warning("{{ session('carrito_vacio') }}", 'Agrega productos!', { timeOut: 12000 });
+        @endif
+
+        @if(session('agregar_producto'))
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": "5000", // Tiempo en milisegundos
+            };
+            toastr.success("{{ session('agregar_producto') }}");
+        @endif
+    });
+
     </script>
 </body>
 </html>

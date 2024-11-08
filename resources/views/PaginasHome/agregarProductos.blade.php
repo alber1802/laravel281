@@ -41,13 +41,13 @@
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
 
-					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+					<img src="{{ url(Auth::user()->url) }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
         				{{ Auth::user()->name }} <br>
-        			<small class="roboto-condensed-light">{{ Auth::user()->role }}</small>
+        					<small class="roboto-condensed-light">{{ Auth::user()->role }}</small>
     					@else
-        			<small class="roboto-condensed-light">Invitado</small>
+        					<small class="roboto-condensed-light">Invitado</small>
     					@endif
 				</figcaption>
 				</figure>
@@ -74,6 +74,7 @@
 								</li>
 							</ul>
 						</li>
+						
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-briefcase fa-fw"></i> &nbsp; Categoria <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -377,45 +378,50 @@
 				</form>
 			</div>
 			
-        <form name="registroC" class="form-neon" action="{{ route('validar-registerC') }}" method="POST" enctype="multipart/form-data"> 
-                        @csrf
-        <div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="ModalCliente" aria-hidden="true">
-           
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalCliente">Agregar categoria</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <div class="form-group">
-                                    <label for="nombreCa" class="bmd-label-floating">Nombre de la Categoria</label>
-                                    <input type="text" class="form-control" name="nombreCa" id="nombreCa" >
-                                </div>
-                                <div class="form-group">
-                                    <label for="descripcionCa" class="bmd-label-floating">Descripcion de la Categoria</label>
-                                    <input type="text" class="form-control" name="descripcionCa" id="descripcionCa">
-                                </div>
+        	<!-- MODAL CATEGORIA -->
+				<form name="registroC" class="form-neon" action="{{ route('validar-registerC') }}" method="POST" enctype="multipart/form-data"> 
+							@csrf
+					<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="ModalCliente" aria-hidden="true">
+					
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								
+									<div class="modal-header">
+										<h5 class="modal-title" id="ModalCliente">Agregar categoria</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
 
-                            </div>
-                            <br>
-  
-                        </div>
-                        
-                        <div class="modal-footer">
-                        <button type="submit"  class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-            </div>
+									<div class="modal-body">
+										<div class="container-fluid">
+											<div class="form-group">
+												<label for="nombreCa" class="bmd-label-floating">Nombre</label>
+												<input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,30}" class="form-control" name="nombreCa" id="nombreCa" maxlength="30">
+											</div>
+											<div class="form-group">
+												<label for="descripcionCa" class="bmd-label-floating">Descripcion</label>
+												<input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,30}" class="form-control" name="descripcionCa" id="descripcionCa" maxlength="30">
+											</div>
+
+									</div>
+									<br>
+										
+			
+									</div>
+									
+									<div class="modal-footer">
+										<button type="submit"  class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+									</div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+									</div>
+				
+                				</div>
+                			</div>
+            		</div>
+				</form>
 		</section>
 	</main>
 	

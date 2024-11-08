@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Artesano;
 use App\Models\Publica;
+use App\Models\Resena;
 use App\Models\Categoria;
+use App\Models\Obtiene;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GaleriaController extends Controller
 {
@@ -46,6 +49,31 @@ class GaleriaController extends Controller
         // Pasar los datos a la vista
         return view('PaginasHome.shop-detail', compact('detalles', 'productosRelacionados'));
     }
+    public function RegistrarReseña(Request $request, $id_producto){
+       
+            $usuario = Auth::user();
+
+            $cometario= new Resena();
+
+            $cometario->comentario=$request->comentario;
+            $cometario->calificacionR=$request->calificacionR;
+            $cometario->id_usuario =$usuario->id_usuario;
+            $cometario->fecha_resena = now();
+        
+            $cometario->save();
+
+            $obtiene= new Obtiene();
+
+            $obtiene->id_producto=$id_producto;
+            $obtiene->id_resena = $cometario->id_resena;
+            
+            $obtiene->save();
+
+            return back()->with('Registro_comentario', 'Comentario registrado exitosamente.');
+    
+    }
+    
+
 
 
     

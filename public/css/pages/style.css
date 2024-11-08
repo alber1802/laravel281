@@ -31,6 +31,7 @@
 -------------------------------------------------------------------*/
  body {
      color: #212e5d;
+     background: linear-gradient(220.55deg, #24CFC5 0%, #001C63 100%);
      font-size: 15px;
      font-family: 'Dosis', sans-serif;
      line-height: 1.80857;
@@ -2422,7 +2423,7 @@
      font-size: 24px;
 }
  .single-product-details h5 {
-     color: #b0b435;
+     color: #000000;
      font-weight: 700;
      font-size: 18px;
 }

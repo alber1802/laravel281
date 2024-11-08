@@ -7,13 +7,15 @@ use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Artesano;
 use App\Models\Repartido;
+use App\Models\Resena;
+use App\Models\Obtiene;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    public function mostrarPerfil()
-    {
+    public function mostrarPerfil(){
         // Obtiene solo los datos del usuario autenticado
        $usuario = Auth::user(); // Obtiene el usuario autenticado directamente
       // dd($usuario);
@@ -21,13 +23,47 @@ class PerfilController extends Controller
        if (Cliente::where('id_cliente', $usuario->id_usuario)->exists()) {
         // Si es clienteç
             $perfil = Cliente::where('id_cliente', $usuario->id_usuario)->first();
-            return view('Perfil.PerfilUsuario', compact('usuario', 'perfil'));
+            $productos = Producto::orderBy('created_at', 'desc')->limit(4)->get();
+
+            return view('Perfil.PerfilUsuario', compact('usuario', 'perfil','productos'));
             
         } elseif (Artesano::where('id_artesano', $usuario->id_usuario)->exists()) {
             // Si es repartidor, cargar también el vehículo
-            $perfil = Artesano::with('comunidad')->where('id_artesano', $usuario->id_usuario)->first();
-          // dd($perfil);
-           return view('Perfil.PerfilArtesano', compact('usuario', 'perfil'));
+            $perfil = Artesano::with([
+                'comunidad',
+                'publicas.producto' => function ($query) {
+                    $query->orderBy('created_at', 'desc')->limit(4);  // Ordenar por fecha y limitar a 4
+                }
+            ])->where('id_artesano', $usuario->id_usuario)->first();
+            //para enviar las reseñas  de todos lo prodcutos
+            // Obtener todos los productos del artesano
+                $productos = Artesano::with(['publicas.producto'])
+                ->where('id_artesano', $usuario->id_usuario)
+                ->first();
+
+            // Filtrar productos que tienen al menos una reseña
+            $resenas = [];
+
+            foreach ($productos->publicas as $publica) {
+                $producto = $publica->producto;
+
+                // Verificar si el producto tiene reseñas
+                $obtiene = Obtiene::where('id_producto', $producto->id_producto)
+                                ->with('resena.users')
+                                ->get();
+
+                foreach ($obtiene as $item) {
+                    if ($item->resena) {
+                        $resenas[] = [
+                            'producto' => $producto,
+                            'resena' => $item->resena,
+                            'usuario' => $item->resena->user,
+                        ];
+                    }
+                }
+            }
+           //dd($resenas);
+           return view('Perfil.PerfilArtesano', compact('usuario', 'perfil','resenas'));
 
         } elseif (Repartido::where('id_repartidor',$usuario->id_usuario)->exists()){
             // Si es artesano, cargar también la comunidad
@@ -37,7 +73,11 @@ class PerfilController extends Controller
             
             return view('Perfil.PerfilRepartidor', compact('usuario', 'perfil'));
 
-        } else {
+    } elseif($usuario->email === 'Administrador@gmail.com'){
+         
+            return redirect(route('dashboard'));
+
+        }else {
             // Si no se identifica el tipo de usuario, maneja un error o redirige
             abort(404, 'Tipo de usuario no encontrado');
         }
@@ -111,8 +151,7 @@ class PerfilController extends Controller
         return redirect(route('PerfilUsuario'));
     }
     
-    public function ActualizarRepartidor(Request $request)
-    {
+    public function ActualizarRepartidor(Request $request) {
         // Obtener el usuario autenticado
        $usuario = Auth::user();
 
@@ -290,6 +329,8 @@ class PerfilController extends Controller
         return redirect(route('PerfilUsuario'));
 
     }
+
+  
 
 
 }

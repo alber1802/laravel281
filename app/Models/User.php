@@ -82,4 +82,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Pedidos::class,'id_usuario','id_usuario');
     }
+    public function resena()
+    {
+        return $this->hasMany(Resena::class, 'id_usuario', 'id_usuario');
+    
+    }
 }

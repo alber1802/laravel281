@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Lista productos</title>
+	<link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 
 	
 
@@ -45,7 +47,7 @@
 			<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
 
-					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+					<img src="{{ url( Auth::user()->url ) }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
         				{{ Auth::user()->name }} <br>
@@ -58,10 +60,6 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
-						<li>
-							<a href="{{route('dashboard') }}"><i class="fas fa-home"></i> &nbsp; Dashboard Administrador</a>
-						
-						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -94,13 +92,10 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="#"><i class="{{ route('lista.PedidosArtesanos') }}"></i> &nbsp; Lista de Pedidos Pendientes</a>
+									<a href="{{ route('lista.PedidosArtesanos') }}"><i class=""></i> &nbsp; Lista de Pedidos Pendientes</a>
 								</li>
 							</ul>
 						</li>
-
-						
-					
 					</ul>
 				</nav>
 			</div>
@@ -181,17 +176,17 @@
                         <div class="carousel-inner">
                             @if($producto->imgP)
                                 <div class="carousel-item active">
-                                    <img src="{{ Storage::url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                    <img src="{{ url($producto->imgP) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
                                 </div>
                             @endif
                             @if($producto->imgP2)
                                 <div class="carousel-item">
-                                    <img src="{{ Storage::url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                    <img src="{{ url($producto->imgP2) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
                                 </div>
                             @endif
                             @if($producto->imgP3)
                                 <div class="carousel-item">
-                                    <img src="{{ Storage::url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
+                                    <img src="{{ url($producto->imgP3) }}" class="d-block w-100" alt="Imagen del producto {{ $producto->nombreP }}" style="max-height: 100px;">
                                 </div>
                             @endif
                         </div>

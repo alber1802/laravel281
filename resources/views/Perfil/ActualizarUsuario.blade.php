@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Pefil Cliente</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/ActualizarUsuario.css')}}">
+    <link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 </head>
 <body>
 <div class="container">

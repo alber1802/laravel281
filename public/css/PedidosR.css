@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('https://plus.unsplash.com/premium_photo-1681400745727-c69f8e47f524?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-top: 20px;
+    overflow-x: auto; /* Permite desplazamiento horizontal si la tabla es más ancha que la pantalla */
+}
+
+.title {
+    text-align: center;
+    color: #032a35;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pedido-table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #18C4B8;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.pedido-table th, .pedido-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #05A7BE;
+    word-wrap: break-word; /* Permite que el contenido largo en celdas se ajuste */
+}
+
+/* Estilos para la cabecera de la tabla */
+.pedido-table th {
+    padding: 15px;
+    background-color: #087EA2;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #05A7BE;
+}
+/* Estilos para las filas de la tabla */
+.pedido-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Imágenes de productos */
+.pedido-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pedido-table tbody tr:hover {
+    background-color: rgba(1, 117, 152, 0.3);
+    transition: background-color 0.3s;
+}
+/* Hover en las filas */
+.pedido-table tr:hover {
+    background-color: rgba(24, 196, 184, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.time-elapsed {
+    color: #1ED7CD;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+.action {
+    background-color: #087EA2;
+}
+
+.action:hover {
+    background-color: #05A7BE;
+}
+
+.time-update {
+    background-color: #1ED7CD;
+}
+
+.time-update:hover {
+    background-color: #18C4B8;
+}
+/* Animación de la tabla */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Animación */
+
+@media (max-width: 768px) {
+    .pedido-table th, .pedido-table td {
+        padding: 10px;
+        font-size: 0.9em; /* Ajusta el tamaño del texto en pantallas pequeñas */
+    }
+    .pedido-table, .pedido-table thead, .pedido-table tbody, .pedido-table th, .pedido-table td, .pedido-table tr {
+        display: block;
+    }
+
+    /* Ocultar encabezados para móviles */
+    .pedido-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    /* Mostrar cada celda como una fila completa en móviles */
+    .pedido-table tr {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #05A7BE;
+        border-radius: 8px;
+    }
+
+    .pedido-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .pedido-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #05A7BE;
+        margin-right: 10px;
+    }
+}
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.5em;
+    }
+
+    .pedido-table th, .pedido-table td {
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+}
+

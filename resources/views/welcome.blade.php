@@ -29,7 +29,90 @@
     <link rel="stylesheet" href="{{ asset('css/pages/custom.css') }}">
      <!-- importacion de script -->
      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
+     <style>
+        /* Estilos básicos del carrusel */
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Estilos de los botones de navegación */
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Animación de transición automática */
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-100%); }
+            40% { transform: translateX(-200%); }
+            60% { transform: translateX(-300%); }
+            80% { transform: translateX(-400%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Activación de animación automática */
+        .carousel-slide {
+            animation: slide 20s infinite;
+        }
+        .img-bloger {
+            width: 100%;          /* El contenedor ocupa el ancho máximo disponible */
+            max-width: 400px;     /* Tamaño máximo opcional del contenedor */
+            height: auto;         /* Permite que el contenedor ajuste su altura */
+            overflow: hidden;     /* Oculta cualquier desbordamiento */
+            border-radius: 10px;  /* Bordes redondeados */
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Sombra para destacar el contenedor */
+            display: flex;
+            align-items: center;  /* Centrado vertical de la imagen */
+            justify-content: center; /* Centrado horizontal de la imagen */
+            background-color: #f5f5f5; /* Color de fondo para cuando la imagen es pequeña */
+        }
+
+        .img-blo {
+            max-width: 100%;     /* Imagen ajusta al ancho del contenedor */
+            max-height: 100%;    /* Imagen ajusta a la altura del contenedor */
+            object-fit: cover;   /* La imagen se recorta para ocupar todo el espacio disponible */
+            border-radius: 10px; /* Coincide con el borde del contenedor */
+        }
+
+    </style>
 
 
     
@@ -77,7 +160,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                      </button>
-                    <a class="navbar-brand" href="index.html"><img src="imagen/logo.png" class="logo" alt="100" height="auto"></a>
+                    <a class="navbar-brand" href="{{route('Home')}}"><img src="imagen/logo.png" class="logo" alt="100" height="auto"></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -90,8 +173,8 @@
                             <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a> 
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
-								<li><a href="{{route('Lista-Productos-Comercio')}}">Comercio Lista </a></li>
-                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>             
+								
+                                <li><a href="{{route('carrito.mostrar')}}">Carrito</a></li>             
                             </ul>
                         </li>
                         
@@ -110,33 +193,7 @@
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
-            <div class="side">
-                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-                <li class="cart-box">
-                    <ul class="cart-list">
-                        <li>
-                            <a href="#" class="photo"><img src="imagen/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src=" {{asset('imagen/img-pro-02.jpg')}}" class="cart-thumb" alt="" /></a>
-                           
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="imagen/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
-                        <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VER CARRITO</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
-                        </li>
-                    </ul>
-                </li>
-            </div>
+           
             <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
@@ -159,7 +216,7 @@
     <div id="slides-shop" class="cover-slides">
         <ul class="slides-container">
             <li class="text-center">
-                <img src="imagen/banner-01.jpg" alt="">
+                <img src="imagen/home3.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -171,7 +228,7 @@
                 </div>
             </li>
             <li class="text-center">
-                <img src="imagen/banner-02.jpg" alt="">
+                <img src="imagen/home1.jfif" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -183,7 +240,7 @@
                 </div>
             </li>
             <li class="text-center">
-                <img src="imagen/banner-03.jpg" alt="">
+                <img src="imagen/home5.webp" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -210,20 +267,20 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="imagen/categories_img_01.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                        <img class="img-blo" src="imagen/ca3.webp" alt="" />
+                        <a class="btn hvr-hover" href="#">Hermoso</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="imagen/categories_img_02.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                        <img class="img-blo" src="imagen/ca2.jpg" alt="" />
+                        <a class="btn hvr-hover" href="#">Bellor</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="imagen/categories_img_03.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                        <img class="img-blo" src="imagen/ca1.jpg" alt="" />
+                        <a class="btn hvr-hover" href="#">Magistral</a>
                     </div>
                 </div>
             </div>
@@ -236,12 +293,12 @@
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-12">
 					<div class="offer-box-products">
-						<img class="img-fluid" src="imagen/add-img-01.jpg" alt="" />
+						<img class="img-blo" src="imagen/pro1.jpg" alt="" />
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
 					<div class="offer-box-products">
-						<img class="img-fluid" src="imagen/add-img-02.jpg" alt="" />
+						<img class="img-blo" src="imagen/pro2.jpg" alt="" />
 					</div>
 				</div>
 			</div>
@@ -249,123 +306,19 @@
 	</div>
 
     <!-- Start Products  -->
-    <div class="products-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="title-all text-center">
-                        <h1>ARTE EN BARRO</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="special-menu text-center">
-                        <div class="button-group filter-button-group">
-                            <button class="active" data-filter="*">TODOS</button>
-                            <button data-filter=".top-featured">DESTACADOS</button>
-                            <button data-filter=".best-seller">MAS VENDIDOS</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row special-list">
-                <div class="col-lg-3 col-md-6 special-grid best-seller">
-                    <div class="products-single fix">
-                        <div class="box-img-hover">
-                            <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div>
-                            <img src="imagen/img-pro-01.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                                <a class="cart" href="#">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Lorem ipsum dolor sit amet</h4>
-                            <h5> $7.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 special-grid top-featured">
-                    <div class="products-single fix">
-                        <div class="box-img-hover">
-                            <div class="type-lb">
-                                <p class="new">New</p>
-                            </div>
-                            <img src="imagen/img-pro-02.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                                <a class="cart" href="#">AÑADIR A CARRITO</a>
-                            </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Lorem ipsum dolor sit amet</h4>
-                            <h5> $9.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 special-grid top-featured">
-                    <div class="products-single fix">
-                        <div class="box-img-hover">
-                            <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div>
-                            <img src="imagen/img-pro-03.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                                <a class="cart" href="#">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Lorem ipsum dolor sit amet</h4>
-                            <h5> $10.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 special-grid best-seller">
-                    <div class="products-single fix">
-                        <div class="box-img-hover">
-                            <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div>
-                            <img src="imagen/img-pro-04.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                                <a class="cart" href="#">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Lorem ipsum dolor sit amet</h4>
-                            <h5> $15.79</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <img src="{{asset('imagen/img-pro-01.jpg')}}" alt="Imagen 1" class="carousel-image">
+            <img src="{{asset('imagen/img-pro-02.jpg')}}" alt="Imagen 2" class="carousel-image">
+            <img src="{{asset('imagen/img-pro-03.jpg')}}" alt="Imagen 3" class="carousel-image">
+            <img src="{{asset('imagen/img-pro-04.jpg')}}" alt="Imagen 4" class="carousel-image">
+            <img src="{{asset('imagen/ins-bg.jpg')}}" alt="Imagen 5" class="carousel-image">
         </div>
+        <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
     </div>
+
+
     <!-- End Products  -->
 
     <!-- Start Blog  -->
@@ -374,21 +327,21 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title-all text-center">
-                        <h1>latest blog</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                        <h1>Lo  mejor de los productos </h1>
+                        <p>Realizados con una excelente calidad y con materiales de primera para la satisfaccion del cliente</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
-                        <div class="blog-img">
-                            <img class="img-fluid" src="imagen/blog-img.jpg" alt="" />
-                        </div>
+                        <div class="img-bloger"> 
+                            <img class="img-blo" src="imagen/gale1.jpg" alt="" /> 
+                        </div> 
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Vasija de Barro Pintada a Mano</h3>
+                                <p>Esta vasija está hecha de barro natural y pintada a mano por artesanos locales. Cada diseño es único, con patrones inspirados en la naturaleza y la cultura tradicional. Es ideal para decorar espacios con un toque rústico y auténtico.</p>
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -400,13 +353,15 @@
                 </div>
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
-                        <div class="blog-img">
-                            <img class="img-fluid" src="imagen/blog-img-01.jpg" alt="" />
-                        </div>
+                        <div class="img-bloger"> 
+                            <img class="img-blo" src="imagen/gale2.jpg" alt="" /> 
+                        </div> 
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Tapiz Tejido de Lana</h3>
+                                <p>
+                                Este tapiz está elaborado con lana de alta calidad y teñido con pigmentos naturales. Sus colores y texturas transmiten calidez, convirtiéndolo en un complemento perfecto para colgar en paredes y dar vida a cualquier ambiente.
+                                </p>    
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -418,13 +373,16 @@
                 </div>
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
-                        <div class="blog-img">
-                            <img class="img-fluid" src="imagen/blog-img-02.jpg" alt="" />
-                        </div>
+                        <div class="img-bloger"> 
+                            <img class="img-blo" src="imagen/gale3.jpg" alt="" /> 
+                        </div> 
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Caja Tallada en Madera</h3>
+                                <p>
+                                Una caja de madera con delicados grabados, hecha con técnicas de talla artesanal. Es perfecta para guardar joyas o pequeños objetos de valor y aporta un aire de sofisticación y tradición a cualquier espacio.
+                                </p>
+
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -445,7 +403,7 @@
         <div class="main-instagram owl-carousel owl-theme">
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-01.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-01.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -453,7 +411,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-02.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-02.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -461,7 +419,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-03.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-03.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -469,7 +427,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-04.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-04.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -477,7 +435,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-05.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-05.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -485,7 +443,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-06.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-06.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -493,7 +451,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-07.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-07.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -501,7 +459,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-08.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-08.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -509,7 +467,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-09.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-09.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -517,7 +475,7 @@
             </div>
             <div class="item">
                 <div class="ins-inner-box">
-                    <img src="imagen/instagram-img-05.jpg" alt="" />
+                    <img src="{{asset('imagen/instagram-img-05.jpg')}}" alt="" />
                     <div class="hov-in">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
@@ -604,6 +562,23 @@
      <!--importe -->
 
      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <script>
+        // Variables y configuración inicial
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-image');
+        const totalSlides = slides.length;
+
+        // Función para mover el carrusel
+        function moveSlide(direction) {
+            slideIndex = (slideIndex + direction + totalSlides) % totalSlides;
+            document.querySelector('.carousel-slide').style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        // Autoplay del carrusel
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000); // Cambio de imagen cada 5 segundos
+    </script>
 </body>
 
 </html>

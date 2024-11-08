@@ -24,7 +24,7 @@ class PaypalController extends Controller
 
     // Crear el registro de pago
     $pago = Pago::create([
-        'id_cliente' => $pedido->id_cliente,
+        'id_usuario' => $pedido->id_usuario,
         'id_pedido' => $pedido->id_pedido,
         'monto' => $pedido->total_pagar,
         'estado_pago' => 'pendiente',

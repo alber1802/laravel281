@@ -16,9 +16,9 @@ return new class extends Migration
             $table->text('comentario');
             $table->integer('calificacionR');
             $table->date('fecha_resena');
-            $table->unsignedBigInteger('id_cliente');
+            $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
-            $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id_usuario')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

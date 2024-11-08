@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas --> 
-    <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>
+    <title>Commcraft --  Sobre  Nosotros</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -48,9 +48,9 @@
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user s_color"></i> Mi Cueta</a></li>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> Donde Estamos</a></li>
-                            <li><a href="#"><i class="fas fa-headset"></i> Contactanos</a></li>
+                            <li><a href="{{route('PerfilUsuario')}}"><i class="fa fa-user s_color"></i> MY CUENTA</a></li>
+                            <li><a href="{{route('contactanos')}}"><i class="fas fa-location-arrow"></i> DONDE ESTAMOS</a></li>
+                            <li><a href="{{route('nosotros')}}"><i class="fas fa-headset"></i> CONTACTANOS</a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,62 +68,41 @@
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
-                </button>
-                    <a class="navbar-brand" href="index.html"><img src="imagen/logo.png" class="logo" alt=""></a>
+                     </button>
+                    <a class="navbar-brand" href="{{route('Home')}}"><img src="imagen/logo.png" class="logo" alt="100" height="auto"></a>
                 </div>
                 <!-- End Header Navigation -->
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="about.html">Sobre Nosotros</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('nosotros')}}">SOBRE NOSOTROSs</a></li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Productos</a>
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a> 
                             <ul class="dropdown-menu">
-								<li><a href="shop.html">Sidebar Shop</a></li>
-								<li><a href="shop-detail.html">Shop Detail</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
+								
+                                <li><a href="{{route('carrito.mostrar')}}">Carrito</a></li>             
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="gallery.html">Galeria</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contactanos</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="{{route('contactanos')}}">CONTACTANOS</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
 
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <ul>
+                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        
+                    </ul>
+                </div>
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
-            <div class="side">
-                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-                <li class="cart-box">
-                    <ul class="cart-list">
-                        <li>
-                            <a href="#" class="photo"><img src="imagen/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="imagen/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="imagen/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
-                        <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
-                        </li>
-                    </ul>
-                </li>
-            </div>
+           
             <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
@@ -219,7 +198,10 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>David Torres – Fundador de MoveSmart
+David lidera una startup de movilidad urbana que apuesta por transporte eléctrico compartido. Con su flota de scooters y bicicletas, busca reducir la contaminación y promover un estilo de vida más saludable.
+
+"El futuro del transporte es inteligente y sostenible."</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
@@ -227,7 +209,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="imagen/img-2.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Kristiana</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">Kristiana</h3> <span class="post">Artesano</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -245,7 +227,10 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>Ana González – Fundadora de EcoLife
+Transformando residuos en productos sustentables, Ana lidera la creación de accesorios ecológicos que están revolucionando la moda sostenible. Su compromiso es reducir la huella ambiental sin perder estilo.
+
+"Cada pequeño cambio suma hacia un futuro más verde."</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
@@ -253,7 +238,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="imagen/img-3.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Steve Thomas</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">Steve Thomas</h3> <span class="post">Gerente</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -271,7 +256,10 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>Carlos Méndez – CEO de Tech4All
+Apasionado por la inclusión digital, Carlos desarrolla soluciones tecnológicas accesibles para comunidades vulnerables. Desde dispositivos reacondicionados hasta cursos gratuitos, su visión es democratizar la tecnología.
+
+"La innovación es efectiva cuando está al alcance de todos."</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
@@ -279,7 +267,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="imagen/img-1.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">Williamson</h3> <span class="post">Administrador</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -297,7 +285,10 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>Lucía Ramírez – Creadora de Dulce Pasión
+Con amor por la repostería, Lucía convierte recetas tradicionales en experiencias gourmet. Desde su cocina local, ha llevado postres artesanales a mercados internacionales.
+
+"El sabor de los recuerdos es el mejor ingrediente." </p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>

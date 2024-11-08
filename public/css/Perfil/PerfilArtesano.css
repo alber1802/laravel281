@@ -304,5 +304,120 @@
    /**/
    a:-webkit-any-link {
     color: white;
+    text-decoration: none;
   
+    } 
+       /* Opcional: Cambiar color al pasar el mouse */
+    .nav-item:hover {
+        color: #076c62;
+    }
+    /* Elimina la línea subrayada  del <a>*/
+    .nav-item {
+        text-decoration: none;
+        color: inherit; /* Mantiene el color del texto como el contexto donde se coloca */
+    }
+
+/*para las notifiacaciones */
+   /* Estilos básicos para el cuerpo */
+
+/* Botón para abrir la notificación */
+.btn-notificacion {
+    padding: 10px 20px;
+    background-color: #017598;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
 }
+
+.btn-notificacion:hover {
+    background-color: #005f70;
+}
+
+/* Contenedor de la notificación */
+
+
+.notificacion {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    height: 100vh;
+    background-color: #11637e;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    transition: left 0.5s ease;
+}
+
+.notificacion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #017598;
+    color: white;
+}
+
+.cerrar {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.notificacion-body {
+    padding: 20px;
+    font-size: 16px;
+}
+/* del cuadro neggro de notificacion*/
+/* From Uiverse.io by Sashank02 */ 
+.card {
+    padding: 20px;
+    width: 330px;
+    min-height: 370px;
+    border-radius: 20px;
+    margin: 25px;
+    background: #d8d4d4ce;
+    box-shadow: 5px 5px 8px #1b1b1b,
+               -5px -5px 8px #272727;
+    transition: 0.4s;
+  }
+  
+  .card:hover {
+    translate: 0 -10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #045a2f;
+    margin: 15px 0 0 10px;
+  }
+  
+  .card-image {
+    min-height: 170px;
+    background-color: #313131;
+    border-radius: 15px;
+    background: #313131;
+    box-shadow: inset 5px 5px 3px #2f2f2f,
+              inset -5px -5px 3px #333333;
+  }
+  
+  .card-body {
+    margin: 13px 0 0 10px;
+    color: rgb(37, 37, 37);
+    font-size: 15px;
+  }
+  
+  .footer {
+    float: right;
+    margin: 28px 0 0 18px;
+    font-size: 13px;
+    color: #04518c;
+  }
+  
+  .by-name {
+    font-weight: 700;
+  }

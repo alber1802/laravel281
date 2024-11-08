@@ -172,3 +172,13 @@ font-size: 1.25rem;
 margin-bottom: 20px;
 }  
 /* Product Card End */
+
+.img-carrucel{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

@@ -8,11 +8,10 @@
     <!-- HEADER -->
    <header class="header">
     <nav class="navbar">
-        <a href="#">Inicio</a>
-        <a href="#">Nosotros</a>
-          <a href="#">Servicios</a>
-          <a href="#">Beneficios</a>
-          <a href="#">Contáctanos</a>
+        <a href="{{route('Home')}}">Inicio</a>
+        <a href="{{route('nosotros')}}">Nosotros</a>
+          
+          <a href="{{route('contactanos')}}">Contáctanos</a>
     </nav>
     
    </header>

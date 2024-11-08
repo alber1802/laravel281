@@ -210,15 +210,19 @@ body {
     padding: 20px;
     border-radius: 12px;
 }
-
-.last-orders h3, .preferences-info h3 {
-    color: #ff4b4b;
-    margin-bottom: 10px;
+.preferences-info {
+    width: 100%; /* Ancho total del contenedor */
+    max-width: 800px; /* Ancho máximo del contenedor (ajusta según tus necesidades) */
+    margin: 0 auto; /* Centra el contenedor */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
 }
 
-.last-orders p, .preferences-info p {
-    color: #333;
+.header-video {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción del video */
+    max-height: 450px; /* Ajusta la altura máxima del video (ajusta según tus necesidades) */
 }
+
 
 /* Botones de opciones */
 .edit-preferences-btn {
@@ -250,5 +254,15 @@ body {
 /**/
 a:-webkit-any-link {
     color: white;
+    text-decoration: none;
   
-}
+    } 
+       /* Opcional: Cambiar color al pasar el mouse */
+    .nav-item:hover {
+        color: #076c62;
+    }
+    /* Elimina la línea subrayada  del <a>*/
+    .nav-item {
+        text-decoration: none;
+        color: inherit; /* Mantiene el color del texto como el contexto donde se coloca */
+    }

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Repartidor</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/PerfilRepartidor.css')}}">
+    <link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 </head>
 <body>
     <div class="container">
@@ -55,11 +57,11 @@
         <div class="right-section">
             <!-- Barra de navegación horizontal -->
             <div class="horizontal-nav">
-                <div class="nav-item">Inicio</div>
-                <div class="nav-item">Pedidos</div>
-                <div class="nav-item">Reseñas</div>
-                <div class="nav-item">Notificaciones</div>
-                <div class="nav-item"><a href="{{route('ActualizarRepartidor')}}" >Editar Perfil</a></div>
+                <a href="{{route('Home')}}" ><div class="nav-item">Ir Inicio</div></a>
+                <a href="{{route('pedidos.Realizados')}}" ><div class="nav-item">Pedidos Realizados</div></a>
+                <a href="{{route('pedido.asignado')}}" ><div class="nav-item">Ver Pedidos</div></a>
+                <a href="{{route('Actualizar-PerfilR')}}" ><div class="nav-item">Editar Perfil</div></a>
+                <a href="{{route('ver.catalogo')}}" ><div class="nav-item">Ver Catalogo</div></a>
                 <a href="{{route('Cerrar-Session')}}" ><div class="nav-item">Cerrar Seccion</div></a>
             </div>
 
@@ -77,49 +79,26 @@
                     </div>
 
                     <div class="preferences-info">
-                        <h3>Estadísticas de Desempeño</h3>
-                        <div class="circle-container">
-                            <div class="circular-progress" data-percentage="98">
-                                <span class="percentage">98%</span>
-                                <span class="label">Puntualidad</span>
-                            </div>
-                            <div class="circular-progress" data-percentage="95">
-                                <span class="percentage">95%</span>
-                                <span class="label">Aceptación</span>
-                            </div>
-                            <div class="circular-progress" data-percentage="2">
-                                <span class="percentage">2%</span>
-                                <span class="label">Cancelación</span>
-                            </div>
-                        </div>
-                        <p><strong>Distancia recorrida:</strong> 500 km</p>
+                        @if($perfil->vehiculo->tipoV === 'Auto')
+                            <video class="header-video" autoplay muted loop>
+                                <source src="{{url('css/Repartidordelibery/auto.mp4')}}" type="video/mp4">
+                            </video>
+                        @else
+                            <video class="header-video" autoplay muted loop>
+                                <source src="{{url('css/Repartidordelibery/moto.mp4')}}" type="video/mp4">
+                            </video>
+                        @endif
                     </div>
                 </div>
 
                 <!-- Pedidos Recientes y Calificación -->
                 <div class="bottom-sections">
                     <div class="last-orders">
-                        <h3>Pedidos Recientes</h3>
-                        <p><strong>Pedido 1:</strong> Calle Falsa 123</p>
-                        <p><strong>Estado:</strong> Entregado</p>
-                        <p><strong>Pedido 2:</strong> Avenida Siempre Viva 742</p>
-                        <p><strong>Estado:</strong> En camino</p>
-                        <p><strong>Pedido 3:</strong> Calle Prueba 456</p>
-                        <p><strong>Estado:</strong> Pendiente</p>
+                       
                     </div>
 
                     <div class="preferences-info">
-                        <h3>Calificación</h3> <!-- Cambiado de Reseñas a Calificación -->
-                        <div class="review-item">
-                            <p><strong>Reseña 1</strong></p>
-                            <p>★★★★★</p>
-                            <p><strong>Fecha:</strong> 12/09/2023</p>
-                        </div>
-                        <div class="review-item">
-                            <p><strong>Reseña 2</strong></p>
-                            <p>★★★★☆</p>
-                            <p><strong>Fecha:</strong> 10/08/2023</p>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

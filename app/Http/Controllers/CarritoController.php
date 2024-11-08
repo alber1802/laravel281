@@ -49,36 +49,36 @@ class CarritoController extends Controller
     DB::statement('SET SESSION sql_mode = ""');
     $datos = DB::select('
         SELECT 
-    c.id_carrito,
-    (SELECT CONCAT(u.nombre, " ", u.paterno, " ", u.materno)
-     FROM users u, clientes cl
-     WHERE u.id_usuario = cl.id_cliente 
-     AND cl.id_cliente = c.id_usuario) AS nombreCliente,
-    GROUP_CONCAT(
-        (SELECT CONCAT(nombreP,": ",descripcionP) 
-         FROM productos 
-         WHERE id_producto = i.id_producto) 
-        SEPARATOR "<br>") AS productos, 
-    c.id_usuario,
-    ped.fecha_pedido,
-    ped.descuento,
-    ped.estadoP
-FROM 
-    carritos c, 
-    incluyes i, 
-    publicas p, 
-    pedidos ped
-WHERE 
-    p.id_artesano = ?
-    AND c.id_usuario = ? 
-    AND p.id_producto = i.id_producto 
-    AND c.id_carrito = ped.id_carrito 
-    AND ped.estadoP = "Pendiente" 
-    AND i.id_carrito = c.id_carrito 
-GROUP BY 
-    c.id_carrito, c.id_usuario, ped.fecha_pedido, ped.descuento, ped.estadoP
-ORDER BY 
-    ped.fecha_pedido DESC', [$usuario->id_usuario,$id_cliente]);
+            c.id_carrito,
+            (SELECT CONCAT(u.nombre, " ", u.paterno, " ", u.materno)
+            FROM users u, clientes cl
+            WHERE u.id_usuario = cl.id_cliente 
+            AND cl.id_cliente = c.id_usuario) AS nombreCliente,
+            GROUP_CONCAT(
+                (SELECT CONCAT(nombreP,": ",descripcionP) 
+                FROM productos 
+                WHERE id_producto = i.id_producto) 
+                SEPARATOR "<br>") AS productos, 
+            c.id_usuario,
+            ped.fecha_pedido,
+            ped.descuento,
+            ped.estadoP
+        FROM 
+            carritos c, 
+            incluyes i, 
+            publicas p, 
+            pedidos ped
+        WHERE 
+            p.id_artesano = ?
+            AND c.id_usuario = ? 
+            AND p.id_producto = i.id_producto 
+            AND c.id_carrito = ped.id_carrito 
+            AND ped.estadoP = "Pendiente" 
+            AND i.id_carrito = c.id_carrito 
+        GROUP BY 
+            c.id_carrito, c.id_usuario, ped.fecha_pedido, ped.descuento, ped.estadoP
+        ORDER BY 
+            ped.fecha_pedido DESC', [$usuario->id_usuario,$id_cliente]);
         $cliente = $datos[0]->nombreCliente; 
     return view('PaginasHome.lisCarritos', ['datos' => $datos,'cliente'=>$cliente]);
 }
@@ -171,44 +171,51 @@ ORDER BY
     {
         $usuario = Auth::user();
         $datos = DB::select('
-        WITH TotalDescuentos AS (
+            WITH TotalDescuentos AS (
+                SELECT 
+                    c.id_usuario,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
+                    u.direccion,ped.id_pedido, ped.fecha_pedido, ped.descuento, ped.estadoP,
+                    pr.nombreP,i.cantidadPP,pr.descripcionP, pr.precioP,
+                    ROUND((pr.precioP * i.cantidadPP), 2) AS total,
+                    ROUND((pr.precioP * i.cantidadPP) - (((pr.precioP * i.cantidadPP) * 10) / 100), 2) AS total_Descuento,
+                    c.id_carrito
+                FROM 
+                    carritos c, publicas p, pedidos ped, incluyes i, productos pr,users u
+                WHERE 
+                    p.id_artesano = ? 
+                    and c.id_usuario=u.id_usuario
+                    AND p.id_producto = i.id_producto
+                    AND pr.id_producto = i.id_producto
+                    AND c.id_carrito = ped.id_carrito 
+                    AND ped.estadoP = "Terminado" 
+                    AND ped.id_carrito = ?
+                    AND i.id_carrito = c.id_carrito
+            )
             SELECT 
-				c.id_usuario,CONCAT(u.nombre, " ", u.paterno, " ", u.materno) as nombreC,
-    	u.direccion,ped.id_pedido, ped.fecha_pedido, ped.descuento, ped.estadoP,
-                pr.nombreP,i.cantidadPP,pr.descripcionP, pr.precioP,
-                ROUND((pr.precioP * i.cantidadPP), 2) AS total,
-                ROUND((pr.precioP * i.cantidadPP) - (((pr.precioP * i.cantidadPP) * 10) / 100), 2) AS total_Descuento,
-        c.id_carrito
+                    id_usuario, nombreC, direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_usuario ORDER BY fecha_pedido) AS totalP
             FROM 
-                carritos c, publicas p, pedidos ped, incluyes i, productos pr,users u
-            WHERE 
-                p.id_artesano = ? 
-                 and c.id_usuario=u.id_usuario
-                AND p.id_producto = i.id_producto
-                AND pr.id_producto = i.id_producto
-                AND c.id_carrito = ped.id_carrito 
-                AND ped.estadoP = "Terminado" 
-                AND ped.id_carrito = ?
-                AND i.id_carrito = c.id_carrito
-        )
-        SELECT 
-            	id_usuario, nombreC, direccion,id_pedido,fecha_pedido, descuento, estadoP, nombreP, cantidadPP, descripcionP, precioP,total,total_Descuento,SUM(total_Descuento) OVER (PARTITION BY id_usuario ORDER BY fecha_pedido) AS totalP
-        FROM 
-            TotalDescuentos;', [$usuario->id_usuario, $id_carrito]);
+                TotalDescuentos;', [$usuario->id_usuario, $id_carrito]);
 
 
             $totalP = $datos[0]->totalP; 
             $fechaP= $datos[0]->fecha_pedido; 
             $nombreC= $datos[0]->nombreC;
 
-        $datos2 = DB::selectOne('
-        SELECT e.*, 
-                (SELECT CONCAT(u.nombre, " ", u.paterno, " ", u.materno) 
-                FROM users u
-                JOIN repartidos r ON r.id_repartidor = u.id_usuario
-                WHERE r.id_repartidor = e.id_repartidor) as nombreRepartidor
-        FROM entregas e
-        WHERE e.id_pedido = 2;');    
+       
+           
+       
+            $datos2 = DB::selectOne('
+                    SELECT e.*,CONCAT(u.name, " ", u.paterno, " ", u.materno) as NombreR
+                    FROM pedidos pe 
+                    join  incluyes i on i.id_carrito= ? 
+                    join publicas pu on pu.id_producto= i.id_producto 
+                    join entregas e on e.id_pedido=pe.id_pedido
+                    join users u on u.id_usuario=e.id_repartidor
+                    WHERE pu.id_artesano = ?
+    
+            
+            ', [ $id_carrito,$usuario->id_usuario]);    
+           // dd($datos2);
     
         return view('PaginasHome.lisPedidosAnteriores', ['datos' => $datos,'totalP'=>$totalP,'fechaP'=>$fechaP,'nombreC' => $nombreC,'datos2'=>$datos2]);
     }
@@ -254,8 +261,6 @@ ORDER BY
                 'cantidadPP' => 1,
             ]);
         }
-
-
      return back()->with('agregar_producto', 'Producto agregado exitosamente.');
     }
 

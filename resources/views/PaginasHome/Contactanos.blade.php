@@ -65,13 +65,13 @@
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
-                </button>
-                    <a class="navbar-brand" href="index.html"><img src="{{asset('imagen/logo.png')}}" class="logo" alt=""></a>
+                     </button>
+                    <a class="navbar-brand" href="{{route('Home')}}"><img src="imagen/logo.png" class="logo" alt="100" height="auto"></a>
                 </div>
                 <!-- End Header Navigation -->
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="navbar-menu">
+                <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item active"><a class="nav-link" href="{{route('Home')}}">HOME</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route('nosotros')}}">SOBRE NOSOTROSs</a></li>
@@ -79,8 +79,8 @@
                             <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">TIENDA</a> 
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('ver.catalogo') }}">Catalogo</a></li>
-								<li><a href="{{route('Lista-Productos-Comercio')}}">Comercio Lista </a></li>
-                                <li><a href="{{route('ListaProductos')}}">Carrito</a></li>             
+								
+                                <li><a href="{{route('carrito.mostrar')}}">Carrito</a></li>             
                             </ul>
                         </li>
                         
@@ -90,11 +90,16 @@
                 <!-- /.navbar-collapse -->
 
                 <!-- Start Atribute Navigation -->
-                
+                <div class="attr-nav">
+                    <ul>
+                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        
+                    </ul>
+                </div>
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
-            
+           
             <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->

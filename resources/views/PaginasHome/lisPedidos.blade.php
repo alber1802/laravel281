@@ -44,7 +44,7 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="{{ asset('imagen/assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+					<img src="{{url( Auth::user()->url) }}" class="img-fluid" alt="Avatar">
 					<figcaption class="roboto-medium text-center">
     					@if (Auth::check())
         				{{ Auth::user()->name }} <br>
@@ -57,10 +57,6 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
-						<li>
-							<a href="{{route('dashboard') }}"><i class="fas fa-home"></i> &nbsp; Dashboard Administrador</a>
-						
-						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -93,13 +89,10 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="#"><i class="{{ route('lista.PedidosArtesanos') }}"></i> &nbsp; Lista de Pedidos Pendientes</a>
+									<a href="{{ route('lista.PedidosArtesanos') }}"><i class=""></i> &nbsp; Lista de Pedidos Pendientes</a>
 								</li>
 							</ul>
 						</li>
-
-						
-					
 					</ul>
 				</nav>
 			</div>
@@ -142,7 +135,7 @@
         <tbody>
             @foreach($datos as $item)
                 <tr class="text-center">
-                    <td>{{$item->nombreCliente }}</td>
+                    <td>{{$item->nombreCliente}}</td>
 					<td>{{$item->telefono }}</td>
 					<td>{{$item->direccion }}</td>
 					<td>{{$item->email }}</td>

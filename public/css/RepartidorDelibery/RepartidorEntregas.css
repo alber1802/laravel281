@@ -1,0 +1,376 @@
+/* Estilos generales */
+
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(220.55deg, #24CFC5 0%, #001C63 100%);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Estilo del encabezado con video de fondo */
+header {
+    position: relative;
+    height: 200px;
+    width: calc(100%);
+    margin-left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: rgba(0, 28, 99, 0.6);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #24CFC5;
+}
+
+.header-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Elimina el texto del encabezado */
+header h1 {
+    display: none;
+}
+/* Barra de navegación superior */
+aside {
+    background-color: rgba(0, 28, 99, 0.9);
+    color: #fff;
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    border-bottom: 2px solid #24CFC5;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+aside h2 {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    color: #24CFC5;
+    display: flex;
+    align-items: center;
+}
+
+/* Botones de navegación */
+aside ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside ul li {
+    margin: 0 8px;
+}
+
+/* Estilos y animación para botones */
+button {
+    width: 140px;
+    height: 50px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 0.8rem;
+    border: none;
+    background: #100720;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(36, 207, 197, 1) 17.8%, rgba(0, 28, 99, 1) 100.2%);
+    filter: blur(8px);
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto de resplandor y escala al hacer hover */
+button:hover::after {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: rgba(36, 207, 197, 0.2);
+}
+
+button:active {
+    transform: scale(0.9) rotate(2deg);
+}
+
+
+/* Estilos principales */
+main {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;  /* Centrar el contenido principal */
+}
+
+/* Título principal */
+h2 {
+    font-size: 1.6rem;
+    color: #24CFC5;
+    border-bottom: 2px solid #24CFC5;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Tabla de datos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+table:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem;
+    text-align: left;
+    font-weight: bold;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+td:last-child {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Botones dentro de la tabla */
+td button {
+    background: #100720;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+td button:hover {
+    background: #24CFC5;
+}
+
+/* Secciones adicionales (detalles de pedido, mapa, resumen de entrega) */
+.order-details, .map-section, .delivery-summary {
+    margin-top: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+.order-details:hover, .map-section:hover, .delivery-summary:hover {
+    transform: translateY(-5px);
+}
+
+/* Mapa */
+.map-section #map {
+    height: 300px;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+}
+
+/* Estilos de la ventana modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content h2 {
+    color: #24CFC5;
+}
+
+.modal-content select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+.modal-content button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+/*animacion de la vista de entregas  */
+/* Estilos para el contenedor de información en dos columnas */
+.order-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 600px;
+    margin: 0 auto; /* Centrado */
+    text-align: left;
+}
+
+/* Animación de entrada */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajuste de estilos de texto */
+.order-details-grid div {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+#orderInfo {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+
+
+
+
+/* Responsividad *//* Responsividad para dispositivos móviles */
+@media (max-width: 768px) {
+    /* Ajuste de la barra lateral */
+    aside {
+        width: 100%;
+        position: static;
+        height: auto;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    /* Ajuste de los botones de la barra lateral */
+    aside ul li button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Ajuste del encabezado */
+    header {
+        height: 150px;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Ajuste del contenedor principal */
+    main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    /* Ajuste de la tabla */
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    /* Ajuste de las secciones */
+    .order-details, .map-section, .delivery-summary {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+
+    /* Cards en filas */
+    .summary-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        width: 100%;
+    }
+}
+

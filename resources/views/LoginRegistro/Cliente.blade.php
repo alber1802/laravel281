@@ -1,5 +1,7 @@
 <link href="{{ asset('css/LoginRegistro/cliente.css') }}" rel="stylesheet" />
 <script src="{{asset('js/Validaciones/VerificacionPassword.js')}}" ></script>
+<link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+<link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 
 
 <div class="container">

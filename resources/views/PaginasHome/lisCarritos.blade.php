@@ -7,29 +7,29 @@
 
 	
 
-        <!-- Normalize V8.0.1 -->
-	<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
+			<!-- Normalize V8.0.1 -->
+		<link rel="stylesheet" href="{{ asset('css/productosv2/css/normalize.css') }}" >
 
-<!-- Bootstrap V4.3 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
+	<!-- Bootstrap V4.3 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap.min.css') }}" >
 
-<!-- Bootstrap Material Design V4.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
+	<!-- Bootstrap Material Design V4.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/bootstrap-material-design.min.css') }}" >
 
-<!-- Font Awesome V5.9.0 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
+	<!-- Font Awesome V5.9.0 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/all.css') }}" >
 
-<!-- Sweet Alerts V8.13.0 CSS file -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
+	<!-- Sweet Alerts V8.13.0 CSS file -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/sweetalert2.min.css') }}" >
 
-<!-- Sweet Alert V8.13.0 JS file-->
-<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
+	<!-- Sweet Alert V8.13.0 JS file-->
+	<script src="{{ asset('js/productosv2/js/sweetalert2.min.js')}}" ></script>
 
-<!-- jQuery Custom Content Scroller V3.1.5 -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
+	<!-- jQuery Custom Content Scroller V3.1.5 -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/jquery.mCustomScrollbar.css') }}" >
 
-<!-- General Styles -->
-<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
+	<!-- General Styles -->
+	<link rel="stylesheet" href="{{ asset('css/productosv2/css/style.css') }}" >
 
 
 
@@ -57,10 +57,6 @@
 				<div class="full-box nav-lateral-bar"></div>
 				<nav class="full-box nav-lateral-menu">
 					<ul>
-						<li>
-							<a href="{{route('dashboard') }}"><i class="fas fa-home"></i> &nbsp; Dashboard Administrador</a>
-						
-						</li>
 						<li>
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 							<ul>
@@ -93,13 +89,10 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck fa-fw"></i> &nbsp; Pedidos <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li>
-									<a href="#"><i class="{{ route('lista.PedidosArtesanos') }}"></i> &nbsp; Lista de Pedidos Pendientes</a>
+									<a href="{{ route('lista.PedidosArtesanos') }}"><i class=""></i> &nbsp; Lista de Pedidos Pendientes</a>
 								</li>
 							</ul>
 						</li>
-
-						
-					
 					</ul>
 				</nav>
 			</div>

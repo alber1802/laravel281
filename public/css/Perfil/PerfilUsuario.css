@@ -169,6 +169,7 @@ body {
 
 /* Barra de navegación horizontal */
 .horizontal-nav {
+    width: 600px;
     display: flex;
     justify-content: space-around;
     background-color: rgba(0, 0, 0, 0.4); /* Fondo ligeramente más oscuro */
@@ -178,6 +179,7 @@ body {
 }
 
 .nav-item {
+    min-width:30px ;
     font-size: 16px;
     color: white;
     padding: 10px;
@@ -191,73 +193,110 @@ body {
 }
 /*par tendencias
 */
-/* From Uiverse.io by ChanduOffl */ 
-.thend-item {
-    
-    height: 254px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 0.4em;
-    background-color: rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-  }
-  
-  .thend-item p {
-    flex: 1;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: flex 0.5s;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .thend-item p:hover {
-    flex: 4;
-  }
-  
-  .thend-item p span {
-    padding: 0.2em;
-    text-align: center;
-    transform: rotate(-0deg);
-    transition: transform 0.5s;
-    text-transform: uppercase;
-    color: #ffffffd8;
-    font-weight: "bold";
-    letter-spacing: 0.1em;
+/* From Uiverse.io by G4b413l */ 
+.derecha {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12em, 1fr)); /* Alinea hacia la derecha */
+    gap: 0px; /* Espacio entre las tarjetas */
+    justify-content: start; /* Alinea las tarjetas hacia la izquierda/derecha */
+    margin: 1em;
+}
+
+/* Estilo para las tarjetas */
+.card {
     position: relative;
-    z-index: 1;
-  }
-  
-  .thend-item p:hover span {
-    transform: rotate(0);
-  }
-  
-  .thend-item p::before {
-    content: "";
+    overflow: hidden;
+    width: 11.875em;
+    height: 16.5em;
+    box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 120ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 0.5em;
+    padding-bottom: 3.4em;
+    border-radius: 25px;
+}
+
+.card::after {
+    content: "Ver Producto";
+    padding-top: 1.25em;
+    padding-left: 1.25em;
     position: absolute;
-    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 0;
-    transition: opacity 0.5s;
-    pointer-events: none;
+    bottom: -60px;
+    background: #00AC7C;
+    color: #fff;
+    height: 2.5em;
+    width: 90%;
+    transition: all 80ms;
+    font-weight: 600;
+    text-transform: uppercase;
     opacity: 0;
-  }
-  
-  .thend-item p:hover::before {
+    border-radius: 25px;
+}
+
+.card .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 1.875em;
+    font-weight: 400;
+    color: #000;
+}
+
+.card .price {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    left: 0.625em;
+    bottom: 0.625em;
+    color: #000;
+}
+
+.card:hover::after {
+    bottom: 0;
     opacity: 1;
-  }
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+.card:active::after {
+    height: 3.125em;
+}
+
+.image {
+    background: rgb(241, 241, 241);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+.image img{
+    width: 260px;
+}
+
   
+  /**/
   /**/
   a:-webkit-any-link {
     color: white;
+    text-decoration: none;
   
-}
+    } 
+       /* Opcional: Cambiar color al pasar el mouse */
+    .nav-item:hover {
+        color: #076c62;
+    }
+    /* Elimina la línea subrayada  del <a>*/
+    .nav-item {
+        text-decoration: none;
+        color: inherit; /* Mantiene el color del texto como el contexto donde se coloca */
+    }
+/*derecha
+*/

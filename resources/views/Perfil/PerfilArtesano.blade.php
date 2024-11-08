@@ -6,18 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Artesano</title>
     <link rel="stylesheet" href="{{asset('css/Perfil/PerfilArtesano.css')}}">
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{asset('imagen/logo.png')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{asset('imagen/logo.png')}}">
 </head>
 
 <body>
     <div class="container">
         <!-- Barra lateral -->
         <div class="horizontal-nav">
-        <a href="{{route('Home')}}" ><div class="nav-item">Ir Inicio</div></a>
-            <div class="nav-item">Reseñas</div>
+            <a href="{{route('Home')}}" ><div class="nav-item">Ir Inicio</div></a>
+            <a href="{{route('pedidos.Realizados')}}" ><div class="nav-item">Pedidos Realizados</div></a>
+            <a href="#notificacion"><div class="nav-item" id="mostrarReseñas" >Reseñas</div></a>
             <a href="{{route('lisPublica')}}" ><div class="nav-item">Ver Productos</div></a>
-            <!--<a href="{{route('lista.ProductosArtesanos')}}" ><div class="nav-item">Ver Productos</div></a> carmen -->
-            <div class="nav-item">Notificaciones</div>
-            <div class="nav-item"><a href="{{route('ActualizarArtesano')}}" >Editar Perfil</a></div>
+            <a href="{{route('ver.catalogo')}}" ><div class="nav-item">Ver Catalogo</div></a>
+            <a href="{{route('Actualizar-PerfilA')}}" ><div class="nav-item">Editar Perfil</div></a>
             <a href="{{route('Cerrar-Session')}}" ><div class="nav-item">Cerrar Seccion</div></a>
         </div>
 
@@ -63,35 +66,51 @@
 
             <!-- Galería de productos -->
             <div class="gallery-container">
-                <h4>Galería de Productos</h4>
+                <h4>Ultimos 4 producto creados</h4>
                 <div class="gallery">
-                    <div class="gallery-item">
-                        <img src="imagen/producto1.jpg" alt="Producto 1">
-                        <div class="gallery-item-info">
-                            <p>Producto 1</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="imagen/producto2.jpg" alt="Producto 2">
-                        <div class="gallery-item-info">
-                            <p>Producto 2</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="imagen/producto3.jpg" alt="Producto 3">
-                        <div class="gallery-item-info">
-                            <p>Producto 3</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="imagen/producto4.jpg" alt="Producto 4">
-                        <div class="gallery-item-info">
-                            <p>Producto 4</p>
-                        </div>
-                    </div>
+                    @foreach($perfil->publicas as $publica)
+                        @if($publica->producto) <!-- Verificar si el producto existe -->
+                            <div class="gallery-item">
+                               <a href="{{route('Ver.Detalle.Producto', ['id' => $publica->producto->id_producto])}}" ><img src="{{ url($publica->producto->imgP) }}" alt="Producto 1"></a>
+                                <div class="gallery-item-info">
+                                    <p>{{ $publica->producto->nombreP }}</p>
+                                    <p>Precio: {{ $publica->producto->precioP }} Bs</p>
+                                </div>
+                            </div>
+                            
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
+        
+        <!-- Contenido  de  notidfficacion -->
+            <!-- Contenedor de notificación -->
+            <div class="notificacion" id="notificacion">
+                <div class="notificacion-header">
+                    <h2>Reseñas del Producto</h2>
+                    <button class="cerrar" id="cerrarNotificacion">&times;</button>
+                </div>
+               
+                <div class="notificacion-body">
+                    @forelse($resenas as $data)
+                        <div class="card">
+                            <div class="card-image">
+                                  <img src="{{ url($data['producto']->imgP) }}" alt="{{ $data['producto']->nombreP }}" class="producto-img">
+                            </div>
+                                <p class="card-title"><strong> Nombre Producto :</strong> {{ $data['producto']->nombreP }}</p>
+                                <p class="card-body">Comentario:  {{ $data['resena']->comentario }} </p>
+                                <p><span  class="by-name">Calificación {{$data['resena']->calificacionR}} /10: </span> {{ str_repeat('★', $data['resena']->calificacionR) }}</p>
+                                <p class="footer">Comentado  <span class="by-name">{{$data['resena']->name }}</span> en la fecha <span class="date">{{ $data['resena']->fecha_resena}}</span></p>
+                        </div>
+                    @empty
+                        <p>No hay productos con reseñas disponibles.</p>
+                    @endforelse
+                    
+                </div>
+            </div>
+
+
         <!-- Contenido  de redes sociales -->
         <ul class="wrapper">
           <li class="icon facebook">
@@ -167,7 +186,10 @@
                 btn.innerHTML = "Ver Más";
             }
         }
+
+
     </script>
+    <script src="{{asset('js/Perfil/Perfil.js')}}" ></script>
 </body>
 
 </html>
